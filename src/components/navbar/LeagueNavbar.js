@@ -15,11 +15,11 @@ const LeagueNavbar = () => {
             </Link>
           )} */}
 
-          {auth.isLoggedIn && (
+          {/* {auth.isLoggedIn && (
             <Link to='/Predictions'>
               <p className='navbar-item has-text-dark'>MAKE PREDICTIONS</p>
             </Link>
-          )}
+          )} */}
 
           {auth.isLoggedIn && (
             <Link to='/Standings'>

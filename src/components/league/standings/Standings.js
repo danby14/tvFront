@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import MakePredictions from '../predictions/MakePredictions';
 
 const Standings = ({ members, listId }) => {
   const [networks, setNetworks] = useState([]);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     const fetchList = async () => {
       try {
-        const response = await axios.get`http://localhost:5000/monthlyLists/5dfa5a75746fa43e8c3dbdbe`;
+        const response = await axios.get(
+          `http://localhost:5000/monthlyLists/${listId}`
+        );
         setNetworks(response.data.networks);
+        setReady(false);
       } catch (err) {}
     };
     fetchList();
@@ -19,51 +24,56 @@ const Standings = ({ members, listId }) => {
   return (
     <>
       {networks.length !== 0 && (
-        <div className='table-container'>
-          {/* {console.log(members.map(member => member.predictions))} */}
-          <table className='table is-fullwidth is-hoverable is-narrow'>
-            <thead>
-              <tr>
-                <th></th>
-                <th>{members1[0]}</th>
-                <th>{members1[1]}</th>
-                <th>{members1[2]}</th>
-                <th>{members1[3]}</th>
-                <th>{members1[4]}</th>
-                <th>{members1[5]}</th>
-                <th>{members1[6]}</th>
-                <th>{members1[7]}</th>
-                <th>{members1[8]}</th>
-                <th>{members1[9]}</th>
-                <th>Final Result</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {networks.map((network, n) => (
-                <React.Fragment key={n}>
+        <>
+          {!ready && <MakePredictions networks={networks} />}
+          {ready && (
+            <div className='table-container'>
+              {/* {console.log(members.map(member => member.predictions))} */}
+              <table className='table is-fullwidth is-hoverable is-narrow'>
+                <thead>
                   <tr>
-                    <td className='has-text-primary'>{network.network}</td>
+                    <th></th>
+                    <th>{members1[0]}</th>
+                    <th>{members1[1]}</th>
+                    <th>{members1[2]}</th>
+                    <th>{members1[3]}</th>
+                    <th>{members1[4]}</th>
+                    <th>{members1[5]}</th>
+                    <th>{members1[6]}</th>
+                    <th>{members1[7]}</th>
+                    <th>{members1[8]}</th>
+                    <th>{members1[9]}</th>
+                    <th>Final Result</th>
                   </tr>
-                  <>
-                    {network.shows.map((show, s) => (
-                      <tr key={`${n}${s}`}>
-                        <td>{show}</td>
-                        <>
-                          {members.map((member, m) => (
-                            <td key={`${n}${s}${m}`}>
-                              {member.predictions[n][s]}
-                            </td>
-                          ))}
-                        </>
+                </thead>
+
+                <tbody>
+                  {networks.map((network, n) => (
+                    <React.Fragment key={n}>
+                      <tr>
+                        <td className='has-text-primary'>{network.network}</td>
                       </tr>
-                    ))}
-                  </>
-                </React.Fragment>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                      <>
+                        {network.shows.map((show, s) => (
+                          <tr key={`${n}${s}`}>
+                            <td>{show}</td>
+                            <>
+                              {members.map((member, m) => (
+                                <td key={`${n}${s}${m}`}>
+                                  {member.predictions[n][s]}
+                                </td>
+                              ))}
+                            </>
+                          </tr>
+                        ))}
+                      </>
+                    </React.Fragment>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </>
       )}
     </>
   );

@@ -14,7 +14,6 @@ import Account from './user/Account';
 import Leagues from './leagues/Leagues';
 import Standings from './league/standings/Standings';
 import Commissioner from './league/commissioner/Commissioner';
-import AllNetworks from './league/predictions/AllNetworks';
 import CreateLeague from './leagues/CreateLeague';
 import JoinLeague from './leagues/JoinLeague';
 import LeagueHome from './league/LeagueHome';
@@ -85,7 +84,6 @@ const App = () => {
         <Route path='/' exact component={Home} />
         <Route path='/leagues' component={Leagues} />
         <Route path='/blog' component={Blog} />
-        <Route path='/predictions' component={AllNetworks} />
         <Route path='/commissioner' component={Commissioner} />
         <Route path='/standings' component={Standings} />
         <Route path='/account' component={Account} />

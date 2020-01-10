@@ -23,9 +23,7 @@ const ShowList = ({ sList }) => {
                 return (
                   <div key={name}>
                     <div className='pList'>
-                      <Show showName={name} />
-
-                      {/* <MyForm showName={name} /> */}
+                      <div>{name}</div>>
                       <Field name={name} component='select'>
                         <option value='blank'>Make Prediction</option>
                         <option value='1'>1 E</option>
