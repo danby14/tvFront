@@ -3,14 +3,14 @@ import useForm from 'react-hook-form';
 
 export default function App({ shows }) {
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = data => console.log(); // make this an array of arrays so it goes into predictions and works with standings
+  const onSubmit = data => console.log(data); // make this an array of arrays so it goes into predictions and works with standings
   // console.log(errors);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {shows.map(show => (
         <div class='field'>
-          <label class='label'>{show}</label>
+          <label className='label'>{show}</label>
           <div class='control'>
             <div class='select'>
               <select name={show} ref={register({ required: true })}>
