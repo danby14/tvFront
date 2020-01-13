@@ -29,7 +29,11 @@ const Standings = ({ members, listId, lid }) => {
             <div className='columns'>
               <div className='column'></div>
               <div className='column'>
-                <MakePredictions networks={networks} lid={lid} />
+                <MakePredictions
+                  members={members}
+                  networks={networks}
+                  lid={lid}
+                />
               </div>
               <div className='column'></div>
             </div>
@@ -68,7 +72,7 @@ const Standings = ({ members, listId, lid }) => {
                             <>
                               {members.map((member, m) => (
                                 <td key={`${n}${s}${m}`}>
-                                  {member.predictions[n][s]}
+                                  {member.predictions[n].shows[s]}
                                 </td>
                               ))}
                             </>

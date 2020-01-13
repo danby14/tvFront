@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import UserPrediction from './UserPrediction';
 import Pagination from '../../shared/Pagination';
 
-const MakePredictions = ({ networks, lid }) => {
+const MakePredictions = ({ networks, lid, members }) => {
   const [currentNetwork, setCurrentNetwork] = useState(1);
   const [networksPerPage] = useState(1);
 
@@ -32,6 +32,7 @@ const MakePredictions = ({ networks, lid }) => {
           <UserPrediction
             lid={lid}
             networkNumber={currentNetwork - 1}
+            members={members}
             shows={network.shows}
           />
         </React.Fragment>

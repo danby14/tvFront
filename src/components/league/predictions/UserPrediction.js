@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/auth-context';
 import useForm from 'react-hook-form';
 import axios from 'axios';
 
-export default function App({ shows, lid, networkNumber }) {
+export default function App({ shows, lid, networkNumber, members }) {
   const auth = useContext(AuthContext);
   const { register, handleSubmit, errors } = useForm();
 
@@ -26,6 +26,8 @@ export default function App({ shows, lid, networkNumber }) {
     }
   };
 
+  const member = members.find(({ memberId }) => memberId === auth.userId);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       {shows.map((show, i) => (
@@ -33,7 +35,16 @@ export default function App({ shows, lid, networkNumber }) {
           <label className='label'>{show}</label>
           <div className='control'>
             <div className='select'>
-              <select name={show} ref={register({ required: true })}>
+              <select
+                name={show}
+                // update each show's default value to match what user has already predicted
+                defaultValue={
+                  member.predictions.length
+                    ? member.predictions[networkNumber].shows[i]
+                    : 0
+                }
+                ref={register({ required: true })}
+              >
                 <option value='0'>Please Select One</option>
                 <option value='1e'>1 Episode</option>
                 <option value='2e'>2 Episodes</option>
