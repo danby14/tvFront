@@ -31,7 +31,7 @@ const LeagueHome = props => {
   return (
     <>
       {members.length !== 0 && (
-        <Standings members={members} listId={league.listUsed} />
+        <Standings members={members} lid={leagueId} listId={league.listUsed} />
       )}
     </>
   );

@@ -2,9 +2,7 @@ import React, { useState } from 'react';
 import UserPrediction from './UserPrediction';
 import Pagination from '../../shared/Pagination';
 
-// maybe use paginations so user sees 1 network to predict at a time
-
-const MakePredictions = ({ networks }) => {
+const MakePredictions = ({ networks, lid }) => {
   const [currentNetwork, setCurrentNetwork] = useState(1);
   const [networksPerPage] = useState(1);
 
@@ -17,20 +15,26 @@ const MakePredictions = ({ networks }) => {
   const paginate = pageNumber => setCurrentNetwork(pageNumber);
 
   return (
-    <div className='content'>
-      <h1>MAKE PREDICTIONS</h1>
+    <div className='box'>
+      <h3 className='title has-text-centered is-3 has-text-grey-darker'>
+        Make Predicitons
+      </h3>
       {/* {networks.map(network => ( // to be used when no pagination is in place*/}
       {currentNetworks.map(network => (
-        <>
+        <React.Fragment key={network._id}>
           <Pagination
             networks={networks}
             networksPerPage={networksPerPage}
             totalNetworks={networks.length}
             paginate={paginate}
           />
-          <h2 className='has-text-primary'>{network.network}</h2>
-          <UserPrediction shows={network.shows} />
-        </>
+          <h2 className='is-size-4 has-text-primary'>{network.network}</h2>
+          <UserPrediction
+            lid={lid}
+            networkNumber={currentNetwork - 1}
+            shows={network.shows}
+          />
+        </React.Fragment>
       ))}
     </div>
   );

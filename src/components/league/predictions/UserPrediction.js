@@ -1,20 +1,40 @@
-import React from 'react';
-import useForm from 'react-hook-form';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../context/auth-context';
 
-export default function App({ shows }) {
+import useForm from 'react-hook-form';
+import axios from 'axios';
+
+export default function App({ shows, lid, networkNumber }) {
+  const auth = useContext(AuthContext);
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = data => console.log(data); // make this an array of arrays so it goes into predictions and works with standings
-  // console.log(errors);
+
+  axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
+
+  const onSubmit = async data => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:5000/leagues/${lid}/predictions`,
+        {
+          predictions: { network: networkNumber, shows: Object.values(data) },
+          currentNetwork: networkNumber,
+          userId: auth.userId
+        }
+      );
+      console.log(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {shows.map(show => (
-        <div class='field'>
+      {shows.map((show, i) => (
+        <div key={i} className='field'>
           <label className='label'>{show}</label>
-          <div class='control'>
-            <div class='select'>
+          <div className='control'>
+            <div className='select'>
               <select name={show} ref={register({ required: true })}>
-                <option value='-'>Please Select One</option>
+                <option value='0'>Please Select One</option>
                 <option value='1e'>1 Episode</option>
                 <option value='2e'>2 Episodes</option>
                 <option value='3e'>3 Episodes</option>
@@ -59,9 +79,9 @@ export default function App({ shows }) {
         </div>
       ))}
 
-      <div class='field'>
-        <div class='control'>
-          <button type='submit' class='button is-link'>
+      <div className='field'>
+        <div className='control'>
+          <button type='submit' className='button is-link'>
             Submit
           </button>
         </div>

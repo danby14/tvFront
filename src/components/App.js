@@ -120,7 +120,7 @@ const App = () => {
             <div className='league-navbar'>{token && <LeagueNavbar />}</div>
           </div>
           <div className='hero-body has-background-grey-lighter'>
-            <div className=' container'>{routes}</div>
+            <div className='container'>{routes}</div>
           </div>
           <div className='hero-foot has-text-centered'>Footer Placeholder</div>
         </section>

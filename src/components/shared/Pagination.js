@@ -6,7 +6,7 @@ const Pagination = ({ networks, networksPerPage, totalNetworks, paginate }) => {
     pageNumbers.push(i);
   }
   return (
-    <nav className='pagination'>
+    <nav className='pagination is-rounded is-centered'>
       <ul className='pagination-list'>
         {pageNumbers.map((number, i) => (
           <li key={number}>

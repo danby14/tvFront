@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MakePredictions from '../predictions/MakePredictions';
 
-const Standings = ({ members, listId }) => {
+const Standings = ({ members, listId, lid }) => {
   const [networks, setNetworks] = useState([]);
   const [ready, setReady] = useState(false);
 
@@ -25,7 +25,15 @@ const Standings = ({ members, listId }) => {
     <>
       {networks.length !== 0 && (
         <>
-          {!ready && <MakePredictions networks={networks} />}
+          {!ready && (
+            <div className='columns'>
+              <div className='column'></div>
+              <div className='column'>
+                <MakePredictions networks={networks} lid={lid} />
+              </div>
+              <div className='column'></div>
+            </div>
+          )}
           {ready && (
             <div className='table-container'>
               {/* {console.log(members.map(member => member.predictions))} */}
