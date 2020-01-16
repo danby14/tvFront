@@ -20,7 +20,7 @@ const MakePredictions = ({ networks, lid, members }) => {
         Make Predicitons
       </h3>
       {/* {networks.map(network => ( // to be used when no pagination is in place*/}
-      {currentNetworks.map(network => (
+      {currentNetworks.map((network, index) => (
         <React.Fragment key={network._id}>
           <Pagination
             networks={networks}

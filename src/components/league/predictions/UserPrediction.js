@@ -27,6 +27,9 @@ export default function App({ shows, lid, networkNumber, members }) {
   };
 
   const member = members.find(({ memberId }) => memberId === auth.userId);
+  const networkFinder = member.predictions.find(
+    ({ network }) => network === networkNumber
+  );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -39,9 +42,7 @@ export default function App({ shows, lid, networkNumber, members }) {
                 name={show}
                 // update each show's default value to match what user has already predicted
                 defaultValue={
-                  member.predictions.length
-                    ? member.predictions[networkNumber].shows[i]
-                    : 0
+                  networkFinder === undefined ? 0 : networkFinder.shows[i]
                 }
                 ref={register({ required: true })}
               >

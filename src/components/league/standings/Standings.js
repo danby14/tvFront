@@ -13,11 +13,15 @@ const Standings = ({ members, listId, lid }) => {
           `http://localhost:5000/monthlyLists/${listId}`
         );
         setNetworks(response.data.networks);
-        setReady(false);
+        setReady(true);
       } catch (err) {}
     };
     fetchList();
   }, [listId]);
+
+  const modeSwitcher = () => {
+    setReady(!ready);
+  };
 
   const members1 = members.map(member => member.username);
 
@@ -34,13 +38,17 @@ const Standings = ({ members, listId, lid }) => {
                   networks={networks}
                   lid={lid}
                 />
+                <button onClick={modeSwitcher}>view standings</button>
               </div>
               <div className='column'></div>
             </div>
           )}
+
           {ready && (
             <div className='table-container'>
+              <button onClick={modeSwitcher}>make predictions</button>
               {/* {console.log(members.map(member => member.predictions))} */}
+
               <table className='table is-fullwidth is-hoverable is-narrow'>
                 <thead>
                   <tr>
@@ -70,11 +78,20 @@ const Standings = ({ members, listId, lid }) => {
                           <tr key={`${n}${s}`}>
                             <td>{show}</td>
                             <>
-                              {members.map((member, m) => (
-                                <td key={`${n}${s}${m}`}>
-                                  {member.predictions[n].shows[s]}
-                                </td>
-                              ))}
+                              {members.map((member, m) => {
+                                // find if predictions were made for that network
+                                const findPredictions = member.predictions.find(
+                                  ({ network }) => network === n
+                                );
+                                return (
+                                  <td key={`${n}${s}${m}`}>
+                                    {/* only show predictions made by users, make empty predictions default to 0 */}
+                                    {findPredictions
+                                      ? findPredictions.shows[s]
+                                      : 0}
+                                  </td>
+                                );
+                              })}
                             </>
                           </tr>
                         ))}
