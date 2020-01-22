@@ -23,8 +23,6 @@ const Standings = ({ members, listId, lid }) => {
     setReady(!ready);
   };
 
-  const members1 = members.map(member => member.username);
-
   return (
     <>
       {networks.length !== 0 && (
@@ -47,22 +45,15 @@ const Standings = ({ members, listId, lid }) => {
           {ready && (
             <div className='table-container'>
               <button onClick={modeSwitcher}>make predictions</button>
-              {/* {console.log(members.map(member => member.predictions))} */}
 
               <table className='table is-fullwidth is-hoverable is-narrow'>
                 <thead>
                   <tr>
                     <th></th>
-                    <th>{members1[0]}</th>
-                    <th>{members1[1]}</th>
-                    <th>{members1[2]}</th>
-                    <th>{members1[3]}</th>
-                    <th>{members1[4]}</th>
-                    <th>{members1[5]}</th>
-                    <th>{members1[6]}</th>
-                    <th>{members1[7]}</th>
-                    <th>{members1[8]}</th>
-                    <th>{members1[9]}</th>
+                    {members.map(member => (
+                      <th key={member.memberId}>{member.username}</th>
+                    ))}
+
                     <th>Final Result</th>
                   </tr>
                 </thead>
@@ -76,7 +67,7 @@ const Standings = ({ members, listId, lid }) => {
                       <>
                         {network.shows.map((show, s) => (
                           <tr key={`${n}${s}`}>
-                            <td>{show}</td>
+                            <td>{show.show}</td>
                             <>
                               {members.map((member, m) => {
                                 // find if predictions were made for that network
@@ -85,14 +76,34 @@ const Standings = ({ members, listId, lid }) => {
                                 );
                                 return (
                                   <td key={`${n}${s}${m}`}>
-                                    {/* only show predictions made by users, make empty predictions default to 0 */}
-                                    {findPredictions
-                                      ? findPredictions.shows[s]
-                                      : 0}
+                                    {/* add logic from codewars.js file to calculate closest prediction, current logic is only for exact matches */}
+                                    {/* after logic is added, will need to push winner to a new totals array or add to it if are already in it. then add total wins array to bottom of standings*/}
+                                    {findPredictions ? (
+                                      findPredictions.shows[s] ===
+                                      show.finalResult + 'e' ? (
+                                        <p className='has-text-success'>
+                                          {findPredictions.shows[s]}
+                                        </p>
+                                      ) : (
+                                        findPredictions.shows[s]
+                                      )
+                                    ) : (
+                                      0
+                                    )}
+                                    {/* above code will only show predictions made by users and make empty predictions default to 0 */}
                                   </td>
                                 );
                               })}
                             </>
+                            {show.finalResult > 0 ? (
+                              <td className='has-text-success'>
+                                {show.finalResult}
+                              </td>
+                            ) : (
+                              <td>tbd</td>
+                            )}
+
+                            {/* <td></td> */}
                           </tr>
                         ))}
                       </>

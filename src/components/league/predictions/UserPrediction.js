@@ -35,11 +35,11 @@ export default function App({ shows, lid, networkNumber, members }) {
     <form onSubmit={handleSubmit(onSubmit)}>
       {shows.map((show, i) => (
         <div key={i} className='field'>
-          <label className='label'>{show}</label>
+          <label className='label'>{show.show}</label>
           <div className='control'>
             <div className='select'>
               <select
-                name={show}
+                name={show.show}
                 // update each show's default value to match what user has already predicted
                 defaultValue={
                   networkFinder === undefined ? 0 : networkFinder.shows[i]
