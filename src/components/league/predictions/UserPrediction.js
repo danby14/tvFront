@@ -6,7 +6,8 @@ import axios from 'axios';
 
 export default function App({ shows, lid, networkNumber, members }) {
   const auth = useContext(AuthContext);
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit } = useForm();
+  // const { register, handleSubmit, errors } = useForm();
 
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 

@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
-import Standings from './standings/Standings';
+import Standings5 from './standings/Standings5';
 
 import { AuthContext } from '../context/auth-context';
 
@@ -31,7 +31,7 @@ const LeagueHome = props => {
   return (
     <>
       {members.length !== 0 && (
-        <Standings members={members} lid={leagueId} listId={league.listUsed} />
+        <Standings5 members={members} lid={leagueId} listId={league.listUsed} />
       )}
     </>
   );

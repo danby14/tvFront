@@ -23,6 +23,21 @@ const Standings = ({ members, listId, lid }) => {
     setReady(!ready);
   };
 
+  const findClosest = (users, result, s) => {
+    // const usersAdjusted = users.map(user =>
+    //   user.endsWith('e') ? user.slice(0, -1) * 1 : user.slice(0, -1) * 20
+    // );
+    // const closestNumber = usersAdjusted.reduce((prev, curr) =>
+    //   Math.abs(curr - result) < Math.abs(prev - result) ? curr : prev
+    // );
+    // console.log('user', users, result, s);
+    // console.log(
+    //   'closest',
+    //   closestNumber < 36 ? closestNumber + 'e' : closestNumber / 20 + 's'
+    // );
+    // return closestNumber < 36 ? closestNumber + 'e' : closestNumber / 20 + 's';
+  };
+
   return (
     <>
       {networks.length !== 0 && (
@@ -80,7 +95,11 @@ const Standings = ({ members, listId, lid }) => {
                                     {/* after logic is added, will need to push winner to a new totals array or add to it if are already in it. then add total wins array to bottom of standings*/}
                                     {findPredictions ? (
                                       findPredictions.shows[s] ===
-                                      show.finalResult + 'e' ? (
+                                      findClosest(
+                                        findPredictions.shows[s],
+                                        show.finalResult,
+                                        [s]
+                                      ) ? (
                                         <p className='has-text-success'>
                                           {findPredictions.shows[s]}
                                         </p>
@@ -102,8 +121,6 @@ const Standings = ({ members, listId, lid }) => {
                             ) : (
                               <td>tbd</td>
                             )}
-
-                            {/* <td></td> */}
                           </tr>
                         ))}
                       </>

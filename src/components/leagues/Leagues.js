@@ -18,9 +18,10 @@ const Leagues = () => {
         const response = await axios.get(
           `http://localhost:5000/user/${uid}/leagues`
         );
-        setIsLoading(false);
         setLeagues(response.data);
+        setIsLoading(false);
       } catch (err) {
+        setLeagues(null);
         setIsLoading(false);
       }
     };
@@ -43,10 +44,14 @@ const Leagues = () => {
     return (
       <div className='container has-text-dark has-text-centered'>
         <p className='title has-text-primary'>
-          {auth.userId} is not currently in any leagues. What would you like to
-          do?
+          {/* Welcome {auth.userId}. <br />
+          <br /> */}
+          You are not currently in any leagues. <br />
+          <br />
+          <br />
+          What would you like to do?
         </p>
-        <br />
+
         <br />
         <Link to='/JoinLeague'>
           <button className='button'>Join an Existing League</button>
@@ -67,11 +72,12 @@ const Leagues = () => {
     <div className='container content has-text-centered'>
       <h2>Your Leagues</h2>
       <div className='content has-text-primary has-text-centered'>
-        {leagues.map(lg => (
-          <p key={lg.leagueId} id={lg.leagueId}>
-            <Link to={`/LeagueHome/${lg.leagueId}`}>{lg.leagueName}</Link>
-          </p>
-        ))}
+        {leagues.length > 0 &&
+          leagues.map(lg => (
+            <p key={lg.leagueId} id={lg.leagueId}>
+              <Link to={`/LeagueHome/${lg.leagueId}`}>{lg.leagueName}</Link>
+            </p>
+          ))}
       </div>
       <Link to='/JoinLeague'>
         <button className='button is-small'>Join an Existing League</button>

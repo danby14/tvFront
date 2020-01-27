@@ -90,7 +90,7 @@ const App = () => {
         <Route path='/joinLeague' component={JoinLeague} />
         <Route path='/createLeague' component={CreateLeague} />
         <Route path='/leagueHome/:lid' component={LeagueHome} />
-        <Redirect to='/' />
+        <Redirect to='/leagues' />
       </Switch>
     );
   } else
