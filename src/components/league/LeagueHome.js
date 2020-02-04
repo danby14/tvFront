@@ -31,7 +31,12 @@ const LeagueHome = props => {
   return (
     <>
       {members.length !== 0 && (
-        <Standings5 members={members} lid={leagueId} listId={league.listUsed} />
+        <Standings5
+          members={members}
+          lid={leagueId}
+          lgName={league.leagueName}
+          listId={league.listUsed}
+        />
       )}
     </>
   );

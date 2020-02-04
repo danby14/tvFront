@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MakePredictions from '../predictions/MakePredictions';
 
-const Standings5 = ({ members, listId, lid }) => {
+const Standings5 = ({ members, listId, lid, lgName }) => {
   const [networks, setNetworks] = useState([]);
   const [ready, setReady] = useState(false);
 
@@ -84,10 +84,10 @@ const Standings5 = ({ members, listId, lid }) => {
             <div className='table-container'>
               <button onClick={modeSwitcher}>make predictions</button>
 
-              <table className='table is-fullwidth is-hoverable is-narrow'>
+              <table className='table is-hoverable is-fullwidth'>
                 <thead>
-                  <tr>
-                    <th></th>
+                  <tr className='has-background-light'>
+                    <th>League: {lgName}</th>
                     {members.map(member => (
                       <th className='has-text-centered' key={member.memberId}>
                         {member.username}
@@ -102,7 +102,7 @@ const Standings5 = ({ members, listId, lid }) => {
                   {networks.map((network, n) => (
                     <React.Fragment key={n}>
                       <tr>
-                        <td className='has-text-primary'>{network.network}</td>
+                        <td className='has-text-info'>{network.network}</td>
                       </tr>
                       {members[0].predictions[n].shows.map(
                         (memberZeroPredictions, i) => {
@@ -149,14 +149,14 @@ const Standings5 = ({ members, listId, lid }) => {
                       )}
                     </React.Fragment>
                   ))}
-                  <tr>
-                    <td className='has-text-primary has-text-weight-bold'>
+                  <tr className='has-background-light'>
+                    <td className='has-text-info has-text-weight-bold'>
                       Totals
                     </td>
                     {totals.map((total, t) => (
                       <React.Fragment key={t}>
                         {Math.max(...totals) === total ? (
-                          <td className='has-text-info has-text-weight-semibold has-text-centered'>
+                          <td className='has-text-info has-text-weight-bold has-text-centered'>
                             {total}
                             {total > 0 && findWinnerUsername(t)}
                           </td>
@@ -165,7 +165,7 @@ const Standings5 = ({ members, listId, lid }) => {
                         )}
                       </React.Fragment>
                     ))}
-                    <td className='is-outlined has-text-info has-text-weight-semibold has-text-centered '>
+                    <td className='is-outlined has-text-info has-text-weight-bold has-text-centered '>
                       {winners.length > 0 &&
                         winners.map(winner => `${members[winner].username} `)}
                     </td>
