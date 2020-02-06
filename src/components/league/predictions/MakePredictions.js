@@ -19,7 +19,8 @@ const MakePredictions = ({ networks, lid, members }) => {
       <h3 className='title has-text-centered is-3 has-text-grey-darker'>
         Make Predicitons
       </h3>
-      {/* {networks.map(network => ( // to be used when no pagination is in place*/}
+
+      {/* {networks.map(network => ( // to be used when no pagination is in place */}
       {currentNetworks.map((network, index) => (
         <React.Fragment key={network._id}>
           <Pagination

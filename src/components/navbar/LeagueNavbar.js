@@ -14,26 +14,29 @@ const LeagueNavbar = () => {
               <p className='navbar-item has-text-dark'>LEAGUES</p>
             </Link>
           )} */}
-
           {/* {auth.isLoggedIn && (
             <Link to='/Predictions'>
               <p className='navbar-item has-text-dark'>MAKE PREDICTIONS</p>
             </Link>
           )} */}
 
-          {auth.isLoggedIn && (
-            <Link to='/Standings'>
-              <p className='navbar-item has-text-dark'>STANDINGS</p>
-            </Link>
-          )}
+          <Link to={`/leagueHome/${auth.leagueNum[0]}`}>
+            <p className='navbar-item has-text-dark'>
+              League: {auth.leagueName[0]}
+            </p>
+          </Link>
 
-          {/* <p className='navbar-item has-text-dark'>RESEARCH</p> */}
+          {/* <Link to={`/leagueHome/${auth.leagueNum[0]}/predictions`}>
+            <p className='navbar-item has-text-dark'>MAKE PREDICTIONS 1</p>
+          </Link> */}
 
-          {auth.isLoggedIn && (
-            <Link to='/Commissioner'>
-              <p className='navbar-item has-text-dark'>Commissioner</p>
-            </Link>
-          )}
+          {/* <p className='navbar-item has-text-dark'>STANDINGS</p> */}
+
+          <p className='navbar-item has-text-dark'>MAKE PREDICTIONS 2</p>
+
+          <Link to='/commissioner'>
+            <p className='navbar-item has-text-dark'>Commissioner</p>
+          </Link>
         </div>
       </div>
     </div>

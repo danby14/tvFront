@@ -12,11 +12,12 @@ import {
 import Auth from './user/Auth';
 import Account from './user/Account';
 import Leagues from './leagues/Leagues';
-import Standings from './league/standings/Standings';
 import Commissioner from './league/commissioner/Commissioner';
 import CreateLeague from './leagues/CreateLeague';
 import JoinLeague from './leagues/JoinLeague';
 import LeagueHome from './league/LeagueHome';
+// import MakePredictions from './league/predictions/MakePredictions';
+// import Standings5 from './league/standings/Standings5';
 
 import { AuthContext } from './context/auth-context';
 import './app.css';
@@ -27,6 +28,9 @@ const App = () => {
   const [token, setToken] = useState(false);
   const [userId, setUserId] = useState(false);
   const [tokenExpirationDate, setTokenExpirationDate] = useState();
+
+  const [leagueName, setLeagueName] = useState();
+  const [leagueNum, setLeagueNum] = useState();
 
   const login = useCallback((uid, token, expirationDate) => {
     setToken(token);
@@ -48,6 +52,8 @@ const App = () => {
     setToken(null);
     setTokenExpirationDate(null);
     setUserId(null);
+    setLeagueName(null);
+    setLeagueNum(null);
     localStorage.removeItem('userData');
   }, []);
 
@@ -82,14 +88,19 @@ const App = () => {
     routes = (
       <Switch>
         <Route path='/' exact component={Home} />
-        <Route path='/leagues' component={Leagues} />
-        <Route path='/blog' component={Blog} />
-        <Route path='/commissioner' component={Commissioner} />
-        <Route path='/standings' component={Standings} />
-        <Route path='/account' component={Account} />
-        <Route path='/joinLeague' component={JoinLeague} />
         <Route path='/createLeague' component={CreateLeague} />
-        <Route path='/leagueHome/:lid' component={LeagueHome} />
+        <Route path='/joinLeague' component={JoinLeague} />
+        <Route path='/leagues'>
+          <Leagues />
+        </Route>
+        <Route path='/leagueHome/:lid'>
+          <LeagueHome />
+        </Route>
+        <Route path='/commissioner' component={Commissioner} />
+        <Route path='/blog'>
+          <Blog />
+        </Route>
+        <Route path='/account' component={Account} />
         <Redirect to='/leagues' />
       </Switch>
     );
@@ -110,14 +121,18 @@ const App = () => {
         token: token,
         login: login,
         logout: logout,
-        userId: userId
+        userId: userId,
+        leagueName: [leagueName, setLeagueName],
+        leagueNum: [leagueNum, setLeagueNum]
       }}
     >
       <Router>
         <section className='hero is-link is-fullheight'>
           <div className='hero-head'>
             <MainNavbar />
-            <div className='league-navbar'>{token && <LeagueNavbar />}</div>
+            <div className='league-navbar'>
+              {token && leagueName && <LeagueNavbar />}
+            </div>
           </div>
           <div className='hero-body has-background-grey-lighter'>
             <div className='container'>{routes}</div>

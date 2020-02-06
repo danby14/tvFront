@@ -15,7 +15,7 @@ const MainNavbar = () => {
         </div>
         <div className='column center desktop'>
           {auth.isLoggedIn && (
-            <Link to='/Leagues'>
+            <Link to='/leagues'>
               <p className='navbar-item'>LEAGUES</p>
             </Link>
           )}
@@ -32,8 +32,16 @@ const MainNavbar = () => {
             </Link>
           )} */}
 
-          <Link to='/Blog'>
+          <Link to='/blog'>
             <p className='navbar-item'>BLOG</p>
+          </Link>
+
+          <Link to='/blog/2'>
+            <p className='navbar-item'>BLOG 2</p>
+          </Link>
+
+          <Link to='/blog/3'>
+            <p className='navbar-item'>BLOG 3</p>
           </Link>
 
           <p className='navbar-item'>RESEARCH</p>
@@ -46,13 +54,13 @@ const MainNavbar = () => {
         </div>
         <div className='column right'>
           {!auth.isLoggedIn && (
-            <Link to='/Auth'>
+            <Link to='/auth'>
               <p className='navbar-item desktop'>SIGN IN</p>
             </Link>
           )}
 
           {auth.isLoggedIn && (
-            <Link to='/Account'>
+            <Link to='/account'>
               <p className='navbar-item'>Account</p>
             </Link>
           )}

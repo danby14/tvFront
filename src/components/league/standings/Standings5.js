@@ -83,7 +83,6 @@ const Standings5 = ({ members, listId, lid, lgName }) => {
           {ready && (
             <div className='table-container'>
               <button onClick={modeSwitcher}>make predictions</button>
-
               <table className='table is-hoverable is-fullwidth'>
                 <thead>
                   <tr className='has-background-light'>

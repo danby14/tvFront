@@ -6,7 +6,7 @@ const Commissioner = () => {
     <div className='columns has-text-dark has-text-centered'>
       <div className='column'></div>
       <div className='column'>
-        <Link to='/CreateLeague'>
+        <Link to='/createLeague'>
           <li>Create New League</li>
         </Link>
         <ul>
