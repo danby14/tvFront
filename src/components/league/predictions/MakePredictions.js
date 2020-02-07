@@ -15,29 +15,34 @@ const MakePredictions = ({ networks, lid, members }) => {
   const paginate = pageNumber => setCurrentNetwork(pageNumber);
 
   return (
-    <div className='box'>
-      <h3 className='title has-text-centered is-3 has-text-grey-darker'>
-        Make Predicitons
-      </h3>
+    <div className='columns'>
+      <div className='column'></div>
+      <div className='column'>
+        <div className='box'>
+          <h3 className='title has-text-centered is-3 has-text-grey-darker'>
+            Make Predicitons
+          </h3>
 
-      {/* {networks.map(network => ( // to be used when no pagination is in place */}
-      {currentNetworks.map((network, index) => (
-        <React.Fragment key={network._id}>
-          <Pagination
-            networks={networks}
-            networksPerPage={networksPerPage}
-            totalNetworks={networks.length}
-            paginate={paginate}
-          />
-          <h2 className='is-size-4 has-text-primary'>{network.network}</h2>
-          <UserPrediction
-            lid={lid}
-            networkNumber={currentNetwork - 1}
-            members={members}
-            shows={network.shows}
-          />
-        </React.Fragment>
-      ))}
+          {currentNetworks.map((network, index) => (
+            <React.Fragment key={network._id}>
+              <Pagination
+                networks={networks}
+                networksPerPage={networksPerPage}
+                totalNetworks={networks.length}
+                paginate={paginate}
+              />
+              <h2 className='is-size-4 has-text-primary'>{network.network}</h2>
+              <UserPrediction
+                lid={lid}
+                networkNumber={currentNetwork - 1}
+                members={members}
+                shows={network.shows}
+              />
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+      <div className='column'></div>
     </div>
   );
 };

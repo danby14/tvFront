@@ -20,18 +20,6 @@ const MainNavbar = () => {
             </Link>
           )}
 
-          {/* {auth.isLoggedIn && (
-            <Link to='/Predictions'>
-              <p className='navbar-item'>MAKE PREDICTIONS</p>
-            </Link>
-          )} */}
-
-          {/* {auth.isLoggedIn && (
-            <Link to='/Standings'>
-              <p className='navbar-item'>STANDINGS</p>
-            </Link>
-          )} */}
-
           <Link to='/blog'>
             <p className='navbar-item'>BLOG</p>
           </Link>
@@ -45,12 +33,6 @@ const MainNavbar = () => {
           </Link>
 
           <p className='navbar-item'>RESEARCH</p>
-
-          {/* {auth.isLoggedIn && (
-            <Link to='/Commissioner'>
-              <p className='navbar-item'>Commissioner</p>
-            </Link>
-          )} */}
         </div>
         <div className='column right'>
           {!auth.isLoggedIn && (

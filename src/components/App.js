@@ -16,8 +16,6 @@ import Commissioner from './league/commissioner/Commissioner';
 import CreateLeague from './leagues/CreateLeague';
 import JoinLeague from './leagues/JoinLeague';
 import LeagueHome from './league/LeagueHome';
-// import MakePredictions from './league/predictions/MakePredictions';
-// import Standings5 from './league/standings/Standings5';
 
 import { AuthContext } from './context/auth-context';
 import './app.css';
