@@ -1,13 +1,16 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../../context/auth-context';
-
+import React, { useState, useContext } from 'react';
 import useForm from 'react-hook-form';
 import axios from 'axios';
+// import { useHistory } from 'react-router-dom';
+
+import { AuthContext } from '../../context/auth-context';
 
 export default function App({ shows, lid, networkNumber, members }) {
+  const [currentData, setCurrentData] = useState({});
   const auth = useContext(AuthContext);
-  const { register, handleSubmit } = useForm();
-  // const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, watch } = useForm();
+  // const { register, handleSubmit, watch, errors } = useForm();
+  const watchAllFields = watch();
 
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
@@ -22,6 +25,8 @@ export default function App({ shows, lid, networkNumber, members }) {
         }
       );
       console.log(response.data);
+      setCurrentData(watchAllFields);
+      // history.goBack();
     } catch (err) {
       console.log(err);
     }
@@ -31,6 +36,19 @@ export default function App({ shows, lid, networkNumber, members }) {
   const networkFinder = member.predictions.find(
     ({ network }) => network === networkNumber
   );
+
+  const isEqual = (obj1, obj2) => {
+    let obj1Keys = Object.keys(obj1);
+    let obj2Keys = Object.keys(obj2);
+
+    if (obj1Keys.length !== obj2Keys.length)
+      for (let objKey of obj1Keys) {
+        if (obj1[objKey] !== obj2[objKey]) {
+          return false;
+        }
+      }
+    return true;
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -85,7 +103,7 @@ export default function App({ shows, lid, networkNumber, members }) {
                 <option value='4s'>4 Seasons</option>
                 <option value='4.5s'>4.5 Seasons</option>
                 <option value='5s'>5 Seasons</option>
-                <option value='5+s'>5+ Seasons</option>
+                <option value='5.1s'>5+ Seasons</option>
               </select>
             </div>
           </div>
@@ -97,9 +115,13 @@ export default function App({ shows, lid, networkNumber, members }) {
           <button type='submit' className='button is-link'>
             Submit
           </button>
+          {isEqual(watchAllFields, currentData) ? (
+            <p className='has-text-success'>saved</p>
+          ) : (
+            <p className='has-text-danger'>not saved</p>
+          )}
         </div>
       </div>
-      {/* <input type='submit' /> */}
     </form>
   );
 }

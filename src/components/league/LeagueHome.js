@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
-import { useParams } from 'react-router';
+import { useParams, Switch, Route, useRouteMatch } from 'react-router-dom';
 import axios from 'axios';
 
 import { AuthContext } from '../context/auth-context';
@@ -43,7 +42,7 @@ const LeagueHome = () => {
       } catch (err) {}
     };
     fetchLeague();
-  }, [lid]);
+  }, [lid, league]);
 
   // to get base url for use with ReactRouter
   let { url } = useRouteMatch();

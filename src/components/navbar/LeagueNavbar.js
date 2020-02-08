@@ -22,6 +22,10 @@ const LeagueNavbar = () => {
           <Link to='/commissioner'>
             <p className='navbar-item has-text-dark'>Commissioner</p>
           </Link>
+
+          <Link to='/help'>
+            <p className='navbar-item has-text-dark'>Help</p>
+          </Link>
         </div>
       </div>
     </div>
