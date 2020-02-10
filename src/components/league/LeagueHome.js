@@ -3,7 +3,7 @@ import { useParams, Switch, Route, useRouteMatch } from 'react-router-dom';
 import axios from 'axios';
 
 import { AuthContext } from '../context/auth-context';
-import Standings5 from './standings/Standings5';
+import Standings from './standings/Standings';
 import MakePredictions from './predictions/MakePredictions';
 
 const LeagueHome = () => {
@@ -29,16 +29,12 @@ const LeagueHome = () => {
   useEffect(() => {
     const fetchLeague = async () => {
       try {
-        const response1 = await axios.get(
-          `http://localhost:5000/leagues/${lid}`
-        );
+        const response1 = await axios.get(`http://localhost:5000/leagues/${lid}`);
 
         // only get networks on first call because they don't change when predictions updates
         if (changer === 0) {
           const listId = response1.data.listUsed;
-          const response2 = await axios.get(
-            `http://localhost:5000/monthlyLists/${listId}`
-          );
+          const response2 = await axios.get(`http://localhost:5000/monthlyLists/${listId}`);
           setNetworks(response2.data.networks);
         }
 
@@ -50,7 +46,7 @@ const LeagueHome = () => {
     fetchLeague();
   }, [lid, changer]);
 
-  function handleChange() {
+  function handleChanges() {
     setChanger(changer + 1);
   }
 
@@ -66,15 +62,11 @@ const LeagueHome = () => {
               members={members}
               networks={networks}
               lid={lid}
-              changes={handleChange}
+              changes={handleChanges}
             />
           </Route>
           <Route exact path={`${url}/`}>
-            <Standings5
-              members={members}
-              networks={networks}
-              lgName={league.leagueName}
-            />
+            <Standings members={members} networks={networks} lgName={league.leagueName} />
           </Route>
         </Switch>
       )}

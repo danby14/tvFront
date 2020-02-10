@@ -13,11 +13,7 @@ const Standings5 = ({ members, networks, lgName }) => {
   const findClosest = (users, result) => {
     const usersAdjusted = users
       .map(user =>
-        user === 0
-          ? 0
-          : user.endsWith('e')
-          ? user.slice(0, -1) * 1
-          : user.slice(0, -1) * 20
+        user === 0 ? 0 : user.endsWith('e') ? user.slice(0, -1) * 1 : user.slice(0, -1) * 20
       )
       .sort((a, b) => a - b);
 
@@ -63,46 +59,36 @@ const Standings5 = ({ members, networks, lgName }) => {
                   <tr>
                     <td className='has-text-info'>{network.network}</td>
                   </tr>
-                  {members[0].predictions[n].shows.map(
-                    (memberZeroPredictions, i) => {
-                      const finalResult = network.shows[i].finalResult;
-                      const showPredictions = [
-                        memberZeroPredictions,
-                        otherMembers(n, i)
-                      ].flat();
+                  {members[0].predictions[n].shows.map((memberZeroPredictions, i) => {
+                    const finalResult = network.shows[i].finalResult;
+                    const showPredictions = [memberZeroPredictions, otherMembers(n, i)].flat();
 
-                      return (
-                        <tr key={`${n}${i}`}>
-                          <>
-                            <td>{network.shows[i].show}</td>
-                            {showPredictions.map((memberPrediction, m) => (
-                              <React.Fragment key={`${i}${m}`}>
-                                {finalResult !== 0 &&
-                                memberPrediction ===
-                                  findClosest(showPredictions, finalResult) ? (
-                                  <td className='has-text-info has-text-weight-semibold has-text-centered'>
-                                    {memberTotals(m)}
-                                    {memberPrediction}
-                                  </td>
-                                ) : (
-                                  <td className='has-text-centered'>
-                                    {memberPrediction}
-                                  </td>
-                                )}
-                              </React.Fragment>
-                            ))}
-                            {finalResult > 0 ? (
-                              <td className='has-text-info has-text-centered'>
-                                {finalResult}
-                              </td>
-                            ) : (
-                              <td className='has-text-centered'>-</td>
-                            )}
-                          </>
-                        </tr>
-                      );
-                    }
-                  )}
+                    return (
+                      <tr key={`${n}${i}`}>
+                        <>
+                          <td>{network.shows[i].show}</td>
+                          {showPredictions.map((memberPrediction, m) => (
+                            <React.Fragment key={`${i}${m}`}>
+                              {finalResult !== 0 &&
+                              memberPrediction === findClosest(showPredictions, finalResult) ? (
+                                <td className='has-text-info has-text-weight-semibold has-text-centered'>
+                                  {memberTotals(m)}
+                                  {memberPrediction}
+                                </td>
+                              ) : (
+                                <td className='has-text-centered'>{memberPrediction}</td>
+                              )}
+                            </React.Fragment>
+                          ))}
+                          {finalResult > 0 ? (
+                            <td className='has-text-info has-text-centered'>{finalResult}</td>
+                          ) : (
+                            <td className='has-text-centered'>-</td>
+                          )}
+                        </>
+                      </tr>
+                    );
+                  })}
                 </React.Fragment>
               ))}
               <tr className='has-background-light'>
@@ -120,8 +106,7 @@ const Standings5 = ({ members, networks, lgName }) => {
                   </React.Fragment>
                 ))}
                 <td className='is-outlined has-text-info has-text-weight-bold has-text-centered '>
-                  {winners.length > 0 &&
-                    winners.map(winner => `${members[winner].username} `)}
+                  {winners.length > 0 && winners.map(winner => `${members[winner].username} `)}
                 </td>
               </tr>
             </tbody>

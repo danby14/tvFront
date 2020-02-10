@@ -14,22 +14,26 @@ const MakePredictions = ({ networks, lid, members, changes }) => {
   // Change page
   const paginate = pageNumber => setCurrentNetwork(pageNumber);
 
-  // const prevNetwork = () => {
-  //   setCurrentNetwork(currentNetwork - 1);
-  // };
+  const prevNetwork = () => {
+    if (currentNetwork > 1) setCurrentNetwork(currentNetwork - 1);
+  };
 
-  // const nextNetwork = () => {
-  //   setCurrentNetwork(currentNetwork + 1);
-  // };
+  const nextNetwork = () => {
+    if (currentNetwork < networks.length) setCurrentNetwork(currentNetwork + 1);
+  };
+
+  let leftArrowClass = 'has-text-grey-lighter';
+  if (currentNetwork > 1) leftArrowClass = 'has-text-info is-clickable';
+
+  let rightArrowClass = 'has-text-grey-lighter';
+  if (currentNetwork < networks.length) rightArrowClass = 'has-text-info is-clickable';
 
   return (
     <div className='columns'>
       <div className='column'></div>
       <div className='column'>
         <div className='box'>
-          <h3 className='title has-text-centered is-3 has-text-grey-darker'>
-            Make Predicitons
-          </h3>
+          <h3 className='title has-text-centered is-3 has-text-grey-darker'>Make Predicitons</h3>
 
           {currentNetworks.map((network, index) => (
             <React.Fragment key={network._id}>
@@ -47,9 +51,15 @@ const MakePredictions = ({ networks, lid, members, changes }) => {
                 shows={network.shows}
                 changes={changes}
               />
-              {/* {console.log('currentNetwork', currentNetwork)} */}
-              {/* <p onClick={prevNetwork}>{`<-`}</p>
-              <p onClick={nextNetwork}>{`->`}</p> */}
+              <div className='has-text-centered'>
+                <span onClick={prevNetwork} className={`icon ${leftArrowClass}`}>
+                  <i className='fas fa-2x fa-angle-left'></i>
+                </span>
+                <span>&emsp; &emsp;</span>
+                <span onClick={nextNetwork} className={`icon ${rightArrowClass}`}>
+                  <i className='fas fa-2x fa-angle-right'></i>
+                </span>
+              </div>
             </React.Fragment>
           ))}
         </div>

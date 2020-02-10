@@ -3,12 +3,7 @@ import Home from './home/Home';
 import Blog from './blog/Blog';
 import MainNavbar from './navbar/MainNavbar';
 import LeagueNavbar from './navbar/LeagueNavbar';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Auth from './user/Auth';
 import Account from './user/Account';
 import Leagues from './leagues/Leagues';
@@ -33,8 +28,7 @@ const App = () => {
   const login = useCallback((uid, token, expirationDate) => {
     setToken(token);
     setUserId(uid);
-    const tokenExpirationDate =
-      expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
+    const tokenExpirationDate = expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
     setTokenExpirationDate(tokenExpirationDate);
     localStorage.setItem(
       'userData',
@@ -57,8 +51,7 @@ const App = () => {
 
   useEffect(() => {
     if (token && tokenExpirationDate) {
-      const remainingTime =
-        tokenExpirationDate.getTime() - new Date().getTime();
+      const remainingTime = tokenExpirationDate.getTime() - new Date().getTime();
       logoutTimer = setTimeout(logout, remainingTime);
     } else {
       clearTimeout(logoutTimer);
@@ -67,16 +60,8 @@ const App = () => {
 
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem('userData'));
-    if (
-      storedData &&
-      storedData.token &&
-      new Date(storedData.expiration) > new Date()
-    ) {
-      login(
-        storedData.userId,
-        storedData.token,
-        new Date(storedData.expiration)
-      );
+    if (storedData && storedData.token && new Date(storedData.expiration) > new Date()) {
+      login(storedData.userId, storedData.token, new Date(storedData.expiration));
     }
   }, [login]);
 
@@ -128,9 +113,7 @@ const App = () => {
         <section className='hero is-link is-fullheight'>
           <div className='hero-head'>
             <MainNavbar />
-            <div className='league-navbar'>
-              {token && leagueName && <LeagueNavbar />}
-            </div>
+            <div className='league-navbar'>{token && leagueName && <LeagueNavbar />}</div>
           </div>
           <div className='hero-body has-background-grey-lighter'>
             <div className='container'>{routes}</div>

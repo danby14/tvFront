@@ -16,14 +16,11 @@ export default function App({ shows, lid, networkNumber, members, changes }) {
 
   const onSubmit = async data => {
     try {
-      const response = await axios.patch(
-        `http://localhost:5000/leagues/${lid}/predictions`,
-        {
-          predictions: { network: networkNumber, shows: Object.values(data) },
-          currentNetwork: networkNumber,
-          userId: auth.userId
-        }
-      );
+      const response = await axios.patch(`http://localhost:5000/leagues/${lid}/predictions`, {
+        predictions: { network: networkNumber, shows: Object.values(data) },
+        currentNetwork: networkNumber,
+        userId: auth.userId
+      });
       console.log(response.data.league.members);
       setCurrentData(watchAllFields); // so we can tell if data has been submitted by user or not yet
       changes(); // so parent can update
@@ -34,9 +31,7 @@ export default function App({ shows, lid, networkNumber, members, changes }) {
   };
 
   const member = members.find(({ memberId }) => memberId === auth.userId);
-  const networkFinder = member.predictions.find(
-    ({ network }) => network === networkNumber
-  );
+  const networkFinder = member.predictions.find(({ network }) => network === networkNumber);
 
   const isEqual = (obj1, obj2) => {
     let obj1Keys = Object.keys(obj1);
@@ -61,9 +56,7 @@ export default function App({ shows, lid, networkNumber, members, changes }) {
               <select
                 name={show.show}
                 // update each show's default value to match what user has already predicted
-                defaultValue={
-                  networkFinder === undefined ? 0 : networkFinder.shows[i]
-                }
+                defaultValue={networkFinder === undefined ? 0 : networkFinder.shows[i]}
                 ref={register({ required: true })}
               >
                 <option value='0'>Please Select One</option>
@@ -117,9 +110,9 @@ export default function App({ shows, lid, networkNumber, members, changes }) {
             Submit
           </button>
           {isEqual(watchAllFields, currentData) ? (
-            <p className='has-text-success'>saved</p>
+            <p className='has-text-success'>&ensp; saved</p>
           ) : (
-            <p className='has-text-danger'>not saved</p>
+            <p className='has-text-danger'>&ensp;not saved</p>
           )}
         </div>
       </div>

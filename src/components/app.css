@@ -48,3 +48,7 @@ html {
 .league-navbar {
   background-color: lightgray;
 }
+
+.is-clickable {
+  cursor: pointer;
+}

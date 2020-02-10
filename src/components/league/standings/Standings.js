@@ -1,136 +1,117 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import MakePredictions from '../predictions/MakePredictions';
+import React from 'react';
 
-const Standings = ({ members, listId, lid }) => {
-  const [networks, setNetworks] = useState([]);
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    const fetchList = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:5000/monthlyLists/${listId}`
-        );
-        setNetworks(response.data.networks);
-        setReady(true);
-      } catch (err) {}
-    };
-    fetchList();
-  }, [listId]);
-
-  const modeSwitcher = () => {
-    setReady(!ready);
+const Standings = ({ members, networks, lgName }) => {
+  // get predictions for all users, besides user 0
+  const otherMembers = (networkNum, shows) => {
+    let others = [];
+    for (let memberNumber = 1; memberNumber < members.length; memberNumber++) {
+      others.push(members[memberNumber].predictions[networkNum].shows[shows]);
+    }
+    return others;
   };
 
-  const findClosest = (users, result, s) => {
-    // const usersAdjusted = users.map(user =>
-    //   user.endsWith('e') ? user.slice(0, -1) * 1 : user.slice(0, -1) * 20
-    // );
-    // const closestNumber = usersAdjusted.reduce((prev, curr) =>
-    //   Math.abs(curr - result) < Math.abs(prev - result) ? curr : prev
-    // );
-    // console.log('user', users, result, s);
-    // console.log(
-    //   'closest',
-    //   closestNumber < 36 ? closestNumber + 'e' : closestNumber / 20 + 's'
-    // );
-    // return closestNumber < 36 ? closestNumber + 'e' : closestNumber / 20 + 's';
+  const findClosest = (users, result) => {
+    const usersAdjusted = users
+      .map(user =>
+        user === 0 ? 0 : user.endsWith('e') ? user.slice(0, -1) * 1 : user.slice(0, -1) * 20
+      )
+      .sort((a, b) => a - b);
+
+    const closestNumber = usersAdjusted.reduce((prev, curr) =>
+      Math.abs(curr - result) < Math.abs(prev - result) ? curr : prev
+    );
+
+    return closestNumber < 36 ? closestNumber + 'e' : closestNumber / 20 + 's';
+  };
+
+  let totals = Array(members.length).fill(0);
+  const memberTotals = m => {
+    // winner adds 1 to user's total wins
+    totals[m] += 1;
+  };
+
+  let winners = [];
+  const findWinnerUsername = user => {
+    winners.push(user);
   };
 
   return (
     <>
       {networks.length !== 0 && (
-        <>
-          {!ready && (
-            <div className='columns'>
-              <div className='column'></div>
-              <div className='column'>
-                <MakePredictions
-                  members={members}
-                  networks={networks}
-                  lid={lid}
-                />
-                <button onClick={modeSwitcher}>view standings</button>
-              </div>
-              <div className='column'></div>
-            </div>
-          )}
+        <div className='table-container'>
+          <table className='table is-hoverable is-fullwidth'>
+            <thead>
+              <tr className='has-background-light'>
+                <th>League: {lgName}</th>
+                {members.map(member => (
+                  <th className='has-text-centered' key={member.memberId}>
+                    {member.username}
+                  </th>
+                ))}
 
-          {ready && (
-            <div className='table-container'>
-              <button onClick={modeSwitcher}>make predictions</button>
+                <th className='has-text-centered'>Final Result</th>
+              </tr>
+            </thead>
 
-              <table className='table is-fullwidth is-hoverable is-narrow'>
-                <thead>
+            <tbody>
+              {networks.map((network, n) => (
+                <React.Fragment key={n}>
                   <tr>
-                    <th></th>
-                    {members.map(member => (
-                      <th key={member.memberId}>{member.username}</th>
-                    ))}
-
-                    <th>Final Result</th>
+                    <td className='has-text-info'>{network.network}</td>
                   </tr>
-                </thead>
+                  {members[0].predictions[n].shows.map((memberZeroPredictions, i) => {
+                    const finalResult = network.shows[i].finalResult;
+                    const showPredictions = [memberZeroPredictions, otherMembers(n, i)].flat();
 
-                <tbody>
-                  {networks.map((network, n) => (
-                    <React.Fragment key={n}>
-                      <tr>
-                        <td className='has-text-primary'>{network.network}</td>
+                    return (
+                      <tr key={`${n}${i}`}>
+                        <>
+                          <td>{network.shows[i].show}</td>
+                          {showPredictions.map((memberPrediction, m) => (
+                            <React.Fragment key={`${i}${m}`}>
+                              {finalResult !== 0 &&
+                              memberPrediction === findClosest(showPredictions, finalResult) ? (
+                                <td className='has-text-info has-text-weight-semibold has-text-centered'>
+                                  {memberTotals(m)}
+                                  {memberPrediction}
+                                </td>
+                              ) : (
+                                <td className='has-text-centered'>{memberPrediction}</td>
+                              )}
+                            </React.Fragment>
+                          ))}
+                          {finalResult > 0 ? (
+                            <td className='has-text-info has-text-centered'>{finalResult}</td>
+                          ) : (
+                            <td className='has-text-centered'>-</td>
+                          )}
+                        </>
                       </tr>
-                      <>
-                        {network.shows.map((show, s) => (
-                          <tr key={`${n}${s}`}>
-                            <td>{show.show}</td>
-                            <>
-                              {members.map((member, m) => {
-                                // find if predictions were made for that network
-                                const findPredictions = member.predictions.find(
-                                  ({ network }) => network === n
-                                );
-                                return (
-                                  <td key={`${n}${s}${m}`}>
-                                    {/* add logic from codewars.js file to calculate closest prediction, current logic is only for exact matches */}
-                                    {/* after logic is added, will need to push winner to a new totals array or add to it if are already in it. then add total wins array to bottom of standings*/}
-                                    {findPredictions ? (
-                                      findPredictions.shows[s] ===
-                                      findClosest(
-                                        findPredictions.shows[s],
-                                        show.finalResult,
-                                        [s]
-                                      ) ? (
-                                        <p className='has-text-success'>
-                                          {findPredictions.shows[s]}
-                                        </p>
-                                      ) : (
-                                        findPredictions.shows[s]
-                                      )
-                                    ) : (
-                                      0
-                                    )}
-                                    {/* above code will only show predictions made by users and make empty predictions default to 0 */}
-                                  </td>
-                                );
-                              })}
-                            </>
-                            {show.finalResult > 0 ? (
-                              <td className='has-text-success'>
-                                {show.finalResult}
-                              </td>
-                            ) : (
-                              <td>tbd</td>
-                            )}
-                          </tr>
-                        ))}
-                      </>
-                    </React.Fragment>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </>
+                    );
+                  })}
+                </React.Fragment>
+              ))}
+              <tr className='has-background-light'>
+                <td className='has-text-info has-text-weight-bold'>Totals</td>
+                {totals.map((total, t) => (
+                  <React.Fragment key={t}>
+                    {Math.max(...totals) === total ? (
+                      <td className='has-text-info has-text-weight-bold has-text-centered'>
+                        {total}
+                        {total > 0 && findWinnerUsername(t)}
+                      </td>
+                    ) : (
+                      <td className='has-text-centered'>{total}</td>
+                    )}
+                  </React.Fragment>
+                ))}
+                <td className='is-outlined has-text-info has-text-weight-bold has-text-centered '>
+                  {winners.length > 0 && winners.map(winner => `${members[winner].username} `)}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       )}
     </>
   );
