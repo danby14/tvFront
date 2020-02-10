@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import UserPrediction from './UserPrediction';
 import Pagination from '../../shared/Pagination';
 
-const MakePredictions = ({ networks, lid, members }) => {
+const MakePredictions = ({ networks, lid, members, changes }) => {
   const [currentNetwork, setCurrentNetwork] = useState(1);
   const [networksPerPage] = useState(1);
 
@@ -13,6 +13,14 @@ const MakePredictions = ({ networks, lid, members }) => {
 
   // Change page
   const paginate = pageNumber => setCurrentNetwork(pageNumber);
+
+  // const prevNetwork = () => {
+  //   setCurrentNetwork(currentNetwork - 1);
+  // };
+
+  // const nextNetwork = () => {
+  //   setCurrentNetwork(currentNetwork + 1);
+  // };
 
   return (
     <div className='columns'>
@@ -37,7 +45,11 @@ const MakePredictions = ({ networks, lid, members }) => {
                 networkNumber={currentNetwork - 1}
                 members={members}
                 shows={network.shows}
+                changes={changes}
               />
+              {/* {console.log('currentNetwork', currentNetwork)} */}
+              {/* <p onClick={prevNetwork}>{`<-`}</p>
+              <p onClick={nextNetwork}>{`->`}</p> */}
             </React.Fragment>
           ))}
         </div>

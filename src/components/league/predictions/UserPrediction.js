@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import { AuthContext } from '../../context/auth-context';
 
-export default function App({ shows, lid, networkNumber, members }) {
+export default function App({ shows, lid, networkNumber, members, changes }) {
   const [currentData, setCurrentData] = useState({});
   const auth = useContext(AuthContext);
   const { register, handleSubmit, watch } = useForm();
@@ -24,8 +24,9 @@ export default function App({ shows, lid, networkNumber, members }) {
           userId: auth.userId
         }
       );
-      console.log(response.data);
-      setCurrentData(watchAllFields);
+      console.log(response.data.league.members);
+      setCurrentData(watchAllFields); // so we can tell if data has been submitted by user or not yet
+      changes(); // so parent can update
       // history.goBack();
     } catch (err) {
       console.log(err);

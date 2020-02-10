@@ -10,6 +10,7 @@ const LeagueHome = () => {
   const [league, setLeague] = useState([]);
   const [members, setMembers] = useState([]);
   const [networks, setNetworks] = useState([]);
+  const [changer, setChanger] = useState(0);
   // const [commissioner, setCommissioner] = useState([]);
   // const [leagueStarted, setLeagueStarted] = useState(true);
 
@@ -31,18 +32,27 @@ const LeagueHome = () => {
         const response1 = await axios.get(
           `http://localhost:5000/leagues/${lid}`
         );
-        const listId = response1.data.listUsed;
-        const response2 = await axios.get(
-          `http://localhost:5000/monthlyLists/${listId}`
-        );
+
+        // only get networks on first call because they don't change when predictions updates
+        if (changer === 0) {
+          const listId = response1.data.listUsed;
+          const response2 = await axios.get(
+            `http://localhost:5000/monthlyLists/${listId}`
+          );
+          setNetworks(response2.data.networks);
+        }
+
         setLeague(response1.data);
         setMembers(response1.data.members);
-        setNetworks(response2.data.networks);
         // setCommissioner(response.data.commissioner);
       } catch (err) {}
     };
     fetchLeague();
-  }, [lid, league]);
+  }, [lid, changer]);
+
+  function handleChange() {
+    setChanger(changer + 1);
+  }
 
   // to get base url for use with ReactRouter
   let { url } = useRouteMatch();
@@ -52,7 +62,12 @@ const LeagueHome = () => {
       {members.length !== 0 && networks.length !== 0 && (
         <Switch>
           <Route exact path={`${url}/predictions`}>
-            <MakePredictions members={members} networks={networks} lid={lid} />
+            <MakePredictions
+              members={members}
+              networks={networks}
+              lid={lid}
+              changes={handleChange}
+            />
           </Route>
           <Route exact path={`${url}/`}>
             <Standings5
