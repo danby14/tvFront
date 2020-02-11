@@ -11,6 +11,7 @@ import Commissioner from './league/commissioner/Commissioner';
 import CreateLeague from './leagues/CreateLeague';
 import JoinLeague from './leagues/JoinLeague';
 import LeagueHome from './league/LeagueHome';
+import Research from './research/Research';
 
 import { AuthContext } from './context/auth-context';
 import './app.css';
@@ -82,6 +83,9 @@ const App = () => {
         <Route path='/commissioner' component={Commissioner} />
         <Route path='/blog'>
           <Blog />
+        </Route>
+        <Route path='/Research'>
+          <Research />
         </Route>
         <Route path='/account' component={Account} />
         <Redirect to='/leagues' />

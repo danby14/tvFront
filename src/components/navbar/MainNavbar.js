@@ -32,7 +32,9 @@ const MainNavbar = () => {
             <p className='navbar-item'>BLOG 3</p>
           </Link>
 
-          <p className='navbar-item'>RESEARCH</p>
+          <Link to='/research'>
+            <p className='navbar-item'>RESEARCH</p>
+          </Link>
         </div>
         <div className='column right'>
           {!auth.isLoggedIn && (
@@ -54,10 +56,7 @@ const MainNavbar = () => {
           )}
 
           <figure className='navbar-item image center'>
-            <i
-              className='fas fa-bars'
-              style={{ width: '1rem', height: '1rem' }}
-            ></i>
+            <i className='fas fa-bars' style={{ width: '1rem', height: '1rem' }}></i>
           </figure>
         </div>
       </div>

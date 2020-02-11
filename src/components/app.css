@@ -52,3 +52,9 @@ html {
 .is-clickable {
   cursor: pointer;
 }
+
+th {
+  background: white;
+  position: sticky;
+  top: 0;
+}
