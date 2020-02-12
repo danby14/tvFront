@@ -38,7 +38,6 @@ const Standings = ({ members, networks, lgName }) => {
   return (
     <>
       {networks.length !== 0 && (
-        // <div className='table-container'>
         <table className='table is-hoverable is-fullwidth'>
           <thead>
             <tr className='has-background-light'>
@@ -111,7 +110,6 @@ const Standings = ({ members, networks, lgName }) => {
             </tr>
           </tbody>
         </table>
-        // </div>
       )}
     </>
   );

@@ -10,9 +10,7 @@ const LeagueNavbar = () => {
       <div className=' columns is-mobile is-marginless heading has-text-weight-bold'>
         <div className='column left'>
           <Link to={`/leagueHome/${auth.leagueNum[0]}`}>
-            <p className='navbar-item has-text-dark'>
-              League: {auth.leagueName[0]}
-            </p>
+            <p className='navbar-item has-text-dark'>League: {auth.leagueName[0]}</p>
           </Link>
 
           <Link to={`/leagueHome/${auth.leagueNum[0]}/predictions`}>

@@ -57,6 +57,9 @@ const LeagueHome = () => {
     <>
       {members.length !== 0 && networks.length !== 0 && (
         <Switch>
+          <Route exact path={`${url}/`}>
+            <Standings members={members} networks={networks} lgName={league.leagueName} />
+          </Route>
           <Route exact path={`${url}/predictions`}>
             <MakePredictions
               members={members}
@@ -64,9 +67,6 @@ const LeagueHome = () => {
               lid={lid}
               changes={handleChanges}
             />
-          </Route>
-          <Route exact path={`${url}/`}>
-            <Standings members={members} networks={networks} lgName={league.leagueName} />
           </Route>
         </Switch>
       )}
