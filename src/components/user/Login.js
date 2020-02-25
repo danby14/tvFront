@@ -1,11 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/auth-context';
+import Modal from '../shared/Modal';
 
 import axios from 'axios';
 import useForm from 'react-hook-form';
 
 function Login() {
   const auth = useContext(AuthContext);
+
+  const [error, setError] = useState(null);
   const { register, handleSubmit, errors } = useForm();
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
@@ -15,10 +18,9 @@ function Login() {
         email: data.email,
         password: data.password
       });
-      // console.log(response.data);
-      auth.login(response.data.user, response.data.token);
+      auth.login(response.data.user, response.data.username, response.data.token);
     } catch (err) {
-      console.log(err);
+      setError(err.response.data);
     }
   };
   return (
@@ -33,9 +35,7 @@ function Login() {
               type='email'
               ref={register({ required: 'Please Enter a Valid Email' })}
             />
-            <p className='has-text-danger'>
-              {errors.email && errors.email.message}
-            </p>
+            <p className='has-text-danger'>{errors.email && errors.email.message}</p>
           </div>
         </div>
 
@@ -51,37 +51,17 @@ function Login() {
                 minLength: { value: 6, message: 'miniumum of 6 characters' }
               })}
             />
-            <p className='has-text-danger'>
-              {errors.password && errors.password.message}
-            </p>
+            <p className='has-text-danger'>{errors.password && errors.password.message}</p>
           </div>
         </div>
 
         <div className='has-text-centered'>
-          <input className='button' type='submit' value='Login'></input>
+          <input className='button is-link is-outlined' type='submit' value='Sign In'></input>
         </div>
       </form>
+      {error && <Modal title='Login Failed' error={error} setError={setError} />}
     </div>
   );
 }
 
 export default Login;
-
-// axios.post(
-//   "http://localhost:5000/user/login",
-//   JSON.stringify(data).then(res =>
-//     localStorage.setItem("cool-jwt", res.data)
-//   )
-// );
-
-// const onSubmit = data => {
-//   axios
-//     .post('http://localhost:5000/user/login', {
-//       email: data.email,
-//       password: data.password
-//     })
-//     .then(res => {
-//       console.log(res.data);
-//       auth.login();
-//     });
-// };

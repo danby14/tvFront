@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../context/auth-context';
+import Modal from '../shared/Modal';
 
 import axios from 'axios';
 import useForm from 'react-hook-form';
 
 const JoinLeague = () => {
   const auth = useContext(AuthContext);
+  const [error, setError] = useState(null);
   const { register, handleSubmit, errors } = useForm();
   const history = useHistory();
 
@@ -15,17 +17,13 @@ const JoinLeague = () => {
   // need to generate :lid from leagueName | have user follow links with :lid in them | change :lid to leagueName, then adjust for alteration on backend
   const onSubmit = async data => {
     try {
-      // const response = await axios.post('http://localhost:5000/league/:lid', {
-      const response = await axios.patch(
-        `http://localhost:5000/leagues/${data.leagueId}`,
-        {
-          leaguePassword: data.leaguePassword
-        }
-      );
+      const response = await axios.patch(`http://localhost:5000/leagues/${data.leagueId}`, {
+        leaguePassword: data.leaguePassword
+      });
       console.log('lg name: ', response.data);
       history.push('/Leagues');
     } catch (err) {
-      console.log(err);
+      setError(err.response.data);
     }
   };
   return (
@@ -42,9 +40,7 @@ const JoinLeague = () => {
                 type='text'
                 ref={register({ required: 'Please Enter a Valid League ID' })}
               />
-              <p className='has-text-danger'>
-                {errors.leagueId && errors.leagueId.message}
-              </p>
+              <p className='has-text-danger'>{errors.leagueId && errors.leagueId.message}</p>
             </div>
           </div>
 
@@ -68,6 +64,11 @@ const JoinLeague = () => {
 
           <input className='button' type='submit' value='Submit'></input>
         </form>
+        {error && (
+          <div className='has-text-left'>
+            <Modal title='Joining League Failed' error={error} setError={setError} />
+          </div>
+        )}
       </div>
       <div className='column'></div>
     </div>

@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../context/auth-context';
+import Modal from '../shared/Modal';
 
 import axios from 'axios';
 import useForm from 'react-hook-form';
 
 function CreateLeague() {
   const auth = useContext(AuthContext);
+  const [error, setError] = useState(null);
   const { register, handleSubmit, errors } = useForm();
   const history = useHistory();
 
@@ -14,18 +16,15 @@ function CreateLeague() {
 
   const onSubmit = async data => {
     try {
-      const response = await axios.post(
-        'http://localhost:5000/leagues/create',
-        {
-          leagueName: data.leagueName,
-          password: data.password
-        }
-      );
+      const response = await axios.post('http://localhost:5000/leagues/create', {
+        leagueName: data.leagueName,
+        password: data.password
+      });
 
       console.log('lg name: ', response.data);
       history.push('/Leagues');
     } catch (err) {
-      console.log('err', err);
+      setError(err.response.data);
     }
   };
   return (
@@ -44,9 +43,7 @@ function CreateLeague() {
                   required: 'Please enter a name for your league'
                 })}
               />
-              <p className='has-text-danger'>
-                {errors.leagueName && errors.leagueName.message}
-              </p>
+              <p className='has-text-danger'>{errors.leagueName && errors.leagueName.message}</p>
             </div>
           </div>
 
@@ -62,14 +59,17 @@ function CreateLeague() {
                   minLength: { value: 6, message: 'miniumum of 6 characters' }
                 })}
               />
-              <p className='has-text-danger'>
-                {errors.password && errors.password.message}
-              </p>
+              <p className='has-text-danger'>{errors.password && errors.password.message}</p>
             </div>
           </div>
 
           <input className='button' type='submit' value='Create League'></input>
         </form>
+        {error && (
+          <div className='has-text-left'>
+            <Modal title='Creating League Failed' error={error} setError={setError} />
+          </div>
+        )}
       </div>
       <div className='column'></div>
     </div>

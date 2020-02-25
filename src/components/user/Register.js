@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/auth-context';
+import Modal from '../shared/Modal';
 
 import axios from 'axios';
 import useForm from 'react-hook-form';
 
 function Register() {
   const auth = useContext(AuthContext);
+  const [error, setError] = useState(null);
   const { register, handleSubmit, errors } = useForm();
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
@@ -22,7 +24,7 @@ function Register() {
       console.log(response.data);
       auth.login(response.data.user, response.data.token);
     } catch (err) {
-      console.log(err);
+      setError(err.response.data);
     }
   };
   return (
@@ -37,9 +39,7 @@ function Register() {
               type='text'
               ref={register({ required: 'Please Enter a Valid Username' })}
             />
-            <p className='has-text-danger'>
-              {errors.username && errors.username.message}
-            </p>
+            <p className='has-text-danger'>{errors.username && errors.username.message}</p>
           </div>
         </div>
 
@@ -52,9 +52,7 @@ function Register() {
               type='email'
               ref={register({ required: 'Please Enter a Valid Email' })}
             />
-            <p className='has-text-danger'>
-              {errors.email && errors.email.message}
-            </p>
+            <p className='has-text-danger'>{errors.email && errors.email.message}</p>
           </div>
         </div>
 
@@ -70,9 +68,7 @@ function Register() {
                 minLength: { value: 6, message: 'miniumum of 6 characters' }
               })}
             />
-            <p className='has-text-danger'>
-              {errors.password && errors.password.message}
-            </p>
+            <p className='has-text-danger'>{errors.password && errors.password.message}</p>
           </div>
         </div>
 
@@ -85,9 +81,7 @@ function Register() {
               type='date'
               ref={register({ required: 'Please Enter a Valid Date' })}
             />
-            <p className='has-text-danger'>
-              {errors.birthdate && errors.birthdate.message}
-            </p>
+            <p className='has-text-danger'>{errors.birthdate && errors.birthdate.message}</p>
           </div>
         </div>
 
@@ -105,9 +99,7 @@ function Register() {
               <option value='O'>Other</option>
               <option value='N/A'>I'd rather not say</option>
             </select>
-            <p className='has-text-danger'>
-              {errors.gender && errors.gender.message}
-            </p>
+            <p className='has-text-danger'>{errors.gender && errors.gender.message}</p>
           </div>
         </div>
 
@@ -133,16 +125,15 @@ function Register() {
               />
               {' No'}
             </label>
-            <p className='has-text-danger'>
-              {errors.optIn && errors.optIn.message}
-            </p>
+            <p className='has-text-danger'>{errors.optIn && errors.optIn.message}</p>
           </div>
         </div>
 
         <div className='has-text-centered'>
-          <input className='button' type='submit' value='Register'></input>
+          <input className='button is-link is-outlined' type='submit' value='Register'></input>
         </div>
       </form>
+      {error && <Modal title='Registration Failed' error={error} setError={setError} />}
     </div>
   );
 }

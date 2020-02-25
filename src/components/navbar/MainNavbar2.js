@@ -98,9 +98,9 @@ const MainNavbar2 = ({ leagueName, token }) => {
         </div>
 
         <div className='navbar-end'>
-          {auth.isLoggedIn && (
+          {token && auth.isLoggedIn && (
             <NavLink to='/account' className='navbar-item' activeClassName='is-underlined'>
-              Account
+              {auth.userName}
             </NavLink>
           )}
           <div className='navbar-item'>
@@ -110,7 +110,7 @@ const MainNavbar2 = ({ leagueName, token }) => {
               </button> */}
               {!auth.isLoggedIn && (
                 <Link to='/auth' className='button is-primary'>
-                  Log in
+                  Sign In
                 </Link>
               )}
 
