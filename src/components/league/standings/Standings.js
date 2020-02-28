@@ -43,8 +43,8 @@ const Standings = ({ members, networks, lgName }) => {
             <tr className='has-background-light'>
               <th>League: {lgName}</th>
               {members.map(member => (
-                <th className='has-text-centered' key={member.memberId}>
-                  {member.username}
+                <th className='has-text-centered' key={member.memberId[0]._id}>
+                  {member.memberId[0].username}
                 </th>
               ))}
 
@@ -105,7 +105,8 @@ const Standings = ({ members, networks, lgName }) => {
                 </React.Fragment>
               ))}
               <td className='is-outlined has-text-info has-text-weight-bold has-text-centered '>
-                {winners.length > 0 && winners.map(winner => `${members[winner].username} `)}
+                {winners.length > 0 &&
+                  winners.map(winner => `${members[winner].memberId[0].username} `)}
               </td>
             </tr>
           </tbody>

@@ -15,9 +15,7 @@ const Leagues = () => {
     const fetchLeague = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(
-          `http://localhost:5000/user/${uid}/leagues`
-        );
+        const response = await axios.get(`http://localhost:5000/user/${uid}/leagues`);
         setLeagues(response.data);
         setIsLoading(false);
       } catch (err) {
@@ -74,8 +72,8 @@ const Leagues = () => {
       <div className='content has-text-primary has-text-centered'>
         {leagues.length > 0 &&
           leagues.map(lg => (
-            <p key={lg.leagueId} id={lg.leagueId}>
-              <Link to={`/LeagueHome/${lg.leagueId}`}>{lg.leagueName}</Link>
+            <p key={lg._id} id={lg._id}>
+              <Link to={`/LeagueHome/${lg._id}`}>{lg.leagueName}</Link>
             </p>
           ))}
       </div>

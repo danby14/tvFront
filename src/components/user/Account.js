@@ -16,7 +16,7 @@ const Account = () => {
         setUser(response.data);
         setLeagues(
           response.data.leagues.map(lg => (
-            <p key={lg.leagueId} id={lg.leagueId}>
+            <p key={lg._id} id={lg._id}>
               {lg.leagueName}
             </p>
           ))

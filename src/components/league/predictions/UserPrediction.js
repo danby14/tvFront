@@ -22,6 +22,7 @@ export default function App({ shows, lid, networkNumber, members, changes }) {
         userId: auth.userId
       });
       console.log(response.data.league.members);
+      // response.json({ message: response.data.league.members });
       setCurrentData(watchAllFields); // so we can tell if data has been submitted by user or not yet
       changes(); // so parent can update
       // history.goBack();
@@ -30,7 +31,8 @@ export default function App({ shows, lid, networkNumber, members, changes }) {
     }
   };
 
-  const member = members.find(({ memberId }) => memberId === auth.userId);
+  const member = members.find(({ memberId }) => memberId[0]._id === auth.userId);
+
   const networkFinder = member.predictions.find(({ network }) => network === networkNumber);
 
   const isEqual = (obj1, obj2) => {

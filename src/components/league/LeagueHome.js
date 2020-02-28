@@ -29,6 +29,7 @@ const LeagueHome = () => {
   useEffect(() => {
     const fetchLeague = async () => {
       try {
+        // can probably make this one call to db if I add ref to schema and populate networks on backend
         const response1 = await axios.get(`http://localhost:5000/leagues/${lid}`);
 
         // only get networks on first call because they don't change when predictions updates
