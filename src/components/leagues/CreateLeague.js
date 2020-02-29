@@ -16,12 +16,10 @@ function CreateLeague() {
 
   const onSubmit = async data => {
     try {
-      const response = await axios.post('http://localhost:5000/leagues/create', {
+      await axios.post('http://localhost:5000/leagues/create', {
         leagueName: data.leagueName,
         password: data.password
       });
-
-      console.log('lg name: ', response.data);
       history.push('/Leagues');
     } catch (err) {
       setError(err.response.data);

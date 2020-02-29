@@ -16,12 +16,12 @@ export default function App({ shows, lid, networkNumber, members, changes }) {
 
   const onSubmit = async data => {
     try {
-      const response = await axios.patch(`http://localhost:5000/leagues/${lid}/predictions`, {
+      await axios.patch(`http://localhost:5000/leagues/${lid}/predictions`, {
         predictions: { network: networkNumber, shows: Object.values(data) },
         currentNetwork: networkNumber,
         userId: auth.userId
       });
-      console.log(response.data.league.members);
+      // console.log(response.data.league.members);
       // response.json({ message: response.data.league.members });
       setCurrentData(watchAllFields); // so we can tell if data has been submitted by user or not yet
       changes(); // so parent can update

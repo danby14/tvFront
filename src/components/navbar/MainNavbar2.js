@@ -84,13 +84,13 @@ const MainNavbar2 = ({ leagueName, token }) => {
               >
                 Research
               </NavLink>
-              <Link to='faq' className='navbar-item has-text-dark'>
+              <Link to='/faq' className='navbar-item has-text-dark'>
                 FAQ
               </Link>
-              <Link to='contact' className='navbar-item has-text-dark'>
+              <Link to='/contact' className='navbar-item has-text-dark'>
                 Contact
               </Link>
-              <Link to='help' className='navbar-item has-text-dark'>
+              <Link to='/help' className='navbar-item has-text-dark'>
                 Help
               </Link>
             </div>

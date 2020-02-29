@@ -17,10 +17,9 @@ const JoinLeague = () => {
   // need to generate :lid from leagueName | have user follow links with :lid in them | change :lid to leagueName, then adjust for alteration on backend
   const onSubmit = async data => {
     try {
-      const response = await axios.patch(`http://localhost:5000/leagues/${data.leagueId}`, {
+      await axios.patch(`http://localhost:5000/leagues/${data.leagueId}`, {
         leaguePassword: data.leaguePassword
       });
-      console.log('lg name: ', response.data);
       history.push('/Leagues');
     } catch (err) {
       setError(err.response.data);
