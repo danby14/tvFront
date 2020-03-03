@@ -5,6 +5,7 @@ import axios from 'axios';
 import { AuthContext } from '../context/auth-context';
 import Standings from './standings/Standings';
 import MakePredictions from './predictions/MakePredictions';
+import Settings from './settings/Settings';
 
 const LeagueHome = () => {
   const [league, setLeague] = useState([]);
@@ -68,6 +69,9 @@ const LeagueHome = () => {
               lid={lid}
               changes={handleChanges}
             />
+          </Route>
+          <Route exact path={`${url}/settings`}>
+            <Settings league={league} networks={networks} />
           </Route>
         </Switch>
       )}

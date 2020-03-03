@@ -7,9 +7,9 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import Auth from './user/Auth';
 import Account from './user/Account';
 import Leagues from './leagues/Leagues';
-import Commissioner from './league/commissioner/Commissioner';
 import CreateLeague from './leagues/CreateLeague';
 import JoinLeague from './leagues/JoinLeague';
+import DeleteLeague from './league/settings/DeleteLeague';
 import LeagueHome from './league/LeagueHome';
 import Research from './research/Research';
 
@@ -86,10 +86,12 @@ const App = () => {
         <Route path='/leagues'>
           <Leagues />
         </Route>
+        <Route path='/leagueHome/:lid/settings/remove'>
+          <DeleteLeague />
+        </Route>
         <Route path='/leagueHome/:lid'>
           <LeagueHome />
         </Route>
-        <Route path='/commissioner' component={Commissioner} />
         <Route path='/blog'>
           <Blog />
         </Route>

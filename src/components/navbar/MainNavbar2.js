@@ -56,11 +56,11 @@ const MainNavbar2 = ({ leagueName, token }) => {
                   Make Predictions
                 </NavLink>
                 <NavLink
-                  to='/commissioner'
+                  to={`/leagueHome/${auth.leagueNum[0]}/settings`}
                   className='navbar-item has-text-dark'
                   activeClassName='has-text-weight-bold'
                 >
-                  Commissioner
+                  Settings
                 </NavLink>
               </div>
             </div>

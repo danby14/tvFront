@@ -40,7 +40,7 @@ const Leagues = () => {
 
   if (leagues.length === 0 && !isLoading) {
     return (
-      <div className='container has-text-dark has-text-centered'>
+      <div className='has-text-dark has-text-centered'>
         <p className='title has-text-primary'>
           {/* Welcome {auth.userId}. <br />
           <br /> */}
