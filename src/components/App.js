@@ -10,6 +10,7 @@ import Leagues from './leagues/Leagues';
 import CreateLeague from './leagues/CreateLeague';
 import JoinLeague from './leagues/JoinLeague';
 import DeleteLeague from './league/settings/DeleteLeague';
+import RemoveUser from './league/settings/RemoveUser';
 import LeagueHome from './league/LeagueHome';
 import Research from './research/Research';
 
@@ -86,8 +87,11 @@ const App = () => {
         <Route path='/leagues'>
           <Leagues />
         </Route>
-        <Route path='/leagueHome/:lid/settings/remove'>
+        <Route path='/leagueHome/:lid/settings/removeLeague'>
           <DeleteLeague />
+        </Route>
+        <Route path='/leagueHome/:lid/settings/removeUser'>
+          <RemoveUser />
         </Route>
         <Route path='/leagueHome/:lid'>
           <LeagueHome />

@@ -17,8 +17,13 @@ const Commissioner = () => {
           <li>--Add Show</li>
           <li>--Remove a User from the League</li>
           <li>
-            <Link to={`${url}/remove`}>
+            <Link to={`${url}/removeLeague`}>
               <button className='button'>Delete League</button>
+            </Link>
+          </li>
+          <li>
+            <Link to={`${url}/removeUser`}>
+              <button className='button'>Remove a user from league</button>
             </Link>
           </li>
         </ul>

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 
 import { AuthContext } from '../../context/auth-context';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import useForm from 'react-hook-form';
 import axios from 'axios';
 
@@ -11,7 +11,7 @@ const DeleteLeague = () => {
   const auth = useContext(AuthContext);
   const [error, setError] = useState(null);
   const { register, handleSubmit, errors } = useForm();
-  const history = useHistory();
+  // const history = useHistory();
   const lid = auth.leagueNum[0];
   const lgName = auth.leagueName[0];
 
@@ -21,17 +21,18 @@ const DeleteLeague = () => {
   const onSubmit = async data => {
     try {
       const response = await axios.delete(
-        `http://localhost:5000/leagues/removeLeague/${data.leagueId}`,
+        `http://localhost:5000/leagues/removeUser/${data.leagueId}`,
         {
           data: {
             leagueName: data.leagueName,
             leagueId: data.leagueId,
-            leaguePassword: data.leaguePassword
+            leaguePassword: data.leaguePassword,
+            userToDel: data.userToDel
           }
         }
       );
       console.warn(response.data.message);
-      history.push('/Leagues');
+      // history.push('/Leagues');
     } catch (err) {
       setError(err.response.data);
     }
@@ -40,7 +41,13 @@ const DeleteLeague = () => {
     <div className='columns has-text-centered has-text-dark '>
       <div className='column'></div>
       <div className='column'>
-        <h1 className='title has-text-danger'>Are you sure you want to delete {lgName}?</h1>
+        <h1 className='title has-text-danger'>
+          Are you sure you want to remove a member from {lgName}?
+        </h1>
+        <h2 className='subtitle has-text-danger'>
+          This can not be undone, and all user information associated with this league will be lost
+          forever
+        </h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='field'>
             <label htmlFor='leagueName'>League Name (must match exactly)</label>
@@ -85,6 +92,20 @@ const DeleteLeague = () => {
               <p className='has-text-danger'>
                 {errors.leaguePassword && errors.leaguePassword.message}
               </p>
+            </div>
+          </div>
+
+          <div className='field'>
+            <label htmlFor='userToDel'>Member you wish to remove from league.</label>
+            <div className='control'>
+              <input
+                className='input'
+                name='userToDel'
+                type='text'
+                // defaultValue={lid}
+                ref={register({ required: 'Please Enter a Valid User Name or ID' })}
+              />
+              <p className='has-text-danger'>{errors.userToDel && errors.userToDel.message}</p>
             </div>
           </div>
 
