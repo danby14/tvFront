@@ -15,16 +15,23 @@ const Commissioner = () => {
           <li>--Choose Networks</li>
           <li>--Add Network</li>
           <li>--Add Show</li>
-          <li>--Remove a User from the League</li>
+          <br />
+          <br />
           <li>
-            <Link to={`${url}/removeLeague`}>
-              <button className='button'>Delete League</button>
-            </Link>
+            <p className='has-text-danger'>
+              WARNING: This Following Action Can Not Be Undone. All league information(including
+              name and id), user predictions, and user associations with this league will be lost
+              forever.
+            </p>
+            <Link to={`${url}/removeLeague`}>Delete This Entire League</Link>
           </li>
+          <br />
           <li>
-            <Link to={`${url}/removeUser`}>
-              <button className='button'>Remove a user from league</button>
-            </Link>
+            <p className='has-text-danger'>
+              WARNING: This Following Action Can Not Be Undone. All predictions for this user and
+              associations with this league will be lost forever.
+            </p>
+            <Link to={`${url}/removeUser`}>Remove a user from league</Link>
           </li>
         </ul>
       </div>

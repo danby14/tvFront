@@ -10,6 +10,8 @@ import Modal from '../../shared/Modal';
 const DeleteLeague = () => {
   const auth = useContext(AuthContext);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [redirectOnSuccess, setRedirectOnSuccess] = useState(false);
   const { register, handleSubmit, errors } = useForm();
   const history = useHistory();
   const lid = auth.leagueNum[0];
@@ -30,8 +32,8 @@ const DeleteLeague = () => {
           }
         }
       );
-      console.warn(response.data.message);
-      history.push('/Leagues');
+      setSuccess(response.data.message);
+      // history.push('/Leagues');
     } catch (err) {
       setError(err.response.data);
     }
@@ -40,7 +42,12 @@ const DeleteLeague = () => {
     <div className='columns has-text-centered has-text-dark '>
       <div className='column'></div>
       <div className='column'>
-        <h1 className='title has-text-danger'>Are you sure you want to delete {lgName}?</h1>
+        <h1 className='title has-text-danger'>
+          Are you sure you want to delete the league {lgName}?
+        </h1>
+        <h2 className='subtitle has-text-dark'>
+          Please fill out the following information to continue.
+        </h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='field'>
             <label htmlFor='leagueName'>League Name (must match exactly)</label>
@@ -93,9 +100,25 @@ const DeleteLeague = () => {
       </div>
       <div className='column'></div>
 
+      {success && (
+        <div className='has-text-left'>
+          <Modal
+            title='League has been deleted'
+            message={success}
+            stateHandler={setSuccess}
+            extras={setRedirectOnSuccess}
+          />
+        </div>
+      )}
+
+      {redirectOnSuccess &&
+        setTimeout(() => {
+          history.push('/Leagues');
+        }, 1)}
+
       {error && (
         <div className='has-text-left'>
-          <Modal title='Deleting League Failed' error={error} setError={setError} />
+          <Modal title='Deleting League Failed' message={error} stateHandler={setError} />
         </div>
       )}
     </div>

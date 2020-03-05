@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
-const Modal = ({ title, error, setError }) => {
+const Modal = ({ title, message, stateHandler, extras }) => {
+  const inputRef = useRef(null);
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   function clearModal() {
-    setError(null);
+    stateHandler(false);
+    if (extras) {
+      extras(true);
+    }
   }
 
   return (
@@ -12,9 +20,9 @@ const Modal = ({ title, error, setError }) => {
         <header className='modal-card-head'>
           <p className='modal-card-title has-text-danger'>{title}</p>
         </header>
-        <section className='modal-card-body'>{error}.</section>
+        <section className='modal-card-body'>{message}.</section>
         <footer className='modal-card-foot buttons is-centered'>
-          <button className='button is-link is-outlined' onClick={clearModal}>
+          <button ref={inputRef} className='button is-link is-outlined' onClick={clearModal}>
             Ok
           </button>
         </footer>

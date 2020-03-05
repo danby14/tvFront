@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 
 import { AuthContext } from '../../context/auth-context';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import useForm from 'react-hook-form';
 import axios from 'axios';
 
@@ -10,8 +10,10 @@ import Modal from '../../shared/Modal';
 const DeleteLeague = () => {
   const auth = useContext(AuthContext);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  const [redirectOnSuccess, setRedirectOnSuccess] = useState(false);
   const { register, handleSubmit, errors } = useForm();
-  // const history = useHistory();
+  const history = useHistory();
   const lid = auth.leagueNum[0];
   const lgName = auth.leagueName[0];
 
@@ -32,6 +34,7 @@ const DeleteLeague = () => {
         }
       );
       console.warn(response.data.message);
+      setSuccess(response.data.message);
       // history.push('/Leagues');
     } catch (err) {
       setError(err.response.data);
@@ -44,9 +47,8 @@ const DeleteLeague = () => {
         <h1 className='title has-text-danger'>
           Are you sure you want to remove a member from {lgName}?
         </h1>
-        <h2 className='subtitle has-text-danger'>
-          This can not be undone, and all user information associated with this league will be lost
-          forever
+        <h2 className='subtitle has-text-dark'>
+          To proceed, please fill out the following information.
         </h2>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className='field'>
@@ -56,7 +58,6 @@ const DeleteLeague = () => {
                 className='input'
                 name='leagueName'
                 type='text'
-                // defaultValue={lid}
                 ref={register({ required: 'Please Enter Valid League Name' })}
               />
               <p className='has-text-danger'>{errors.leagueName && errors.leagueName.message}</p>
@@ -96,7 +97,7 @@ const DeleteLeague = () => {
           </div>
 
           <div className='field'>
-            <label htmlFor='userToDel'>Member you wish to remove from league.</label>
+            <label htmlFor='userToDel'>Member you wish to remove from the league.</label>
             <div className='control'>
               <input
                 className='input'
@@ -114,9 +115,25 @@ const DeleteLeague = () => {
       </div>
       <div className='column'></div>
 
+      {success && (
+        <div className='has-text-left'>
+          <Modal
+            title='User has been deleted'
+            message={success}
+            stateHandler={setSuccess}
+            extras={setRedirectOnSuccess}
+          />
+        </div>
+      )}
+
+      {redirectOnSuccess &&
+        setTimeout(() => {
+          history.push('/Leagues');
+        }, 1)}
+
       {error && (
         <div className='has-text-left'>
-          <Modal title='Deleting League Failed' error={error} setError={setError} />
+          <Modal title='Deleting League Failed' message={error} stateHandler={setError} />
         </div>
       )}
     </div>

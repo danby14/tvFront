@@ -132,7 +132,7 @@ function Register() {
           <input className='button is-link is-outlined' type='submit' value='Register'></input>
         </div>
       </form>
-      {error && <Modal title='Registration Failed' error={error} setError={setError} />}
+      {error && <Modal title='Registration Failed' message={error} stateHandler={setError} />}
     </div>
   );
 }

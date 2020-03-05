@@ -59,7 +59,7 @@ function Login() {
           <input className='button is-link is-outlined' type='submit' value='Sign In'></input>
         </div>
       </form>
-      {error && <Modal title='Login Failed' error={error} setError={setError} />}
+      {error && <Modal title='Login Failed' message={error} stateHandler={setError} />}
     </div>
   );
 }
