@@ -9,8 +9,18 @@ html {
 /* to keep the table header sticky when scrolling */
 th {
   background: white;
+  position: -webkit-sticky;
   position: sticky;
-  top: 55px;
+  top: 0px;
+}
+.fix-table-scroll {
+  overflow: auto;
+  height: 82vh;
+}
+@media screen and (max-width: 1023px) {
+  .is-mobile-table-overflow-fix {
+    display: block !important;
+  }
 }
 
 /* makes the hamburger menu work through css instead of js */
@@ -23,7 +33,7 @@ th {
 }
 
 /* fixes dropdown menu from staying open after clicking on it, still need hamburger to close on mobile */
-@media screen and (min-width: 1025px) {
+@media screen and (min-width: 1024px) {
   .navbar-item.is-hoverable:hover .navbar-dropdown {
     display: inline !important;
   }
@@ -34,4 +44,21 @@ th {
 
 .is-underlined {
   border-bottom: 1px solid currentColor;
+}
+
+.has-radius {
+  border-radius: 8px;
+}
+.has-radius-top-left {
+  border-radius: 8px 0 0 0;
+}
+.has-radius-top-right {
+  border-radius: 0 8px 0 0;
+}
+
+.is-divider {
+  display: block;
+  position: relative;
+  border-top: 0.35rem solid #cfcfcf;
+  height: 0.35rem;
 }

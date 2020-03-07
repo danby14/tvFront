@@ -36,9 +36,9 @@ const Standings = ({ members, networks, lgName }) => {
   };
 
   return (
-    <>
+    <div className='fix-table-scroll'>
       {networks.length !== 0 && (
-        <table className='table is-hoverable is-fullwidth'>
+        <table className='table is-hoverable is-fullwidth '>
           <thead>
             <tr className='has-background-light'>
               <th>League: {lgName}</th>
@@ -55,8 +55,12 @@ const Standings = ({ members, networks, lgName }) => {
           <tbody>
             {networks.map((network, n) => (
               <React.Fragment key={n}>
-                <tr>
-                  <td className='has-text-info'>{network.network}</td>
+                <tr className='has-background-white-bis'>
+                  <td className='has-text-info has-text-weight-medium'>{network.network}</td>
+                  {members.map((member, x) => (
+                    <td key={x}></td>
+                  ))}
+                  <td></td>
                 </tr>
                 {members[0].predictions[n].shows.map((memberZeroPredictions, i) => {
                   const finalResult = network.shows[i].finalResult;
@@ -112,7 +116,7 @@ const Standings = ({ members, networks, lgName }) => {
           </tbody>
         </table>
       )}
-    </>
+    </div>
   );
 };
 

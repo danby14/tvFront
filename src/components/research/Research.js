@@ -4,507 +4,297 @@ import './research.css';
 
 function Research() {
   return (
-    // <div className='table-container'>
-    <div className='content'>
-      <table className='table is-hoverable is-fullwidth is-scrollable'>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Age</th>
-            <th>Job</th>
-            <th>Color</th>
-            <th>URL</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Lorem.</td>
-            <td>Ullam.</td>
-            <td>Vel.</td>
-            <td>At.</td>
-            <td>Quis.</td>
-          </tr>
-          <tr>
-            <td>Quas!</td>
-            <td>Velit.</td>
-            <td>Quisquam?</td>
-            <td>Rerum?</td>
-            <td>Iusto?</td>
-          </tr>
-          <tr>
-            <td>Voluptates!</td>
-            <td>Fugiat?</td>
-            <td>Alias.</td>
-            <td>Doloribus.</td>
-            <td>Veritatis.</td>
-          </tr>
-          <tr>
-            <td>Maiores.</td>
-            <td>Ab.</td>
-            <td>Accusantium.</td>
-            <td>Ullam!</td>
-            <td>Eveniet.</td>
-          </tr>
-          <tr>
-            <td>Hic.</td>
-            <td>Id!</td>
-            <td>Officiis.</td>
-            <td>Modi!</td>
-            <td>Obcaecati.</td>
-          </tr>
-          <tr>
-            <td>Ea.</td>
-            <td>Culpa?</td>
-            <td>Quam?</td>
-            <td>Nemo!</td>
-            <td>Sit!</td>
-          </tr>
-          <tr>
-            <td>Veritatis!</td>
-            <td>Facilis.</td>
-            <td>Expedita?</td>
-            <td>Ipsam!</td>
-            <td>Omnis!</td>
-          </tr>
-          <tr>
-            <td>Vitae.</td>
-            <td>Cumque.</td>
-            <td>Repudiandae.</td>
-            <td>Ut?</td>
-            <td>Sed!</td>
-          </tr>
-          <tr>
-            <td>Accusantium.</td>
-            <td>Adipisci.</td>
-            <td>Sit.</td>
-            <td>Maxime.</td>
-            <td>Harum.</td>
-          </tr>
-          <tr>
-            <td>Qui!</td>
-            <td>Accusamus?</td>
-            <td>Minima?</td>
-            <td>Dolorum.</td>
-            <td>Molestiae.</td>
-          </tr>
-          <tr>
-            <td>Vero!</td>
-            <td>Voluptatum?</td>
-            <td>Ea?</td>
-            <td>Odit!</td>
-            <td>A.</td>
-          </tr>
-          <tr>
-            <td>Debitis.</td>
-            <td>Veniam.</td>
-            <td>Fuga.</td>
-            <td>Alias!</td>
-            <td>Recusandae!</td>
-          </tr>
-          <tr>
-            <td>Aperiam!</td>
-            <td>Dolorum.</td>
-            <td>Enim.</td>
-            <td>Sapiente!</td>
-            <td>Suscipit?</td>
-          </tr>
-          <tr>
-            <td>Consequuntur.</td>
-            <td>Doloremque.</td>
-            <td>Illum!</td>
-            <td>Iste!</td>
-            <td>Sint!</td>
-          </tr>
-          <tr>
-            <td>Facilis.</td>
-            <td>Error.</td>
-            <td>Fugiat.</td>
-            <td>At.</td>
-            <td>Modi?</td>
-          </tr>
-          <tr>
-            <td>Voluptatibus!</td>
-            <td>Alias.</td>
-            <td>Eaque.</td>
-            <td>Cum.</td>
-            <td>Ducimus!</td>
-          </tr>
-          <tr>
-            <td>Nihil.</td>
-            <td>Enim.</td>
-            <td>Earum?</td>
-            <td>Nobis?</td>
-            <td>Eveniet.</td>
-          </tr>
-          <tr>
-            <td>Eum!</td>
-            <td>Id?</td>
-            <td>Molestiae.</td>
-            <td>Velit.</td>
-            <td>Minima.</td>
-          </tr>
-          <tr>
-            <td>Sapiente?</td>
-            <td>Neque.</td>
-            <td>Obcaecati!</td>
-            <td>Earum.</td>
-            <td>Esse.</td>
-          </tr>
-
-          <tr>
-            <td>Magni.</td>
-            <td>Temporibus!</td>
-            <td>Odio!</td>
-            <td>Odit!</td>
-            <td>Voluptatum?</td>
-          </tr>
-          <tr>
-            <td>Eum.</td>
-            <td>Animi!</td>
-            <td>Labore.</td>
-            <td>Alias!</td>
-            <td>Fuga.</td>
-          </tr>
-          <tr>
-            <td>Quia!</td>
-            <td>Quis.</td>
-            <td>Neque?</td>
-            <td>Illo.</td>
-            <td>Ad.</td>
-          </tr>
-          <tr>
-            <td>Officiis.</td>
-            <td>Exercitationem!</td>
-            <td>Adipisci?</td>
-            <td>Officiis?</td>
-            <td>In?</td>
-          </tr>
-          <tr>
-            <td>Voluptates?</td>
-            <td>Voluptatum.</td>
-            <td>Nihil.</td>
-            <td>Totam?</td>
-            <td>Quisquam!</td>
-          </tr>
-          <tr>
-            <td>Soluta.</td>
-            <td>Tempore!</td>
-            <td>Cupiditate.</td>
-            <td>Beatae.</td>
-            <td>Perspiciatis.</td>
-          </tr>
-          <tr>
-            <td>Porro.</td>
-            <td>Officia?</td>
-            <td>Error.</td>
-            <td>Culpa?</td>
-            <td>Fugit.</td>
-          </tr>
-          <tr>
-            <td>Et?</td>
-            <td>Nemo.</td>
-            <td>Nisi?</td>
-            <td>Totam!</td>
-            <td>Voluptate.</td>
-          </tr>
-          <tr>
-            <td>Saepe?</td>
-            <td>Vero.</td>
-            <td>Amet?</td>
-            <td>Illo!</td>
-            <td>Laborum!</td>
-          </tr>
-          <tr>
-            <td>Possimus?</td>
-            <td>Qui.</td>
-            <td>Consequuntur.</td>
-            <td>Deleniti.</td>
-            <td>Voluptas.</td>
-          </tr>
-          <tr>
-            <td>Hic?</td>
-            <td>Ab.</td>
-            <td>Asperiores?</td>
-            <td>Omnis.</td>
-            <td>Animi!</td>
-          </tr>
-          <tr>
-            <td>Cupiditate.</td>
-            <td>Velit.</td>
-            <td>Libero.</td>
-            <td>Iste.</td>
-            <td>Dicta?</td>
-          </tr>
-          <tr>
-            <td>Consequatur!</td>
-            <td>Nobis.</td>
-            <td>Aperiam!</td>
-            <td>Odio.</td>
-            <td>Nemo!</td>
-          </tr>
-          <tr>
-            <td>Dolorem.</td>
-            <td>Distinctio?</td>
-            <td>Provident?</td>
-            <td>Nisi!</td>
-            <td>Impedit?</td>
-          </tr>
-          <tr>
-            <td>Accusantium?</td>
-            <td>Ea.</td>
-            <td>Doloribus.</td>
-            <td>Nobis.</td>
-            <td>Maxime?</td>
-          </tr>
-          <tr>
-            <td>Molestiae.</td>
-            <td>Rem?</td>
-            <td>Enim!</td>
-            <td>Maxime?</td>
-            <td>Reiciendis!</td>
-          </tr>
-          <tr>
-            <td>Commodi.</td>
-            <td>At.</td>
-            <td>Earum?</td>
-            <td>Fugit.</td>
-            <td>Maxime?</td>
-          </tr>
-          <tr>
-            <td>Eligendi?</td>
-            <td>Quis.</td>
-            <td>Error?</td>
-            <td>Atque.</td>
-            <td>Perferendis.</td>
-          </tr>
-          <tr>
-            <td>Quidem.</td>
-            <td>Odit!</td>
-            <td>Tempore.</td>
-            <td>Voluptates.</td>
-            <td>Facere!</td>
-          </tr>
-          <tr>
-            <td>Repudiandae!</td>
-            <td>Accusamus?</td>
-            <td>Soluta.</td>
-            <td>Incidunt.</td>
-            <td>Aliquid?</td>
-          </tr>
-          <tr>
-            <td>Quisquam?</td>
-            <td>Eius.</td>
-            <td>Obcaecati?</td>
-            <td>Maxime.</td>
-            <td>Nihil.</td>
-          </tr>
-          <tr>
-            <td>Minus.</td>
-            <td>Magni?</td>
-            <td>Necessitatibus?</td>
-            <td>Asperiores.</td>
-            <td>Iure.</td>
-          </tr>
-          <tr>
-            <td>Ipsa!</td>
-            <td>Temporibus.</td>
-            <td>Non!</td>
-            <td>Dolore.</td>
-            <td>Veritatis.</td>
-          </tr>
-          <tr>
-            <td>Ea!</td>
-            <td>Officia?</td>
-            <td>Doloribus?</td>
-            <td>Deleniti?</td>
-            <td>Dolorem!</td>
-          </tr>
-          <tr>
-            <td>Sequi?</td>
-            <td>Molestias!</td>
-            <td>Nesciunt.</td>
-            <td>Qui.</td>
-            <td>Doloribus?</td>
-          </tr>
-          <tr>
-            <td>Id.</td>
-            <td>Enim?</td>
-            <td>Quam!</td>
-            <td>Sunt!</td>
-            <td>Consequuntur.</td>
-          </tr>
-          <tr>
-            <td>Reprehenderit?</td>
-            <td>Ut?</td>
-            <td>Veritatis!</td>
-            <td>Corporis!</td>
-            <td>Ipsa.</td>
-          </tr>
-          <tr>
-            <td>Blanditiis!</td>
-            <td>Veniam!</td>
-            <td>Tenetur.</td>
-            <td>Eos?</td>
-            <td>Repellat!</td>
-          </tr>
-          <tr>
-            <td>Enim?</td>
-            <td>Atque!</td>
-            <td>Aspernatur?</td>
-            <td>Fugit.</td>
-            <td>Voluptatibus!</td>
-          </tr>
-          <tr>
-            <td>Nihil.</td>
-            <td>Distinctio!</td>
-            <td>Aut!</td>
-            <td>Rerum!</td>
-            <td>Dolorem?</td>
-          </tr>
-
-          <tr>
-            <td>Blanditiis?</td>
-            <td>Impedit.</td>
-            <td>Libero?</td>
-            <td>Reiciendis!</td>
-            <td>Tempore.</td>
-          </tr>
-          <tr>
-            <td>Quasi.</td>
-            <td>Reiciendis.</td>
-            <td>Aut?</td>
-            <td>Architecto?</td>
-            <td>Vero!</td>
-          </tr>
-          <tr>
-            <td>Fuga!</td>
-            <td>Illum!</td>
-            <td>Tenetur!</td>
-            <td>Vitae.</td>
-            <td>Natus.</td>
-          </tr>
-          <tr>
-            <td>Dolorem?</td>
-            <td>Eaque!</td>
-            <td>Vero?</td>
-            <td>Quibusdam.</td>
-            <td>Deleniti?</td>
-          </tr>
-          <tr>
-            <td>Minus.</td>
-            <td>Accusantium?</td>
-            <td>Ab.</td>
-            <td>Cupiditate.</td>
-            <td>Atque?</td>
-          </tr>
-          <tr>
-            <td>Hic.</td>
-            <td>Eligendi.</td>
-            <td>Sit?</td>
-            <td>Nihil.</td>
-            <td>Dolor.</td>
-          </tr>
-          <tr>
-            <td>Quidem.</td>
-            <td>In?</td>
-            <td>Nesciunt?</td>
-            <td>Adipisci.</td>
-            <td>Neque.</td>
-          </tr>
-          <tr>
-            <td>Eos.</td>
-            <td>Incidunt!</td>
-            <td>Quis?</td>
-            <td>Quod?</td>
-            <td>Vitae!</td>
-          </tr>
-          <tr>
-            <td>Ullam!</td>
-            <td>Facilis.</td>
-            <td>Tempora!</td>
-            <td>Accusantium.</td>
-            <td>Consequuntur?</td>
-          </tr>
-          <tr>
-            <td>Numquam?</td>
-            <td>At.</td>
-            <td>Incidunt.</td>
-            <td>Tenetur?</td>
-            <td>Voluptatem.</td>
-          </tr>
-          <tr>
-            <td>Iusto?</td>
-            <td>Inventore.</td>
-            <td>Molestias.</td>
-            <td>Accusantium.</td>
-            <td>Sunt.</td>
-          </tr>
-          <tr>
-            <td>Repellendus!</td>
-            <td>Ex.</td>
-            <td>Magnam.</td>
-            <td>Odit!</td>
-            <td>Iste?</td>
-          </tr>
-          <tr>
-            <td>Id!</td>
-            <td>Reiciendis?</td>
-            <td>Rem.</td>
-            <td>Quae!</td>
-            <td>Laborum?</td>
-          </tr>
-          <tr>
-            <td>Exercitationem?</td>
-            <td>Maiores.</td>
-            <td>Minima.</td>
-            <td>Nemo!</td>
-            <td>Sequi.</td>
-          </tr>
-          <tr>
-            <td>Qui.</td>
-            <td>Impedit?</td>
-            <td>Reprehenderit.</td>
-            <td>Distinctio.</td>
-            <td>Natus?</td>
-          </tr>
-          <tr>
-            <td>Suscipit!</td>
-            <td>Tenetur.</td>
-            <td>Cumque!</td>
-            <td>Molestiae.</td>
-            <td>Fugiat?</td>
-          </tr>
-          <tr>
-            <td>Sunt?</td>
-            <td>Quis?</td>
-            <td>Officia.</td>
-            <td>Incidunt.</td>
-            <td>Voluptate.</td>
-          </tr>
-          <tr>
-            <td>Possimus.</td>
-            <td>Mollitia!</td>
-            <td>Eveniet!</td>
-            <td>Temporibus.</td>
-            <td>Mollitia!</td>
-          </tr>
-          <tr>
-            <td>Incidunt.</td>
-            <td>Fugiat.</td>
-            <td>Error.</td>
-            <td>Odit.</td>
-            <td>Cumque?</td>
-          </tr>
-          <tr>
-            <td>Maxime?</td>
-            <td>Qui!</td>
-            <td>Sapiente!</td>
-            <td>Natus.</td>
-            <td>Soluta?</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <table className='table has-text-dark is-fullwidth'>
+      <thead>
+        <tr>
+          <th>Author</th>
+          <th>Title</th>
+          <th>Year</th>
+          <th>ISBN-13</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Miguel De Cervantes</td>
+          <td>The Ingenious Gentleman Don Quixote of La Mancha</td>
+          <td>1605</td>
+          <td>9783125798502</td>
+        </tr>
+        <tr>
+          <td>Gabrielle-Suzanne Barbot de Villeneuve</td>
+          <td>La Belle et la Bête</td>
+          <td>1740</td>
+          <td>9781910880067</td>
+        </tr>
+        <tr>
+          <td>Sir Isaac Newton</td>
+          <td>
+            The Method of Fluxions and Infinite Series: With Its Application to the Geometry of
+            Curve-lines
+          </td>
+          <td>1763</td>
+          <td>9781330454862</td>
+        </tr>
+        <tr>
+          <td>Mary Shelley</td>
+          <td>Frankenstein; or, The Modern Prometheus</td>
+          <td>1818</td>
+          <td>9781530278442</td>
+        </tr>
+        <tr>
+          <td>Herman Melville</td>
+          <td>Moby-Dick; or, The Whale</td>
+          <td>1851</td>
+          <td>9781530697908</td>
+        </tr>
+        <tr>
+          <td>Emma Dorothy Eliza Nevitte Southworth</td>
+          <td>The Hidden Hand</td>
+          <td>1888</td>
+          <td>9780813512969</td>
+        </tr>
+        <tr>
+          <td>F. Scott Fitzgerald</td>
+          <td>The Great Gatsby</td>
+          <td>1925</td>
+          <td>9780743273565</td>
+        </tr>
+        <tr>
+          <td>George Orwell</td>
+          <td>Nineteen Eighty-Four</td>
+          <td>1948</td>
+          <td>9780451524935</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+        <tr>
+          <td>Nnedi Okorafor</td>
+          <td>Who Fears Death</td>
+          <td>2010</td>
+          <td>9780756406691</td>
+        </tr>
+      </tbody>
+    </table>
   );
 }
 

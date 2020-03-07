@@ -25,15 +25,22 @@ const Auth = () => {
     <div className='columns container'>
       <div className='column'></div>
       <div className='column'>
-        <div className='card'>
-          <footer className='card-footer is-clickable has-text-white'>
-            <p className={`card-footer-item ${loginClass}`} onClick={loginHandler}>
+        <div className='card has-radius'>
+          <footer className='card-footer is-clickable has-text-white has-radius'>
+            <p
+              className={`card-footer-item ${loginClass} has-radius-top-left`}
+              onClick={loginHandler}
+            >
               <span>Sign In</span>
             </p>
-            <p className={`card-footer-item ${registerClass}`} onClick={registerHandler}>
+            <p
+              className={`card-footer-item ${registerClass} has-radius-top-right`}
+              onClick={registerHandler}
+            >
               <span>Register</span>
             </p>
           </footer>
+          <div className='is-divider'></div>
           <div className='card-content'>
             {login && <Login />}
             {register && <Register />}

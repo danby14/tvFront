@@ -99,7 +99,7 @@ const App = () => {
         <Route path='/blog'>
           <Blog />
         </Route>
-        <Route path='/Research'>
+        <Route path='/research'>
           <Research />
         </Route>
         <Route path='/account' component={Account} />
@@ -132,15 +132,17 @@ const App = () => {
     >
       <Router>
         <>
-          <div className='navbar is-transparent'>
+          <div className='navbar'>
             <MainNavbar2 leagueName={leagueName} token={token} />
           </div>
           <section className='hero is-link is-fullheight-with-navbar'>
             {/* <div className='hero-head'>
               <div className='league-navbar'>{token && leagueName && <LeagueNavbar />}</div>
             </div> */}
-            <div className='hero-body has-background-grey-lighter'>
+            <div className='hero-body has-background-grey-lighter is-mobile-table-overflow-fix'>
+              {/* <div className='container is-this-high flowy'> */}
               <div className='container'>{routes}</div>
+              {/* </div> */}
             </div>
             <div className='hero-foot has-text-centered'>contact help about feedback (c)2020</div>
           </section>
