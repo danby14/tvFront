@@ -140,9 +140,7 @@ const App = () => {
               <div className='league-navbar'>{token && leagueName && <LeagueNavbar />}</div>
             </div> */}
             <div className='hero-body has-background-grey-lighter is-mobile-table-overflow-fix'>
-              {/* <div className='container is-this-high flowy'> */}
               <div className='container'>{routes}</div>
-              {/* </div> */}
             </div>
             <div className='hero-foot has-text-centered'>contact help about feedback (c)2020</div>
           </section>

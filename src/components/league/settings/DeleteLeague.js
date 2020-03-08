@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 
 import { AuthContext } from '../../context/auth-context';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import useForm from 'react-hook-form';
 import axios from 'axios';
 
@@ -14,7 +14,7 @@ const DeleteLeague = () => {
   const [redirectOnSuccess, setRedirectOnSuccess] = useState(false);
   const { register, handleSubmit, errors } = useForm();
   const history = useHistory();
-  const lid = auth.leagueNum[0];
+  // const lid = auth.leagueNum[0];
   const lgName = auth.leagueName[0];
 
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
@@ -28,7 +28,8 @@ const DeleteLeague = () => {
           data: {
             leagueName: data.leagueName,
             leagueId: data.leagueId,
-            leaguePassword: data.leaguePassword
+            leaguePassword: data.leaguePassword,
+            lidChecker: lid
           }
         }
       );
@@ -38,6 +39,9 @@ const DeleteLeague = () => {
       setError(err.response.data);
     }
   };
+
+  let { lid } = useParams();
+
   return (
     <div className='columns has-text-centered has-text-dark '>
       <div className='column'></div>

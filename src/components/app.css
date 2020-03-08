@@ -32,7 +32,6 @@ th {
   display: block;
 }
 
-/* fixes dropdown menu from staying open after clicking on it, still need hamburger to close on mobile */
 @media screen and (min-width: 1024px) {
   .navbar-item.is-hoverable:hover .navbar-dropdown {
     display: inline !important;
