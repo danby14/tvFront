@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import UserPrediction from './UserPrediction';
 import Pagination from '../../shared/Pagination';
+import Person from '../../../assets/Person';
+import Antenna from '../../../assets/Antenna';
 
 const MakePredictions = ({ networks, lid, members, changes }) => {
   const [currentNetwork, setCurrentNetwork] = useState(1);
@@ -32,6 +34,9 @@ const MakePredictions = ({ networks, lid, members, changes }) => {
     <div className='columns'>
       <div className='column'></div>
       <div className='column'>
+        <div className='has-text-centered'>
+          <Antenna size={28} />
+        </div>
         <div className='box'>
           <h3 className='title has-text-centered is-3 has-text-grey-darker'>Make Predicitons</h3>
 
@@ -64,7 +69,11 @@ const MakePredictions = ({ networks, lid, members, changes }) => {
           ))}
         </div>
       </div>
-      <div className='column'></div>
+      <div className='column'>
+        <div className='has-svg has-text-centered'>
+          <Person size={55} />
+        </div>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,47 @@
+#girl1 {
+  fill: rgba(192, 192, 192, 0.705);
+  animation: jump 2s ease-in both;
+}
+#girl2 {
+  fill: rgba(255, 217, 0, 0.705);
+  animation: fall 1.5s 1s ease-in both;
+  transform-origin: center;
+}
+
+#boy1 {
+  fill: hsla(30, 61%, 50%, 0.705);
+  animation: celebrate 0.75s linear 1.8s 4;
+}
+
+@keyframes jump {
+  0% {
+    transform: translateZ(0) translateY(0) translateX(0) rotateZ(0deg);
+  }
+  50% {
+    transform: translateZ(-200px) translateY(-45px) translateX(65px) rotateZ(-5deg);
+  }
+  100% {
+    transform: translateZ(-400px) translateY(-90px) translateX(138px) rotateZ(3deg);
+    fill: rgba(255, 217, 0, 0.705);
+  }
+}
+
+@keyframes fall {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(105deg);
+    fill: rgba(192, 192, 192, 0.705);
+  }
+}
+
+@keyframes celebrate {
+  0%,
+  100% {
+    transform: translateZ(0) translateY(0) translateX(0) rotateZ(0deg);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}

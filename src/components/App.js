@@ -135,11 +135,11 @@ const App = () => {
           <div className='navbar'>
             <MainNavbar2 leagueName={leagueName} token={token} />
           </div>
-          <section className='hero is-link is-fullheight-with-navbar'>
+          <section className='hero is-dark is-bold is-fullheight-with-navbar'>
             {/* <div className='hero-head'>
               <div className='league-navbar'>{token && leagueName && <LeagueNavbar />}</div>
             </div> */}
-            <div className='hero-body has-background-grey-lighter is-mobile-table-overflow-fix'>
+            <div className='hero-body has-background-white-ter is-mobile-table-overflow-fix'>
               <div className='container'>{routes}</div>
             </div>
             <div className='hero-foot has-text-centered'>contact help about feedback (c)2020</div>

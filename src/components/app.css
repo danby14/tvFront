@@ -7,7 +7,7 @@ html {
 }
 
 /* to keep the table header sticky when scrolling */
-th {
+.is-stuck {
   background: white;
   position: -webkit-sticky;
   position: sticky;
@@ -21,6 +21,12 @@ th {
   .is-mobile-table-overflow-fix {
     display: block !important;
   }
+}
+
+.has-svg {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 35vh;
 }
 
 /* makes the hamburger menu work through css instead of js */

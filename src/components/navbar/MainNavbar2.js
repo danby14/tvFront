@@ -12,7 +12,11 @@ const MainNavbar2 = ({ leagueName, token }) => {
   };
 
   return (
-    <nav className='navbar is-link is-fixed-top' role='navigation' aria-label='main navigation'>
+    <nav
+      className='navbar is-dark is-bold is-fixed-top'
+      role='navigation'
+      aria-label='main navigation'
+    >
       <div className='navbar-brand'>
         <NavLink
           exact
@@ -136,14 +140,14 @@ const MainNavbar2 = ({ leagueName, token }) => {
           <div className='navbar-item'>
             <div className='buttons'>
               {!auth.isLoggedIn && (
-                <Link to='/auth' className='button is-primary' onClick={clickAndClose}>
+                <Link to='/auth' className='button is-light' onClick={clickAndClose}>
                   Sign In
                 </Link>
               )}
 
               {auth.isLoggedIn && (
                 <button
-                  className='button is-primary'
+                  className='button is-light'
                   onClick={() => {
                     auth.logout();
                     clickAndClose();

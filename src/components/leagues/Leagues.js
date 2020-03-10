@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/auth-context';
 import axios from 'axios';
+import Box from '../shared/Box';
 
 const Leagues = () => {
   const auth = useContext(AuthContext);
@@ -40,49 +41,61 @@ const Leagues = () => {
 
   if (leagues.length === 0 && !isLoading) {
     return (
-      <div className='has-text-dark has-text-centered'>
-        <p className='title has-text-primary'>
-          {/* Welcome {auth.userId}. <br />
-          <br /> */}
-          You are not currently in any leagues. <br />
-          <br />
-          <br />
-          What would you like to do?
-        </p>
+      <div className='columns'>
+        <div className='column'></div>
+        <div className='column'>
+          <Box svgSize={35}>
+            <div className='has-text-dark has-text-centered'>
+              <div className='content'>
+                <p className='is-size-4 has-text-info'>You are not currently in any leagues.</p>
+                <p className='is-size-4 has-text-info'>What would you like to do?</p>
+              </div>
+              <Link to='/JoinLeague'>
+                <button className='button'>Join an Existing League</button>
+              </Link>
 
-        <br />
-        <Link to='/JoinLeague'>
-          <button className='button'>Join an Existing League</button>
-        </Link>
-
-        <br />
-        <br />
-        <p>or</p>
-        <br />
-        <Link to='/CreateLeague'>
-          <button className='button'>Create a New League</button>
-        </Link>
+              <br />
+              <br />
+              <p>or</p>
+              <br />
+              <Link to='/CreateLeague'>
+                <button className='button'>Create a New League</button>
+              </Link>
+            </div>
+          </Box>
+        </div>
+        <div className='column'></div>
       </div>
     );
   }
 
   return (
-    <div className='container content has-text-centered'>
-      <h2>Your Leagues</h2>
-      <div className='content has-text-primary has-text-centered'>
-        {leagues.length > 0 &&
-          leagues.map(lg => (
-            <p key={lg._id} id={lg._id}>
-              <Link to={`/LeagueHome/${lg._id}`}>{lg.leagueName}</Link>
-            </p>
-          ))}
+    <div className='columns'>
+      <div className='column'></div>
+      <div className='column'>
+        <Box className='box has-text-centered' svgSize={28}>
+          <h2 className='title has-text-dark'>Your Leagues</h2>
+          <div className='content has-text-centered'>
+            {leagues.length > 0 &&
+              leagues.map(lg => (
+                <p key={lg._id} id={lg._id}>
+                  <Link className='has-text-link is-size-5' to={`/LeagueHome/${lg._id}`}>
+                    {lg.leagueName}
+                  </Link>
+                </p>
+              ))}
+            <p>-----</p>
+          </div>
+          <Link to='/JoinLeague'>
+            <button className='button'>Join an Existing League</button>
+          </Link>
+
+          <Link to='/CreateLeague'>
+            <button className='button'>Create a New League</button>
+          </Link>
+        </Box>
       </div>
-      <Link to='/JoinLeague'>
-        <button className='button is-small'>Join an Existing League</button>
-      </Link>
-      <Link to='/CreateLeague'>
-        <button className='button is-small'>Create a New League</button>
-      </Link>
+      <div className='column'></div>
     </div>
   );
 };

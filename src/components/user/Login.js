@@ -56,7 +56,7 @@ function Login() {
         </div>
 
         <div className='has-text-centered'>
-          <input className='button is-link is-outlined' type='submit' value='Sign In'></input>
+          <input className='button is-dark is-outlined' type='submit' value='Sign In'></input>
         </div>
       </form>
       {error && <Modal title='Login Failed' message={error} stateHandler={setError} />}
