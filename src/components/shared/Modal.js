@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-const Modal = ({ title, message, stateHandler, extras }) => {
+const Modal = ({ children, title, message, stateHandler, extras }) => {
   const inputRef = useRef(null);
   useEffect(() => {
     inputRef.current.focus();
@@ -20,10 +20,13 @@ const Modal = ({ title, message, stateHandler, extras }) => {
         <header className='modal-card-head'>
           <p className='modal-card-title has-text-danger'>{title}</p>
         </header>
-        <section className='modal-card-body'>{message}.</section>
+        <section className='modal-card-body'>
+          {message}
+          {children}
+        </section>
         <footer className='modal-card-foot buttons is-centered'>
           <button ref={inputRef} className='button is-link is-outlined' onClick={clearModal}>
-            Ok
+            Close
           </button>
         </footer>
       </div>

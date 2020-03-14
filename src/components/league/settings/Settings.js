@@ -11,7 +11,7 @@ function Settings({ league }) {
   const commissioner = league.commissioner[0].toString();
   return (
     <div className='container has-text-dark has-text-centered'>
-      {auth.userId === commissioner ? <Commissioner /> : <UserSettings />}
+      {auth.userId === commissioner ? <Commissioner league={league} /> : <UserSettings />}
     </div>
   );
 }

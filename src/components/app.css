@@ -15,7 +15,7 @@ html {
 }
 .fix-table-scroll {
   overflow: auto;
-  height: 82vh;
+  height: 80vh;
 }
 @media screen and (max-width: 1023px) {
   .is-mobile-table-overflow-fix {

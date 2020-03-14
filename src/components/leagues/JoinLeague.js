@@ -65,7 +65,7 @@ const JoinLeague = () => {
         </form>
         {error && (
           <div className='has-text-left'>
-            <Modal title='Joining League Failed' error={error} setError={setError} />
+            <Modal title='Joining League Failed' message={error} stateHandler={setError} />
           </div>
         )}
       </div>

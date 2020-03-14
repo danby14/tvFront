@@ -21,11 +21,16 @@ const Account = () => {
             </p>
           ))
         );
-        setBirthday(response.data.birthdate.substring(0, 10));
+        // setBirthday(new Date(response.data.birthdate).substring(0, 10));
+        // setBirthday(new Date(response.data.birthdate));
+        // setBirthday(response.data.birthdate.substring(0, 10));
+        setBirthday(new Date(response.data.birthdate).toUTCString().split(' '));
       } catch (err) {}
     };
     fetchUser();
   }, [uid]);
+
+  console.log(birthday);
 
   return (
     <div className='content has-text-dark'>
@@ -33,7 +38,11 @@ const Account = () => {
       <h2 className='has-text-primary'>Email</h2>
       <p>{user.email}</p>
       <h2 className='has-text-primary'>Birthday</h2>
-      <p>{birthday}</p>
+      {birthday && (
+        <p>
+          {birthday[2]} {birthday[1]}, {birthday[3]}
+        </p>
+      )}
       <h2 className='has-text-primary'>Gender</h2>
       <p>{user.gender}</p>
       <h2 className='has-text-primary'>Leagues</h2>

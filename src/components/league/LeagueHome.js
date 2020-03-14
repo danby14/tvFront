@@ -12,7 +12,6 @@ const LeagueHome = () => {
   const [members, setMembers] = useState([]);
   const [networks, setNetworks] = useState([]);
   const [changer, setChanger] = useState(0);
-  // const [commissioner, setCommissioner] = useState([]);
   // const [leagueStarted, setLeagueStarted] = useState(true);
 
   const auth = useContext(AuthContext);
@@ -60,7 +59,12 @@ const LeagueHome = () => {
       {members.length !== 0 && networks.length !== 0 && (
         <Switch>
           <Route exact path={`${url}/`}>
-            <Standings members={members} networks={networks} lgName={league.leagueName} />
+            <Standings
+              members={members}
+              networks={networks}
+              lgName={league.leagueName}
+              startDate={league.startDate}
+            />
           </Route>
           <Route exact path={`${url}/predictions`}>
             <MakePredictions

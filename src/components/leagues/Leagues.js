@@ -47,8 +47,8 @@ const Leagues = () => {
           <Box svgSize={35}>
             <div className='has-text-dark has-text-centered'>
               <div className='content'>
-                <p className='is-size-4 has-text-info'>You are not currently in any leagues.</p>
-                <p className='is-size-4 has-text-info'>What would you like to do?</p>
+                <p className='is-size-5 has-text-info'>You are not currently in any leagues.</p>
+                <p className='is-size-5 has-text-info'>What would you like to do?</p>
               </div>
               <Link to='/JoinLeague'>
                 <button className='button'>Join an Existing League</button>
