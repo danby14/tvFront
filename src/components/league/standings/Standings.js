@@ -84,9 +84,14 @@ const Standings = ({ members, networks, lgName, startDate }) => {
                     </tr>
                     {members[0].predictions[n].shows.map((memberZeroPredictions, i) => {
                       const finalResult = network.shows[i].finalResult;
+                      // const show = network.shows[i].show;
                       const showPredictions = [memberZeroPredictions, otherMembers(n, i)].flat();
+                      // hideFinals(finalResult, memberZeroPredictions, show);
 
-                      return (
+                      // ternary hides shows with final results and null predictions, so new leagues don't show finished shows users can't make guess on
+                      return finalResult !== 0 && !memberZeroPredictions ? (
+                        <tr key={`${n}${i}`} style={{ display: 'none' }}></tr>
+                      ) : (
                         <tr key={`${n}${i}`}>
                           <>
                             <td>{network.shows[i].show}</td>
