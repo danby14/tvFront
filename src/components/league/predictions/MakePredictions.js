@@ -4,7 +4,7 @@ import Pagination from '../../shared/Pagination';
 import Person from '../../../assets/Person';
 import Antenna from '../../../assets/Antenna';
 
-const MakePredictions = ({ networks, lid, members, changes }) => {
+const MakePredictions = ({ networks, lid, members, changes, toggles }) => {
   const [currentNetwork, setCurrentNetwork] = useState(1);
   const [networksPerPage] = useState(1);
 
@@ -55,6 +55,7 @@ const MakePredictions = ({ networks, lid, members, changes }) => {
                 members={members}
                 shows={network.shows}
                 changes={changes}
+                toggles={toggles}
               />
               <div className='has-text-centered'>
                 <span onClick={prevNetwork} className={`icon ${leftArrowClass}`}>

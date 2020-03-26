@@ -16,9 +16,14 @@ const Standings = ({ members, networks, lgName, startDate }) => {
   };
 
   const findClosest = (users, result) => {
+    // 0 = undefined, so you can't win if you pick 0. next best gets it.
     const usersAdjusted = users
       .map(user =>
-        user === 0 ? 0 : user.endsWith('e') ? user.slice(0, -1) * 1 : user.slice(0, -1) * 20
+        user === '0'
+          ? undefined
+          : user.endsWith('e')
+          ? user.slice(0, -1) * 1
+          : user.slice(0, -1) * 20
       )
       .sort((a, b) => a - b);
 
@@ -65,6 +70,9 @@ const Standings = ({ members, networks, lgName, startDate }) => {
                   {members.map(member => (
                     <th className='has-text-centered is-stuck' key={member.memberId[0]._id}>
                       {member.memberId[0].username}
+                      {/* {member.memberId[0].username.slice(0, 6) +
+                        ' ' +
+                        member.memberId[0].username.slice(6, 12)} */}
                     </th>
                   ))}
 
@@ -84,12 +92,10 @@ const Standings = ({ members, networks, lgName, startDate }) => {
                     </tr>
                     {members[0].predictions[n].shows.map((memberZeroPredictions, i) => {
                       const finalResult = network.shows[i].finalResult;
-                      // const show = network.shows[i].show;
                       const showPredictions = [memberZeroPredictions, otherMembers(n, i)].flat();
-                      // hideFinals(finalResult, memberZeroPredictions, show);
 
-                      // ternary hides shows with final results and null predictions, so new leagues don't show finished shows users can't make guess on
-                      return finalResult !== 0 && !memberZeroPredictions ? (
+                      // ternary hides shows with null predictions, so new leagues don't show finished shows or unpredicted shows
+                      return memberZeroPredictions === null ? (
                         <tr key={`${n}${i}`} style={{ display: 'none' }}></tr>
                       ) : (
                         <tr key={`${n}${i}`}>

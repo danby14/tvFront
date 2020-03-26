@@ -3,12 +3,18 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import Box from '../../shared/Box';
 import Modal from '../../shared/Modal';
 import ChangeDate from './ChangeDate';
+import ChangePredictions from './ChangePredictions';
 
-const Commissioner = ({ league }) => {
+const Commissioner = ({ league, networks, toggles }) => {
   const [changeDate, setChangeDate] = useState(false);
+  const [enablePredictions, setEnablePredictions] = useState(false);
   let { url } = useRouteMatch();
 
-  function changeHandler() {
+  function changePredictionsHandler() {
+    setEnablePredictions(true);
+  }
+
+  function changeDateHandler() {
     setChangeDate(true);
   }
 
@@ -25,10 +31,10 @@ const Commissioner = ({ league }) => {
             <li>--Invite Users (9/9 remaining)</li>
             <br />
             <li>
-              --Start Date: {new Date(league.startDate).toLocaleString()}{' '}
+              --Start Date: {new Date(league.startDate).toLocaleString()}
               <span
                 className='is-clickable has-text-link has-text-weight-bold'
-                onClick={changeHandler}
+                onClick={changeDateHandler}
               >
                 *Change*
               </span>
@@ -41,7 +47,15 @@ const Commissioner = ({ league }) => {
             <br />
             <li>--Choose Networks</li>
             <br />
-            <li>--Add Network</li>
+            <li>
+              --Open Up Predictions for Individual Shows
+              <span
+                className='is-clickable has-text-link has-text-weight-bold'
+                onClick={changePredictionsHandler}
+              >
+                *Change*
+              </span>
+            </li>
             <br />
             <li>--Add Show</li>
             <br />
@@ -72,6 +86,16 @@ const Commissioner = ({ league }) => {
           <br />
           <span>
             **After hitting the submit button, changes may not be seen until after the page is
+            refreshed.
+          </span>
+        </Modal>
+      )}
+      {enablePredictions && (
+        <Modal title='Enable/Disable Individual Predictions' stateHandler={setEnablePredictions}>
+          <ChangePredictions id={league._id} toggles={toggles} networks={networks} />
+          <br />
+          <span>
+            **After hitting the enter button, changes may not be seen until after the page is
             refreshed.
           </span>
         </Modal>

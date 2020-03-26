@@ -5,7 +5,7 @@ import axios from 'axios';
 
 import { AuthContext } from '../../context/auth-context';
 
-export default function App({ shows, lid, networkNumber, members, changes }) {
+export default function App({ shows, lid, networkNumber, members, toggles, changes }) {
   const [currentData, setCurrentData] = useState({});
   const auth = useContext(AuthContext);
   const { register, handleSubmit, watch } = useForm();
@@ -15,32 +15,24 @@ export default function App({ shows, lid, networkNumber, members, changes }) {
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
   const onSubmit = async data => {
-    const newPredictions = Object.values(data);
+    const newPredictions = Object.keys(data);
     const prevPredictions = networkFinder.shows;
-    let combinedPredictions = [];
-    let j = 0;
 
-    for (let i = 0; i < prevPredictions.length; i++) {
-      if (shows[i].finalResult > 0) {
-        combinedPredictions.push(prevPredictions[i]);
-      } else {
-        combinedPredictions.push(newPredictions[j]);
-        j++;
-      }
-    }
-    // following for loop is needed for when mid season predictions are made
-    for (let mid = j; mid < newPredictions.length; mid++) {
-      combinedPredictions.push(newPredictions[mid]);
-    }
+    const combinedPredictions = shows.map((show, i) => {
+      return newPredictions.includes(shows[i].show)
+        ? data[shows[i].show]
+        : prevPredictions[i]
+        ? prevPredictions[i]
+        : null;
+    });
 
+    // console.log(combinedPredictions);
     try {
       await axios.patch(`http://localhost:5000/leagues/${lid}/predictions`, {
         predictions: { network: networkNumber, shows: combinedPredictions },
         currentNetwork: networkNumber,
         userId: auth.userId
       });
-      // console.log(response.data.league.members);
-      // response.json({ message: response.data.league.members });
       setCurrentData(watchAllFields); // so we can tell if data has been submitted by user or not yet
       changes(); // so parent can update
       // history.goBack();
@@ -52,6 +44,8 @@ export default function App({ shows, lid, networkNumber, members, changes }) {
   const member = members.find(({ memberId }) => memberId[0]._id === auth.userId);
 
   const networkFinder = member.predictions.find(({ network }) => network === networkNumber);
+
+  // console.log(toggles[networkNumber]);
 
   const isEqual = (obj1, obj2) => {
     let obj1Keys = Object.keys(obj1);
@@ -70,8 +64,7 @@ export default function App({ shows, lid, networkNumber, members, changes }) {
     <form onSubmit={handleSubmit(onSubmit)}>
       {shows.map((show, i) => (
         <div key={i} className='field'>
-          {/* {(show.finalResult === 0 || networkFinder.shows[i] !== null) && ( */}
-          {show.finalResult === 0 && (
+          {toggles[networkNumber].shows[i] === true && (
             <>
               <label className='label'>{show.show}</label>
               <div className='control'>

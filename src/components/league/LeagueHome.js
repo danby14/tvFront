@@ -71,11 +71,18 @@ const LeagueHome = () => {
               members={members}
               networks={networks}
               lid={lid}
+              toggles={league.predictionEdits}
               changes={handleChanges}
             />
           </Route>
           <Route exact path={`${url}/settings`}>
-            <Settings league={league} networks={networks} />
+            <Settings
+              league={league}
+              members={members}
+              lid={lid}
+              networks={networks}
+              toggles={league.predictionEdits}
+            />
           </Route>
         </Switch>
       )}
