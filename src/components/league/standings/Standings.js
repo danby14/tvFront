@@ -4,8 +4,9 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import CelebratingGirl from '../../../assets/CelebratingGirl';
 import CelebratingGuy from '../../../assets/CelebratingGuy';
 
-const Standings = ({ members, networks, lgName, startDate }) => {
+const Standings = ({ members, networks, lgName, startDate, predictionsAvailable }) => {
   let { url } = useRouteMatch();
+
   // get predictions for all users, besides user 0
   const otherMembers = (networkNum, shows) => {
     let others = [];
@@ -54,12 +55,12 @@ const Standings = ({ members, networks, lgName, startDate }) => {
       </div>
       <div className='column is-four-fifths'>
         <div className='content has-text-dark has-text-centered'>
-          {/* {!leagueStarted && ( */}
-          <Link to={`${url}/predictions`}>
-            Predictions must be submitted by {new Date(startDate).toLocaleString()}. Click here to
-            make yours now.
-          </Link>
-          {/* )} */}
+          {predictionsAvailable && (
+            <Link to={`${url}/predictions`}>
+              Predictions are open and must be submitted by {new Date(startDate).toLocaleString()}.
+              Click here to make yours now.
+            </Link>
+          )}
         </div>
         <div className='fix-table-scroll'>
           {networks.length !== 0 && (

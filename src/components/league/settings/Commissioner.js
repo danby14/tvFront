@@ -2,20 +2,14 @@ import React, { useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import Box from '../../shared/Box';
 import Modal from '../../shared/Modal';
-import ChangeDate from './ChangeDate';
 import ChangePredictions from './ChangePredictions';
 
 const Commissioner = ({ league, networks, toggles }) => {
-  const [changeDate, setChangeDate] = useState(false);
   const [enablePredictions, setEnablePredictions] = useState(false);
   let { url } = useRouteMatch();
 
   function changePredictionsHandler() {
     setEnablePredictions(true);
-  }
-
-  function changeDateHandler() {
-    setChangeDate(true);
   }
 
   return (
@@ -30,15 +24,7 @@ const Commissioner = ({ league, networks, toggles }) => {
             <br />
             <li>--Invite Users (9/9 remaining)</li>
             <br />
-            <li>
-              --Start Date: {new Date(league.startDate).toLocaleString()}
-              <span
-                className='is-clickable has-text-link has-text-weight-bold'
-                onClick={changeDateHandler}
-              >
-                *Change*
-              </span>
-            </li>
+            <li>--Start Date: {new Date(league.startDate).toLocaleString()}</li>
             <li>
               Can set Start Date to a future date to keep predictions open for that long / reopen
               closed predictions. Or you can set it to any day in the past to close predictions for
@@ -80,16 +66,6 @@ const Commissioner = ({ league, networks, toggles }) => {
         </Box>
       </div>
       <div className='column'></div>
-      {changeDate && (
-        <Modal title='Change Start Date' stateHandler={setChangeDate}>
-          <ChangeDate id={league._id} />
-          <br />
-          <span>
-            **After hitting the submit button, changes may not be seen until after the page is
-            refreshed.
-          </span>
-        </Modal>
-      )}
       {enablePredictions && (
         <Modal title='Enable/Disable Individual Predictions' stateHandler={setEnablePredictions}>
           <ChangePredictions id={league._id} toggles={toggles} networks={networks} />

@@ -4,7 +4,7 @@ import Pagination from '../../shared/Pagination';
 import Person from '../../../assets/Person';
 import Antenna from '../../../assets/Antenna';
 
-const MakePredictions = ({ networks, lid, members, changes, toggles }) => {
+const MakePredictions = ({ lid, startDate, networks, members, changes, toggles }) => {
   const [currentNetwork, setCurrentNetwork] = useState(1);
   const [networksPerPage] = useState(1);
 
@@ -70,6 +70,7 @@ const MakePredictions = ({ networks, lid, members, changes, toggles }) => {
           ))}
         </div>
       </div>
+      )
       <div className='column'>
         <div className='has-svg has-text-centered'>
           <Person size={55} />

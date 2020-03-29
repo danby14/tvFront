@@ -5,6 +5,7 @@ import axios from 'axios';
 import { AuthContext } from '../context/auth-context';
 import Standings from './standings/Standings';
 import MakePredictions from './predictions/MakePredictions';
+import ClosedPredictions from './predictions/ClosedPredictions';
 import Settings from './settings/Settings';
 
 const LeagueHome = () => {
@@ -12,7 +13,7 @@ const LeagueHome = () => {
   const [members, setMembers] = useState([]);
   const [networks, setNetworks] = useState([]);
   const [changer, setChanger] = useState(0);
-  // const [leagueStarted, setLeagueStarted] = useState(true);
+  // const [predictionsOpen, setPredictionsOpen] = useState(false);
 
   const auth = useContext(AuthContext);
   const [, setLeagueName] = auth.leagueName;
@@ -53,7 +54,7 @@ const LeagueHome = () => {
 
   // to get base url for use with ReactRouter
   let { url } = useRouteMatch();
-
+  const makeEdits = Date.parse(league.startDate) < Date.now() ? false : true;
   return (
     <>
       {members.length !== 0 && networks.length !== 0 && (
@@ -64,16 +65,21 @@ const LeagueHome = () => {
               networks={networks}
               lgName={league.leagueName}
               startDate={league.startDate}
+              predictionsAvailable={makeEdits}
             />
           </Route>
           <Route exact path={`${url}/predictions`}>
-            <MakePredictions
-              members={members}
-              networks={networks}
-              lid={lid}
-              toggles={league.predictionEdits}
-              changes={handleChanges}
-            />
+            {makeEdits ? (
+              <MakePredictions
+                lid={lid}
+                members={members}
+                networks={networks}
+                toggles={league.predictionEdits}
+                changes={handleChanges}
+              />
+            ) : (
+              <ClosedPredictions />
+            )}
           </Route>
           <Route exact path={`${url}/settings`}>
             <Settings
