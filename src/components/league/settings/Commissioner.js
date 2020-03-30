@@ -4,7 +4,7 @@ import Box from '../../shared/Box';
 import Modal from '../../shared/Modal';
 import ChangePredictions from './ChangePredictions';
 
-const Commissioner = ({ league, networks, toggles }) => {
+const Commissioner = ({ league, networks, toggles, changes }) => {
   const [enablePredictions, setEnablePredictions] = useState(false);
   let { url } = useRouteMatch();
 
@@ -68,7 +68,12 @@ const Commissioner = ({ league, networks, toggles }) => {
       <div className='column'></div>
       {enablePredictions && (
         <Modal title='Enable/Disable Individual Predictions' stateHandler={setEnablePredictions}>
-          <ChangePredictions id={league._id} toggles={toggles} networks={networks} />
+          <ChangePredictions
+            id={league._id}
+            toggles={toggles}
+            networks={networks}
+            changes={changes}
+          />
           <br />
           <span>
             **After hitting the enter button, changes may not be seen until after the page is

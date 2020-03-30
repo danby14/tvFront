@@ -22,9 +22,6 @@ const LeagueHome = () => {
   // get league id# from url
   const { lid } = useParams();
 
-  setLeagueNum(lid);
-  setLeagueName(league.leagueName);
-
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
   useEffect(() => {
@@ -42,11 +39,13 @@ const LeagueHome = () => {
 
         setLeague(response1.data);
         setMembers(response1.data.members);
+        setLeagueNum(lid);
+        setLeagueName(league.leagueName);
         // setCommissioner(response.data.commissioner);
       } catch (err) {}
     };
     fetchLeague();
-  }, [lid, changer]);
+  }, [lid, changer, league.leagueName, setLeagueName, setLeagueNum]);
 
   function handleChanges() {
     setChanger(changer + 1);
@@ -88,6 +87,7 @@ const LeagueHome = () => {
               lid={lid}
               networks={networks}
               toggles={league.predictionEdits}
+              changes={handleChanges}
             />
           </Route>
         </Switch>

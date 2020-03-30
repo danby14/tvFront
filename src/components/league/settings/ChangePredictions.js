@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/auth-context';
 import axios from 'axios';
 import useForm from 'react-hook-form';
 
-const ChangePredictions = ({ id, networks, toggles }) => {
+const ChangePredictions = ({ id, networks, toggles, changes }) => {
   const auth = useContext(AuthContext);
   const { register, handleSubmit, errors } = useForm();
   const [submitted, setSubmitted] = useState(false);
@@ -36,6 +36,7 @@ const ChangePredictions = ({ id, networks, toggles }) => {
         startDate: data.startDate
       });
       setSubmitted(true);
+      changes(); // so parent can update
     } catch (err) {
       console.log(err.response.data);
     }
@@ -50,7 +51,7 @@ const ChangePredictions = ({ id, networks, toggles }) => {
             className='input is-small'
             name='startDate'
             type='datetime-local'
-            defaultValue={makeISODate(new Date(), 0)}
+            defaultValue={makeISODate(new Date(), 7)}
             ref={register({ required: 'Please enter a valid date.' })}
           />
           <p className='has-text-danger'>{errors.startDate && errors.startDate.message}</p>

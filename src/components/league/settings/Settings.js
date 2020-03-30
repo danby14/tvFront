@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/auth-context';
 import Commissioner from './Commissioner';
 import UserSettings from './UserSettings';
 
-function Settings({ league, members, lid, networks, toggles }) {
+function Settings({ league, members, lid, networks, changes, toggles }) {
   const auth = useContext(AuthContext);
 
   const commissioner = league.commissioner[0].toString();
@@ -17,7 +17,8 @@ function Settings({ league, members, lid, networks, toggles }) {
           members={members}
           lid={lid}
           networks={networks}
-          toggles={league.predictionEdits}
+          changes={changes}
+          toggles={toggles}
         />
       ) : (
         <UserSettings />

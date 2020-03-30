@@ -30,8 +30,6 @@ const Account = () => {
     fetchUser();
   }, [uid]);
 
-  console.log(birthday);
-
   return (
     <div className='content has-text-dark'>
       <h2 className='has-text-primary'>Welcome, {user.username}</h2>

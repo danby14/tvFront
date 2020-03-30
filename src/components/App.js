@@ -2,7 +2,6 @@ import React, { useState, useCallback, useEffect } from 'react';
 import Home from './home/Home';
 import Blog from './blog/Blog';
 import MainNavbar2 from './navbar/MainNavbar2';
-// import LeagueNavbar from './navbar/LeagueNavbar';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Auth from './user/Auth';
 import Account from './user/Account';
@@ -136,9 +135,6 @@ const App = () => {
             <MainNavbar2 leagueName={leagueName} token={token} />
           </div>
           <section className='hero is-dark is-bold is-fullheight-with-navbar'>
-            {/* <div className='hero-head'>
-              <div className='league-navbar'>{token && leagueName && <LeagueNavbar />}</div>
-            </div> */}
             <div className='hero-body has-background-white-ter is-mobile-table-overflow-fix'>
               <div className='container'>{routes}</div>
             </div>
