@@ -4,7 +4,7 @@ import { AuthContext } from '../context/auth-context';
 import Modal from '../shared/Modal';
 
 import axios from 'axios';
-import useForm from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 const JoinLeague = () => {
   const auth = useContext(AuthContext);

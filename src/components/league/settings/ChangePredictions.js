@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../context/auth-context';
 
 import axios from 'axios';
-import useForm from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 const ChangePredictions = ({ id, networks, toggles, changes }) => {
   const auth = useContext(AuthContext);

@@ -3,7 +3,7 @@ import { AuthContext } from '../context/auth-context';
 import Modal from '../shared/Modal';
 
 import axios from 'axios';
-import useForm from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 function Register() {
   const auth = useContext(AuthContext);
@@ -36,8 +36,12 @@ function Register() {
               className='input is-small'
               name='username'
               type='text'
-              ref={register({ required: 'Please Enter a Valid Username' })}
+              ref={register({
+                required: 'Please Enter a Valid Username',
+                maxLength: { value: 20, message: 'max of 20 characters' }
+              })}
             />
+            {console.log(errors)}
             <p className='has-text-danger'>{errors.username && errors.username.message}</p>
           </div>
         </div>
@@ -64,7 +68,7 @@ function Register() {
               type='password'
               ref={register({
                 required: 'Please Enter a Valid Password',
-                minLength: { value: 6, message: 'miniumum of 6 characters' }
+                minLength: { value: 6, message: 'minimum of 6 characters' }
               })}
             />
             <p className='has-text-danger'>{errors.password && errors.password.message}</p>

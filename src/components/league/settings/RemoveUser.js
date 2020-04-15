@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 
 import { AuthContext } from '../../context/auth-context';
 import { useHistory } from 'react-router-dom';
-import useForm from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
 import Modal from '../../shared/Modal';
