@@ -12,6 +12,7 @@ import DeleteLeague from './league/settings/DeleteLeague';
 import RemoveUser from './league/settings/RemoveUser';
 import LeagueHome from './league/LeagueHome';
 import Research from './research/Research';
+import axios from 'axios';
 
 import { AuthContext } from './context/auth-context';
 import './app.css';
@@ -33,15 +34,15 @@ const App = () => {
     setUserName(username);
     const tokenExpirationDate = expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
     setTokenExpirationDate(tokenExpirationDate);
-    localStorage.setItem(
-      'userData',
-      JSON.stringify({
-        userId: uid,
-        userName: username,
-        token: token,
-        expiration: tokenExpirationDate.toISOString()
-      })
-    );
+    // localStorage.setItem(
+    //   'userData',
+    //   JSON.stringify({
+    //     userId: uid,
+    //     userName: username,
+    //     token: token,
+    //     expiration: tokenExpirationDate.toISOString(),
+    //   })
+    // );
   }, []);
 
   const logout = useCallback(() => {
@@ -51,7 +52,12 @@ const App = () => {
     setUserName(null);
     setLeagueName(null);
     setLeagueNum(null);
-    localStorage.removeItem('userData');
+    // localStorage.removeItem('userData');
+    try {
+      axios.get('http://localhost:5000/user/logout', { withCredentials: true });
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   useEffect(() => {
@@ -116,6 +122,8 @@ const App = () => {
       </Switch>
     );
 
+  console.log('access-tok: ', token);
+
   return (
     <AuthContext.Provider
       value={{
@@ -126,7 +134,7 @@ const App = () => {
         userId: userId,
         userName: userName,
         leagueName: [leagueName, setLeagueName],
-        leagueNum: [leagueNum, setLeagueNum]
+        leagueNum: [leagueNum, setLeagueNum],
       }}
     >
       <Router>
