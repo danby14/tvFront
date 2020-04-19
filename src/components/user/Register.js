@@ -3,24 +3,32 @@ import { AuthContext } from '../context/auth-context';
 import Modal from '../shared/Modal';
 
 import axios from 'axios';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
+
+import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 function Register() {
   const auth = useContext(AuthContext);
   const [error, setError] = useState(null);
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, control } = useForm();
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
   const onSubmit = async data => {
     try {
-      const response = await axios.post('http://localhost:5000/user/register', {
-        username: data.username,
-        email: data.email,
-        password: data.password,
-        birthdate: data.birthdate,
-        gender: data.gender,
-        optIn: data.optIn
-      });
+      console.log(data);
+      const response = await axios.post(
+        'http://localhost:5000/user/register',
+        {
+          username: data.username,
+          email: data.email,
+          password: data.password,
+          birthdate: data.birthdate,
+          gender: data.gender,
+          optIn: data.optIn,
+        },
+        { withCredentials: true }
+      );
       auth.login(response.data.user, response.data.username, response.data.token);
     } catch (err) {
       setError(err.response.data);
@@ -38,7 +46,7 @@ function Register() {
               type='text'
               ref={register({
                 required: 'Please Enter a Valid Username',
-                maxLength: { value: 20, message: 'max of 20 characters' }
+                maxLength: { value: 20, message: 'max of 20 characters' },
               })}
             />
             {console.log(errors)}
@@ -68,14 +76,14 @@ function Register() {
               type='password'
               ref={register({
                 required: 'Please Enter a Valid Password',
-                minLength: { value: 6, message: 'minimum of 6 characters' }
+                minLength: { value: 6, message: 'minimum of 6 characters' },
               })}
             />
             <p className='has-text-danger'>{errors.password && errors.password.message}</p>
           </div>
         </div>
 
-        <div className='field'>
+        {/* <div className='field'>
           <label htmlFor='birthdate'>Birthdate</label>
           <div className='control'>
             <input
@@ -85,6 +93,34 @@ function Register() {
               ref={register({ required: 'Please Enter a Valid Date' })}
             />
             <p className='has-text-danger'>{errors.birthdate && errors.birthdate.message}</p>
+          </div>
+        </div> */}
+
+        <div className='field'>
+          <label htmlFor='birthdate'>Birthdate</label>
+          <div className='control'>
+            <Controller
+              as={
+                <ReactDatePicker
+                  showMonthDropdown
+                  showYearDropdown
+                  dropdownMode='select'
+                  dateFormat='MMMM d, yyyy'
+                  maxDate={new Date()}
+                />
+              }
+              control={control}
+              defaultValue={new Date(new Date(2001, 0, 1))}
+              register={register({ required: true })}
+              name='birthdate'
+              valueName='selected' // DateSelect value's name is selected
+              onChange={([selected]) => selected}
+              rules={{
+                required: 'Please enter a Valid Date',
+              }}
+              className='input is-small'
+            />
+            <p className='has-text-danger'>{errors.birthday5 && errors.birthday5.message}</p>
           </div>
         </div>
 

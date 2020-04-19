@@ -36,16 +36,20 @@ const LeagueHome = () => {
           const response2 = await axios.get(`http://localhost:5000/monthlyLists/${listId}`);
           setNetworks(response2.data.networks);
         }
-
         setLeague(response1.data);
         setMembers(response1.data.members);
-        setLeagueNum(lid);
-        setLeagueName(league.leagueName);
-        // setCommissioner(response.data.commissioner);
       } catch (err) {}
     };
     fetchLeague();
-  }, [lid, changer, league.leagueName, setLeagueName, setLeagueNum]);
+  }, [lid, changer]);
+
+  // used to update context for league name in navbar
+  useEffect(() => {
+    if (league.leagueName) {
+      setLeagueNum(lid);
+      setLeagueName(league.leagueName);
+    }
+  }, [lid, league.leagueName, setLeagueName, setLeagueNum]);
 
   function handleChanges() {
     setChanger(changer + 1);
