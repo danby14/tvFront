@@ -12,12 +12,16 @@ function Login() {
   const { register, handleSubmit, errors } = useForm();
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
-  const onSubmit = async data => {
+  const onSubmit = async (data) => {
     try {
-      const response = await axios.post('http://localhost:5000/user/login', {
-        email: data.email,
-        password: data.password
-      });
+      const response = await axios.post(
+        'http://localhost:5000/user/login',
+        {
+          email: data.email,
+          password: data.password,
+        },
+        { withCredentials: true }
+      );
       auth.login(response.data.user, response.data.username, response.data.token);
     } catch (err) {
       setError(err.response.data);
@@ -48,7 +52,7 @@ function Login() {
               type='password'
               ref={register({
                 required: 'Please Enter a Valid Password',
-                minLength: { value: 6, message: 'miniumum of 6 characters' }
+                minLength: { value: 6, message: 'miniumum of 6 characters' },
               })}
             />
             <p className='has-text-danger'>{errors.password && errors.password.message}</p>
