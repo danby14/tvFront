@@ -2,20 +2,16 @@ import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../context/auth-context';
 
 import axios from 'axios';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 
-const ChangePredictions = ({ id, networks, toggles, changes }) => {
+import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import subDays from 'date-fns/subDays';
+
+const ChangePredictions = ({ id, networks, toggles, changes, currentStartDate }) => {
   const auth = useContext(AuthContext);
-  const { register, handleSubmit, errors } = useForm();
+  const { control, register, handleSubmit, errors } = useForm();
   const [submitted, setSubmitted] = useState(false);
-
-  function makeISODate(date, days) {
-    let timeAhead = 1000 * 60 * 60 * 24 * days;
-    let offset = date.getTimezoneOffset();
-    let netMilliseconds = date.getTime() - offset * 1000 * 60 + timeAhead;
-    let putAsDefault = new Date(netMilliseconds).toISOString().slice(0, -8);
-    return putAsDefault;
-  }
 
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
@@ -28,12 +24,12 @@ const ChangePredictions = ({ id, networks, toggles, changes }) => {
           shows: network.shows.map((show, j) => {
             return submittedChanges[i].includes(j.toString()) ? true : false;
           }),
-          network: i
+          network: i,
         };
       });
       await axios.patch(`http://localhost:5000/leagues/${id}/togglePredictions`, {
         predictionEdits: updatedToggles,
-        startDate: data.startDate
+        startDate: data.startDate,
       });
       setSubmitted(true);
       changes(); // so parent can update
@@ -47,16 +43,30 @@ const ChangePredictions = ({ id, networks, toggles, changes }) => {
       <div className='field'>
         <label htmlFor='startDate'>Choose date when predictions must be submitted by.</label>
         <div className='control'>
-          <input
-            className='input is-small'
+          <Controller
+            as={
+              <ReactDatePicker
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode='select'
+                dateFormat=' MMMM d, yyyy'
+                minDate={subDays(new Date(), 5)}
+              />
+            }
+            control={control}
+            defaultValue={new Date(currentStartDate)}
             name='startDate'
-            type='datetime-local'
-            defaultValue={makeISODate(new Date(), 7)}
-            ref={register({ required: 'Please enter a valid date.' })}
+            valueName='selected'
+            onChange={([selected]) => selected}
+            rules={{
+              required: 'Please enter a Valid Date',
+            }}
+            className='input is-small'
           />
           <p className='has-text-danger'>{errors.startDate && errors.startDate.message}</p>
         </div>
       </div>
+
       {networks.map((network, i) => (
         <div key={i} className='box'>
           <p className='has-text-weight-semibold'>{network.network}</p>

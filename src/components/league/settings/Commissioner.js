@@ -69,6 +69,7 @@ const Commissioner = ({ league, networks, toggles, changes }) => {
       {enablePredictions && (
         <Modal title='Enable/Disable Individual Predictions' stateHandler={setEnablePredictions}>
           <ChangePredictions
+            currentStartDate={league.startDate}
             id={league._id}
             toggles={toggles}
             networks={networks}

@@ -67,3 +67,7 @@ html {
   border-top: 0.35rem solid #cfcfcf;
   height: 0.35rem;
 }
+
+.react-datepicker-wrapper {
+  display: inline !important;
+}

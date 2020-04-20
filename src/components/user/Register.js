@@ -7,29 +7,31 @@ import { useForm, Controller } from 'react-hook-form';
 
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import subDays from 'date-fns/subDays';
+import startOfDay from 'date-fns/startOfDay';
 
 function Register() {
   const auth = useContext(AuthContext);
   const [error, setError] = useState(null);
-  const { register, handleSubmit, errors, control } = useForm();
+  const { control, register, handleSubmit, errors } = useForm();
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
   const onSubmit = async data => {
     try {
       console.log(data);
-      const response = await axios.post(
-        'http://localhost:5000/user/register',
-        {
-          username: data.username,
-          email: data.email,
-          password: data.password,
-          birthdate: data.birthdate,
-          gender: data.gender,
-          optIn: data.optIn,
-        },
-        { withCredentials: true }
-      );
-      auth.login(response.data.user, response.data.username, response.data.token);
+      // const response = await axios.post(
+      //   'http://localhost:5000/user/register',
+      //   {
+      //     username: data.username,
+      //     email: data.email,
+      //     password: data.password,
+      //     birthdate: data.birthdate,
+      //     gender: data.gender,
+      //     optIn: data.optIn,
+      //   },
+      //   { withCredentials: true }
+      // );
+      // auth.login(response.data.user, response.data.username, response.data.token);
     } catch (err) {
       setError(err.response.data);
     }
@@ -83,19 +85,6 @@ function Register() {
           </div>
         </div>
 
-        {/* <div className='field'>
-          <label htmlFor='birthdate'>Birthdate</label>
-          <div className='control'>
-            <input
-              className='input is-small'
-              name='birthdate'
-              type='date'
-              ref={register({ required: 'Please Enter a Valid Date' })}
-            />
-            <p className='has-text-danger'>{errors.birthdate && errors.birthdate.message}</p>
-          </div>
-        </div> */}
-
         <div className='field'>
           <label htmlFor='birthdate'>Birthdate</label>
           <div className='control'>
@@ -105,22 +94,25 @@ function Register() {
                   showMonthDropdown
                   showYearDropdown
                   dropdownMode='select'
-                  dateFormat='MMMM d, yyyy'
+                  dateFormat=' MMMM d, yyyy'
                   maxDate={new Date()}
                 />
               }
               control={control}
-              defaultValue={new Date(new Date(2001, 0, 1))}
-              register={register({ required: true })}
+              defaultValue={startOfDay(new Date())}
+              // defaultValue={new Date(new Date())}
               name='birthdate'
-              valueName='selected' // DateSelect value's name is selected
+              valueName='selected'
               onChange={([selected]) => selected}
               rules={{
                 required: 'Please enter a Valid Date',
+                validate: value =>
+                  new Date(value).getTime() < subDays(new Date(), 365) ||
+                  `ga ga goo goo, no babies allowed`,
               }}
               className='input is-small'
             />
-            <p className='has-text-danger'>{errors.birthday5 && errors.birthday5.message}</p>
+            <p className='has-text-danger'>{errors.birthdate && errors.birthdate.message}</p>
           </div>
         </div>
 

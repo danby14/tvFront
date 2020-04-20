@@ -5,21 +5,18 @@ import Box from '../shared/Box';
 import Modal from '../shared/Modal';
 
 import axios from 'axios';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
+
+import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import addDays from 'date-fns/addDays';
+import startOfDay from 'date-fns/startOfDay';
 
 function CreateLeague() {
   const auth = useContext(AuthContext);
   const [error, setError] = useState(null);
-  const { register, handleSubmit, errors } = useForm();
+  const { control, register, handleSubmit, errors } = useForm();
   const history = useHistory();
-
-  function makeISODate(date, days) {
-    let timeAhead = 1000 * 60 * 60 * 24 * days;
-    let offset = date.getTimezoneOffset();
-    let netMilliseconds = date.getTime() - offset * 1000 * 60 + timeAhead;
-    let putAsDefault = new Date(netMilliseconds).toISOString().slice(0, -8);
-    return putAsDefault;
-  }
 
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
@@ -28,7 +25,7 @@ function CreateLeague() {
       await axios.post('http://localhost:5000/leagues/create', {
         leagueName: data.leagueName,
         password: data.password,
-        startDate: new Date(data.startDate)
+        startDate: data.startDate,
       });
       history.push('/Leagues');
     } catch (err) {
@@ -51,7 +48,7 @@ function CreateLeague() {
                   name='leagueName'
                   type='text'
                   ref={register({
-                    required: 'Please enter a name for your league'
+                    required: 'Please enter a name for your league',
                   })}
                 />
                 <p className='has-text-danger'>{errors.leagueName && errors.leagueName.message}</p>
@@ -67,7 +64,7 @@ function CreateLeague() {
                   type='password'
                   ref={register({
                     required: 'Required (min. 6 characters)',
-                    minLength: { value: 6, message: 'miniumum of 6 characters' }
+                    minLength: { value: 6, message: 'miniumum of 6 characters' },
                   })}
                 />
                 <p className='has-text-danger'>{errors.password && errors.password.message}</p>
@@ -76,22 +73,31 @@ function CreateLeague() {
 
             <div className='field'>
               <label htmlFor='startDate'>
-                League Start Date <br /> (Date predictions get locked for all users. Can be changed
-                later on league settings page.)
+                League Start Date <br /> (Day predictions get locked for all users. Can be edited
+                later)
               </label>
               <div className='control'>
-                <input
-                  className='input is-small'
+                <Controller
+                  as={
+                    <ReactDatePicker
+                      showMonthDropdown
+                      showYearDropdown
+                      dropdownMode='select'
+                      dateFormat=' MMMM d, yyyy'
+                      minDate={addDays(new Date(), 1)}
+                    />
+                  }
+                  control={control}
+                  defaultValue={startOfDay(addDays(new Date(), 7))}
                   name='startDate'
-                  type='datetime-local'
-                  defaultValue={makeISODate(new Date(), 7)}
-                  ref={register({
-                    required: 'Please enter a valid date.',
-                    min: {
-                      value: makeISODate(new Date(), 0),
-                      message: 'must be a future date'
-                    }
-                  })}
+                  valueName='selected'
+                  onChange={([selected]) => selected}
+                  rules={{
+                    required: 'Please enter a Valid Date',
+                    validate: value =>
+                      new Date(value).getTime() > new Date().getTime() || `must be a future date`,
+                  }}
+                  className='input is-small'
                 />
                 <p className='has-text-danger'>{errors.startDate && errors.startDate.message}</p>
               </div>
