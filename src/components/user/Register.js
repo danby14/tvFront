@@ -12,30 +12,38 @@ import startOfDay from 'date-fns/startOfDay';
 
 function Register() {
   const auth = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { control, register, handleSubmit, errors } = useForm();
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
   const onSubmit = async data => {
+    setIsLoading(true);
     try {
-      console.log(data);
-      // const response = await axios.post(
-      //   'http://localhost:5000/user/register',
-      //   {
-      //     username: data.username,
-      //     email: data.email,
-      //     password: data.password,
-      //     birthdate: data.birthdate,
-      //     gender: data.gender,
-      //     optIn: data.optIn,
-      //   },
-      //   { withCredentials: true }
-      // );
-      // auth.login(response.data.user, response.data.username, response.data.token);
+      const response = await axios.post(
+        'http://localhost:5000/user/register',
+        {
+          username: data.username,
+          email: data.email,
+          password: data.password,
+          birthdate: data.birthdate,
+          gender: data.gender,
+          optIn: data.optIn,
+        },
+        { withCredentials: true }
+      );
+      auth.login(response.data.user, response.data.username, response.data.token);
+      setIsLoading(false);
     } catch (err) {
       setError(err.response.data);
+      setIsLoading(false);
     }
   };
+
+  // if (isLoading) {
+  //   return <LoadingSpinner />;
+  // }
+
   return (
     <div className='has-text-dark '>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -161,7 +169,12 @@ function Register() {
         </div>
 
         <div className='has-text-centered'>
-          <input className='button is-dark is-outlined' type='submit' value='Register'></input>
+          <button
+            className={`button is-dark is-outlined ${isLoading ? 'is-loading' : ''}`}
+            type='submit'
+          >
+            Register
+          </button>
         </div>
       </form>
       {error && <Modal title='Registration Failed' message={error} stateHandler={setError} />}

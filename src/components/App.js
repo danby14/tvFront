@@ -50,7 +50,7 @@ const App = () => {
 
   const refresh = useCallback(() => {
     fetch('http://localhost:5000/refresh_token', { method: 'POST', credentials: 'include' }).then(
-      async (x) => {
+      async x => {
         const { userId, username, accessToken, ok } = await x.json();
         if (ok) {
           setToken(accessToken);

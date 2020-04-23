@@ -1,16 +1,7 @@
 import React from 'react';
-import Picker from '../shared/Picker';
 
 function Research() {
-  return (
-    <div>
-      <Picker time={true} />
-      <br />
-      <br />
-      <br />
-      <Picker time={false} />
-    </div>
-  );
+  return <div>put stuff here</div>;
 }
 
 export default Research;

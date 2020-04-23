@@ -8,11 +8,14 @@ import { useForm } from 'react-hook-form';
 function Login() {
   const auth = useContext(AuthContext);
 
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { register, handleSubmit, errors } = useForm();
+
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
-  const onSubmit = async (data) => {
+  const onSubmit = async data => {
+    setIsLoading(true);
     try {
       const response = await axios.post(
         'http://localhost:5000/user/login',
@@ -23,10 +26,13 @@ function Login() {
         { withCredentials: true }
       );
       auth.login(response.data.user, response.data.username, response.data.token);
+      setIsLoading(false);
     } catch (err) {
       setError(err.response.data);
+      setIsLoading(false);
     }
   };
+
   return (
     <div className=' has-text-dark '>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -60,7 +66,12 @@ function Login() {
         </div>
 
         <div className='has-text-centered'>
-          <input className='button is-dark is-outlined' type='submit' value='Sign In'></input>
+          <button
+            className={`button is-dark is-outlined  ${isLoading ? 'is-loading' : ''}`}
+            type='submit'
+          >
+            Sign In
+          </button>
         </div>
       </form>
       {error && <Modal title='Login Failed' message={error} stateHandler={setError} />}
