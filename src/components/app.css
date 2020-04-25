@@ -13,7 +13,17 @@ html {
   position: sticky;
   top: 0px;
 }
+
+.is-stuck2 {
+  background: inherit;
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0px;
+}
+
 .fix-table-scroll {
+  /* overflow: hidden;
+  width: 20px; */
   overflow: auto;
   height: 80vh;
 }
@@ -82,4 +92,24 @@ html {
   border: 4px solid #b2adce !important;
   border-color: #b2adce transparent #b2adce transparent !important;
   animation: spinAround 1.2s infinite linear !important;
+}
+
+.ellipsis {
+  overflow: hidden;
+  /* word-wrap: break-word; */
+  max-width: 86px;
+  /* text-overflow: clip; */
+  text-overflow: ellipsis;
+}
+
+.ellipsis:hover {
+  max-width: 86px;
+  text-overflow: unset;
+  word-wrap: break-word;
+}
+
+td:first-child,
+th:first-child,
+th:last-child {
+  max-width: 185px;
 }

@@ -25,8 +25,8 @@ function Login() {
         },
         { withCredentials: true }
       );
-      auth.login(response.data.user, response.data.username, response.data.token);
       setIsLoading(false);
+      auth.login(response.data.user, response.data.username, response.data.token);
     } catch (err) {
       setError(err.response.data);
       setIsLoading(false);

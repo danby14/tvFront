@@ -9,12 +9,14 @@ const Auth = () => {
   const [loginClass, setLoginClass] = useState('has-background-dark');
   const [registerClass, setRegisterClass] = useState('has-background-grey');
   const [register, setRegister] = useState(false);
+
   const loginHandler = () => {
     setRegister(false);
     setLogin(true);
     setRegisterClass('has-background-grey');
     setLoginClass('has-background-dark');
   };
+
   const registerHandler = () => {
     setLogin(false);
     setRegister(true);
