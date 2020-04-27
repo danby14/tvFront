@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 
-const Modal = ({ children, title, message, stateHandler, extras }) => {
+const Modal = ({ children, title, message, stateHandler, extras, success }) => {
   const inputRef = useRef(null);
   useEffect(() => {
     inputRef.current.focus();
@@ -18,7 +18,7 @@ const Modal = ({ children, title, message, stateHandler, extras }) => {
       <div className='modal-background' onClick={clearModal}></div>
       <div className='modal-card'>
         <header className='modal-card-head'>
-          <p className='modal-card-title has-text-danger'>{title}</p>
+          <p className={`modal-card-title has-text-${success ? 'success' : 'danger'}`}>{title}</p>
         </header>
         <section className='modal-card-body'>
           {message}

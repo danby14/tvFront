@@ -14,6 +14,7 @@ function Register() {
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
   const { control, register, handleSubmit, errors } = useForm();
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
@@ -33,16 +34,14 @@ function Register() {
         { withCredentials: true }
       );
       setIsLoading(false);
-      auth.login(response.data.user, response.data.username, response.data.token);
+      setSuccess(response.data.msg);
+      console.log('response', response.data.msg);
+      // auth.login(response.data.user, response.data.username, response.data.token);
     } catch (err) {
       setError(err.response.data);
       setIsLoading(false);
     }
   };
-
-  // if (isLoading) {
-  //   return <LoadingSpinner />;
-  // }
 
   return (
     <div className='has-text-dark '>
@@ -59,7 +58,6 @@ function Register() {
                 maxLength: { value: 20, message: 'max of 20 characters' },
               })}
             />
-            {console.log(errors)}
             <p className='has-text-danger'>{errors.username && errors.username.message}</p>
           </div>
         </div>
@@ -178,6 +176,9 @@ function Register() {
         </div>
       </form>
       {error && <Modal title='Registration Failed' message={error} stateHandler={setError} />}
+      {success && (
+        <Modal title='Registration Submitted' message={success} stateHandler={setSuccess} success />
+      )}
     </div>
   );
 }

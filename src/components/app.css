@@ -6,7 +6,7 @@ html {
   cursor: pointer;
 }
 
-/* to keep the table header sticky when scrolling */
+/* to keep the table header sticky and visible at all times */
 .is-stuck {
   background: white;
   position: -webkit-sticky;
@@ -14,6 +14,7 @@ html {
   top: 0px;
 }
 
+/* to keep table footer sticky and visible at all times */
 .is-stuck2 {
   background: inherit;
   position: -webkit-sticky;
@@ -37,15 +38,6 @@ html {
   position: -webkit-sticky;
   position: sticky;
   top: 35vh;
-}
-
-/* makes the hamburger menu work through css instead of js */
-#nav-toggle-state {
-  display: none;
-}
-
-#nav-toggle-state:checked ~ .navbar-menu {
-  display: block;
 }
 
 @media screen and (min-width: 1024px) {
@@ -78,38 +70,45 @@ html {
   height: 0.35rem;
 }
 
+/* makes date input box span width of container */
 .react-datepicker-wrapper {
   display: inline !important;
 }
 
+/* used in loading spinner component. makes it bigger and not look like a button */
 .isLoading-button {
   background-color: transparent;
   border: none;
   margin: auto;
   font-size: 4rem;
 }
-.isLoading-button:after {
+
+.isLoading-button::after {
   border: 4px solid #b2adce !important;
   border-color: #b2adce transparent #b2adce transparent !important;
   animation: spinAround 1.2s infinite linear !important;
 }
 
+/* used to truncate usernames on standings page
+still need to make dynamic by making max-width change under different test cases */
 .ellipsis {
   overflow: hidden;
-  /* word-wrap: break-word; */
+  white-space: break-spaces;
   max-width: 86px;
-  /* text-overflow: clip; */
   text-overflow: ellipsis;
 }
 
+/* shows user names on hover on standings page */
 .ellipsis:hover {
   max-width: 86px;
+  overflow: visible;
   text-overflow: unset;
   word-wrap: break-word;
 }
 
+/* makes first and last column of standings page not take up so much space by default */
 td:first-child,
 th:first-child,
 th:last-child {
-  max-width: 185px;
+  max-width: 165px;
 }

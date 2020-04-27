@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { AuthContext } from '../context/auth-context';
 import Standings from './standings/Standings';
-import MakePredictions from './predictions/MakePredictions';
+import MakePredictions from './predictions/MakePredictions/MakePredictions';
 import ClosedPredictions from './predictions/ClosedPredictions';
 import Settings from './settings/Settings';
 import LoadingSpinner from '../shared/LoadingSpinner';
