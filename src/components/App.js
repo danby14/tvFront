@@ -16,6 +16,7 @@ import Leagues from './leagues/Leagues';
 import MainNavbar2 from './navbar/MainNavbar2';
 import RemoveUser from './league/settings/RemoveUser';
 import Research from './research/Research';
+import Verify from './user/Verify';
 
 let logoutTimer;
 
@@ -119,7 +120,8 @@ const App = () => {
           <Route path='/' exact component={Home} />
           <Route path='/blog' component={Blog} />
           <Route path='/research' component={Research} />
-          <Route path='/auth' component={Auth} />
+          <Route path='/auth' exact component={Auth} />
+          <Route path='/auth/verify/:token' exact component={Verify} />
           <Redirect to='/auth' />
         </Switch>
       );

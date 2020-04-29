@@ -67,7 +67,12 @@ const Commissioner = ({ league, networks, toggles, changes }) => {
       </div>
       <div className='column'></div>
       {enablePredictions && (
-        <Modal title='Enable/Disable Individual Predictions' stateHandler={setEnablePredictions}>
+        <Modal
+          title='Enable/Disable Individual Predictions'
+          stateHandler={setEnablePredictions}
+          success
+          form='changePredictions'
+        >
           <ChangePredictions
             currentStartDate={league.startDate}
             id={league._id}
@@ -75,11 +80,6 @@ const Commissioner = ({ league, networks, toggles, changes }) => {
             networks={networks}
             changes={changes}
           />
-          <br />
-          <span>
-            **After hitting the enter button, changes may not be seen until after the page is
-            refreshed.
-          </span>
         </Modal>
       )}
     </div>

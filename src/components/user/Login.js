@@ -4,13 +4,19 @@ import Modal from '../shared/Modal';
 
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import ForgotPassword from './ForgotPassword';
 
 function Login() {
   const auth = useContext(AuthContext);
 
   const [isLoading, setIsLoading] = useState(false);
+  const [resetPassword, setResetPassword] = useState(false);
   const [error, setError] = useState(null);
   const { register, handleSubmit, errors } = useForm();
+
+  const handleClick = () => {
+    setResetPassword(true);
+  };
 
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
@@ -72,8 +78,17 @@ function Login() {
           >
             Sign In
           </button>
+
+          <section className='has-text-info is-clickable has-text-right' onClick={handleClick}>
+            forgot password?
+          </section>
         </div>
       </form>
+      {resetPassword && (
+        <Modal title='Forgot Password' stateHandler={setResetPassword} success form='passwordReset'>
+          <ForgotPassword />
+        </Modal>
+      )}
       {error && <Modal title='Login Failed' message={error} stateHandler={setError} />}
     </div>
   );
