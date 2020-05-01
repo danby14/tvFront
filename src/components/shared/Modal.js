@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const Modal = ({ children, title, message, stateHandler, extras, success, form }) => {
+const Modal = ({ children, title, message, stateHandler, extras, success, form, submitted }) => {
   const [buttonCss, setButtonCss] = useState(null);
+
   const inputRef = useRef(null);
+
   useEffect(() => {
     inputRef.current.focus();
   }, []);
@@ -14,10 +16,11 @@ const Modal = ({ children, title, message, stateHandler, extras, success, form }
     }
   }
 
-  function hideSubmitButton() {
-    // need a context variable or callback that gets set to true when form is submitted without errors before uncommenting below code
-    // setButtonCss('is-hidden');
-  }
+  useEffect(() => {
+    if (submitted) {
+      setButtonCss('is-hidden');
+    }
+  }, [submitted]);
 
   return (
     <div className='modal is-active'>
@@ -38,7 +41,6 @@ const Modal = ({ children, title, message, stateHandler, extras, success, form }
               type='submit'
               form={`${form}`}
               className={`button is-link is-outlined ${buttonCss}`}
-              onClick={hideSubmitButton}
             >
               Submit
             </button>

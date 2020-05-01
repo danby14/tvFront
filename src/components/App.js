@@ -7,6 +7,7 @@ import Account from './user/Account';
 import Auth from './user/Auth';
 import { AuthContext } from './context/auth-context';
 import Blog from './blog/Blog';
+import ChangePassword from './user/ChangePassword';
 import CreateLeague from './leagues/CreateLeague';
 import DeleteLeague from './league/settings/DeleteLeague';
 import Home from './home/Home';
@@ -122,6 +123,7 @@ const App = () => {
           <Route path='/research' component={Research} />
           <Route path='/auth' exact component={Auth} />
           <Route path='/auth/verify/:token' exact component={Verify} />
+          <Route path='/auth/change/:token' exact component={ChangePassword} />
           <Redirect to='/auth' />
         </Switch>
       );

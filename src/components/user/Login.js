@@ -8,6 +8,7 @@ import ForgotPassword from './ForgotPassword';
 
 function Login() {
   const auth = useContext(AuthContext);
+  const [submitted, setSubmitted] = useState(null);
 
   const [isLoading, setIsLoading] = useState(false);
   const [resetPassword, setResetPassword] = useState(false);
@@ -15,6 +16,7 @@ function Login() {
   const { register, handleSubmit, errors } = useForm();
 
   const handleClick = () => {
+    setSubmitted(null);
     setResetPassword(true);
   };
 
@@ -85,8 +87,14 @@ function Login() {
         </div>
       </form>
       {resetPassword && (
-        <Modal title='Forgot Password' stateHandler={setResetPassword} success form='passwordReset'>
-          <ForgotPassword />
+        <Modal
+          title='Forgot Password'
+          stateHandler={setResetPassword}
+          success
+          form='passwordReset'
+          submitted={submitted}
+        >
+          <ForgotPassword submitted={submitted} setSubmitted={setSubmitted} />
         </Modal>
       )}
       {error && <Modal title='Login Failed' message={error} stateHandler={setError} />}

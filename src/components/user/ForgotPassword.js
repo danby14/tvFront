@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ submitted, setSubmitted }) => {
   const { register, handleSubmit, errors } = useForm();
-  const [submitted, setSubmitted] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
