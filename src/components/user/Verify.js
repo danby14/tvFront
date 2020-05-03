@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import Box from '../shared/Box';
 
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const Verify = () => {
   const { token } = useParams();
@@ -21,13 +22,15 @@ const Verify = () => {
     }
   }, [token]);
 
-  if (message) {
-    return <div className='has-text-info'>{message}</div>;
-  }
-
-  if (!message) {
-    return <div className='has-text-info'>Loading</div>;
-  }
+  return (
+    <div className='columns has-text-dark'>
+      <div className='column'></div>
+      <div className='column is-half has-text-centered '>
+        <Box>{message ? message : 'Loading...'}</Box>
+      </div>
+      <div className='column'></div>
+    </div>
+  );
 };
 
 export default Verify;

@@ -10,6 +10,7 @@ import Blog from './blog/Blog';
 import ChangePassword from './user/ChangePassword';
 import CreateLeague from './leagues/CreateLeague';
 import DeleteLeague from './league/settings/DeleteLeague';
+import Help from './help/Help';
 import Home from './home/Home';
 import JoinLeague from './leagues/JoinLeague';
 import LeagueHome from './league/LeagueHome';
@@ -69,6 +70,7 @@ const App = () => {
         setIsLoading(false);
       }
     );
+    // setIsLoading(false);  gets site to show when server is not available
   }, []);
 
   // allow users to stay logged in on page refresh, but defaults to default route/page.
@@ -105,12 +107,9 @@ const App = () => {
           <Route path='/leagueHome/:lid'>
             <LeagueHome />
           </Route>
-          <Route path='/blog'>
-            <Blog />
-          </Route>
-          <Route path='/research'>
-            <Research />
-          </Route>
+          <Route path='/blog' component={Blog} />
+          <Route path='/research' component={Research} />
+          <Route path='/help' component={Help} />
           <Route path='/account' component={Account} />
           <Redirect to='/leagues' />
         </Switch>
@@ -121,6 +120,7 @@ const App = () => {
           <Route path='/' exact component={Home} />
           <Route path='/blog' component={Blog} />
           <Route path='/research' component={Research} />
+          <Route path='/help' component={Help} />
           <Route path='/auth' exact component={Auth} />
           <Route path='/auth/verify/:token' exact component={Verify} />
           <Route path='/auth/change/:token' exact component={ChangePassword} />

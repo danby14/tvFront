@@ -15,7 +15,7 @@ function Register() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const { control, register, handleSubmit, errors } = useForm();
+  const { control, register, handleSubmit, reset, errors } = useForm();
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
   const onSubmit = async data => {
@@ -34,6 +34,7 @@ function Register() {
         { withCredentials: true }
       );
       setSuccess(response.data.msg);
+      reset();
       setIsLoading(false);
       // auth.login(response.data.user, response.data.username, response.data.token);
     } catch (err) {

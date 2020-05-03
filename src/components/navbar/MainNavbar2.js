@@ -113,15 +113,20 @@ const MainNavbar2 = ({ leagueName, token }) => {
               >
                 Research
               </NavLink>
-              <Link to='/faq' className='navbar-item has-text-dark' onClick={clickAndClose}>
+              {/* <Link to='/faq' className='navbar-item has-text-dark' onClick={clickAndClose}>
                 FAQ
-              </Link>
+              </Link> */}
               <Link to='/contact' className='navbar-item has-text-dark' onClick={clickAndClose}>
                 Contact
               </Link>
-              <Link to='/help' className='navbar-item has-text-dark' onClick={clickAndClose}>
+              <NavLink
+                to='/help'
+                className='navbar-item has-text-dark'
+                activeClassName='has-text-weight-bold'
+                onClick={clickAndClose}
+              >
                 Help
-              </Link>
+              </NavLink>
             </div>
           </div>
         </div>
