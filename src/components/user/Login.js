@@ -4,25 +4,43 @@ import Modal from '../shared/Modal';
 
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import ForgotPassword from './ForgotPassword';
 
 function Login() {
   const auth = useContext(AuthContext);
+  const [submitted, setSubmitted] = useState(null);
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [resetPassword, setResetPassword] = useState(false);
   const [error, setError] = useState(null);
   const { register, handleSubmit, errors } = useForm();
+
+  const handleClick = () => {
+    setSubmitted(null);
+    setResetPassword(true);
+  };
+
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
   const onSubmit = async data => {
+    setIsLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/user/login', {
-        email: data.email,
-        password: data.password
-      });
+      const response = await axios.post(
+        'http://localhost:5000/user/login',
+        {
+          email: data.email,
+          password: data.password,
+        },
+        { withCredentials: true }
+      );
+      setIsLoading(false);
       auth.login(response.data.user, response.data.username, response.data.token);
     } catch (err) {
       setError(err.response.data);
+      setIsLoading(false);
     }
   };
+
   return (
     <div className=' has-text-dark '>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -48,7 +66,7 @@ function Login() {
               type='password'
               ref={register({
                 required: 'Please Enter a Valid Password',
-                minLength: { value: 6, message: 'miniumum of 6 characters' }
+                minLength: { value: 6, message: 'miniumum of 6 characters' },
               })}
             />
             <p className='has-text-danger'>{errors.password && errors.password.message}</p>
@@ -56,9 +74,29 @@ function Login() {
         </div>
 
         <div className='has-text-centered'>
-          <input className='button is-dark is-outlined' type='submit' value='Sign In'></input>
+          <button
+            className={`button is-dark is-outlined  ${isLoading ? 'is-loading' : ''}`}
+            type='submit'
+          >
+            Sign In
+          </button>
+
+          <section className='has-text-info is-clickable has-text-right' onClick={handleClick}>
+            forgot password?
+          </section>
         </div>
       </form>
+      {resetPassword && (
+        <Modal
+          title='Forgot Password'
+          stateHandler={setResetPassword}
+          success
+          form='passwordReset'
+          submitted={submitted}
+        >
+          <ForgotPassword submitted={submitted} setSubmitted={setSubmitted} />
+        </Modal>
+      )}
       {error && <Modal title='Login Failed' message={error} stateHandler={setError} />}
     </div>
   );

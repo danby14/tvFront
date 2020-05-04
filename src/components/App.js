@@ -1,120 +1,134 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import Home from './home/Home';
-import Blog from './blog/Blog';
-import MainNavbar2 from './navbar/MainNavbar2';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import Auth from './user/Auth';
-import Account from './user/Account';
-import Leagues from './leagues/Leagues';
-import CreateLeague from './leagues/CreateLeague';
-import JoinLeague from './leagues/JoinLeague';
-import DeleteLeague from './league/settings/DeleteLeague';
-import RemoveUser from './league/settings/RemoveUser';
-import LeagueHome from './league/LeagueHome';
-import Research from './research/Research';
+import axios from 'axios';
 
-import { AuthContext } from './context/auth-context';
 import './app.css';
+import Account from './user/Account';
+import Auth from './user/Auth';
+import { AuthContext } from './context/auth-context';
+import Blog from './blog/Blog';
+import ChangePassword from './user/ChangePassword';
+import CreateLeague from './leagues/CreateLeague';
+import DeleteLeague from './league/settings/DeleteLeague';
+import Help from './help/Help';
+import Home from './home/Home';
+import JoinLeague from './leagues/JoinLeague';
+import LeagueHome from './league/LeagueHome';
+import Leagues from './leagues/Leagues';
+import MainNavbar2 from './navbar/MainNavbar2';
+import RemoveUser from './league/settings/RemoveUser';
+import Research from './research/Research';
+import Verify from './user/Verify';
 
 let logoutTimer;
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const [token, setToken] = useState(false);
   const [userId, setUserId] = useState(false);
-  const [tokenExpirationDate, setTokenExpirationDate] = useState();
 
   const [userName, setUserName] = useState();
   const [leagueName, setLeagueName] = useState();
   const [leagueNum, setLeagueNum] = useState();
 
-  const login = useCallback((uid, username, token, expirationDate) => {
+  const login = useCallback((uid, username, token) => {
     setToken(token);
     setUserId(uid);
     setUserName(username);
-    const tokenExpirationDate = expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
-    setTokenExpirationDate(tokenExpirationDate);
-    localStorage.setItem(
-      'userData',
-      JSON.stringify({
-        userId: uid,
-        userName: username,
-        token: token,
-        expiration: tokenExpirationDate.toISOString()
-      })
-    );
   }, []);
 
   const logout = useCallback(() => {
     setToken(null);
-    setTokenExpirationDate(null);
     setUserId(null);
     setUserName(null);
     setLeagueName(null);
     setLeagueNum(null);
-    localStorage.removeItem('userData');
+    try {
+      axios.get('http://localhost:5000/user/logout', { withCredentials: true });
+    } catch (err) {
+      console.log(err);
+    }
+    clearTimeout(logoutTimer);
   }, []);
 
-  useEffect(() => {
-    if (token && tokenExpirationDate) {
-      const remainingTime = tokenExpirationDate.getTime() - new Date().getTime();
-      logoutTimer = setTimeout(logout, remainingTime);
-    } else {
-      clearTimeout(logoutTimer);
-    }
-  }, [token, logout, tokenExpirationDate]);
+  const refresh = useCallback(() => {
+    fetch('http://localhost:5000/refresh_token', { method: 'POST', credentials: 'include' }).then(
+      async x => {
+        const { userId, username, accessToken, ok } = await x.json();
+        if (ok) {
+          setToken(accessToken);
+          setUserId(userId);
+          setUserName(username);
+        } else {
+          setToken(false);
+          // try {
+          //   axios.get('http://localhost:5000/user/logout', { withCredentials: true });
+          // } catch (err) {
+          //   console.log(err);
+          // }
+        }
+        setIsLoading(false);
+      }
+    );
+    // setIsLoading(false);  gets site to show when server is not available
+  }, []);
 
+  // allow users to stay logged in on page refresh, but defaults to default route/page.
   useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem('userData'));
-    if (storedData && storedData.token && new Date(storedData.expiration) > new Date()) {
-      login(
-        storedData.userId,
-        storedData.userName,
-        storedData.token,
-        new Date(storedData.expiration)
-      );
+    refresh();
+  }, [refresh]);
+
+  // the countdown to be auto logged out
+  useEffect(() => {
+    if (token) {
+      const remainingTime = 900000; // match token exp time (currently 15mins) on server (makeTokens for access token)
+      clearTimeout(logoutTimer);
+      logoutTimer = setTimeout(refresh, remainingTime);
     }
-  }, [login]);
+  }, [refresh, token]);
 
   let routes;
-
-  if (token) {
-    routes = (
-      <Switch>
-        <Route path='/' exact component={Home} />
-        <Route path='/createLeague' component={CreateLeague} />
-        <Route path='/joinLeague' component={JoinLeague} />
-        <Route path='/leagues'>
-          <Leagues />
-        </Route>
-        <Route path='/leagueHome/:lid/settings/removeLeague'>
-          <DeleteLeague />
-        </Route>
-        <Route path='/leagueHome/:lid/settings/removeUser'>
-          <RemoveUser />
-        </Route>
-        <Route path='/leagueHome/:lid'>
-          <LeagueHome />
-        </Route>
-        <Route path='/blog'>
-          <Blog />
-        </Route>
-        <Route path='/research'>
-          <Research />
-        </Route>
-        <Route path='/account' component={Account} />
-        <Redirect to='/leagues' />
-      </Switch>
-    );
-  } else
-    routes = (
-      <Switch>
-        <Route path='/' exact component={Home} />
-        <Route path='/blog' component={Blog} />
-        <Route path='/research' component={Research} />
-        <Route path='/auth' component={Auth} />
-        <Redirect to='/auth' />
-      </Switch>
-    );
+  if (!isLoading) {
+    if (token) {
+      routes = (
+        <Switch>
+          <Route path='/' exact component={Home} />
+          <Route path='/createLeague' component={CreateLeague} />
+          <Route path='/joinLeague' component={JoinLeague} />
+          <Route path='/leagues'>
+            <Leagues />
+          </Route>
+          <Route path='/leagueHome/:lid/settings/removeLeague'>
+            <DeleteLeague />
+          </Route>
+          <Route path='/leagueHome/:lid/settings/removeUser'>
+            <RemoveUser />
+          </Route>
+          <Route path='/leagueHome/:lid'>
+            <LeagueHome />
+          </Route>
+          <Route path='/blog' component={Blog} />
+          <Route path='/research' component={Research} />
+          <Route path='/help' component={Help} />
+          <Route path='/account' component={Account} />
+          <Redirect to='/leagues' />
+        </Switch>
+      );
+    } else {
+      routes = (
+        <Switch>
+          <Route path='/' exact component={Home} />
+          <Route path='/blog' component={Blog} />
+          <Route path='/research' component={Research} />
+          <Route path='/help' component={Help} />
+          <Route path='/auth' exact component={Auth} />
+          <Route path='/auth/verify/:token' exact component={Verify} />
+          <Route path='/auth/change/:token' exact component={ChangePassword} />
+          <Redirect to='/auth' />
+        </Switch>
+      );
+    }
+  }
 
   return (
     <AuthContext.Provider
@@ -126,7 +140,7 @@ const App = () => {
         userId: userId,
         userName: userName,
         leagueName: [leagueName, setLeagueName],
-        leagueNum: [leagueNum, setLeagueNum]
+        leagueNum: [leagueNum, setLeagueNum],
       }}
     >
       <Router>

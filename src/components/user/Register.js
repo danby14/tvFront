@@ -3,29 +3,46 @@ import { AuthContext } from '../context/auth-context';
 import Modal from '../shared/Modal';
 
 import axios from 'axios';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
+
+import ReactDatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import subDays from 'date-fns/subDays';
+import startOfDay from 'date-fns/startOfDay';
 
 function Register() {
   const auth = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { register, handleSubmit, errors } = useForm();
+  const [success, setSuccess] = useState(null);
+  const { control, register, handleSubmit, reset, errors } = useForm();
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
   const onSubmit = async data => {
+    setIsLoading(true);
     try {
-      const response = await axios.post('http://localhost:5000/user/register', {
-        username: data.username,
-        email: data.email,
-        password: data.password,
-        birthdate: data.birthdate,
-        gender: data.gender,
-        optIn: data.optIn
-      });
-      auth.login(response.data.user, response.data.username, response.data.token);
+      const response = await axios.post(
+        'http://localhost:5000/user/register',
+        {
+          username: data.username,
+          email: data.email,
+          password: data.password,
+          birthdate: data.birthdate,
+          gender: data.gender,
+          optIn: data.optIn,
+        },
+        { withCredentials: true }
+      );
+      setSuccess(response.data.msg);
+      reset();
+      setIsLoading(false);
+      // auth.login(response.data.user, response.data.username, response.data.token);
     } catch (err) {
       setError(err.response.data);
+      setIsLoading(false);
     }
   };
+
   return (
     <div className='has-text-dark '>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -38,10 +55,9 @@ function Register() {
               type='text'
               ref={register({
                 required: 'Please Enter a Valid Username',
-                maxLength: { value: 20, message: 'max of 20 characters' }
+                maxLength: { value: 20, message: 'max of 20 characters' },
               })}
             />
-            {console.log(errors)}
             <p className='has-text-danger'>{errors.username && errors.username.message}</p>
           </div>
         </div>
@@ -68,7 +84,7 @@ function Register() {
               type='password'
               ref={register({
                 required: 'Please Enter a Valid Password',
-                minLength: { value: 6, message: 'minimum of 6 characters' }
+                minLength: { value: 6, message: 'minimum of 6 characters' },
               })}
             />
             <p className='has-text-danger'>{errors.password && errors.password.message}</p>
@@ -78,11 +94,29 @@ function Register() {
         <div className='field'>
           <label htmlFor='birthdate'>Birthdate</label>
           <div className='control'>
-            <input
-              className='input is-small'
+            <Controller
+              as={
+                <ReactDatePicker
+                  showMonthDropdown
+                  showYearDropdown
+                  dropdownMode='select'
+                  dateFormat=' MMMM d, yyyy'
+                  maxDate={new Date()}
+                />
+              }
+              control={control}
+              defaultValue={startOfDay(new Date())}
+              // defaultValue={new Date(new Date())}
               name='birthdate'
-              type='date'
-              ref={register({ required: 'Please Enter a Valid Date' })}
+              valueName='selected'
+              onChange={([selected]) => selected}
+              rules={{
+                required: 'Please enter a Valid Date',
+                validate: value =>
+                  new Date(value).getTime() < subDays(new Date(), 365) ||
+                  `ga ga goo goo, no babies allowed`,
+              }}
+              className='input is-small'
             />
             <p className='has-text-danger'>{errors.birthdate && errors.birthdate.message}</p>
           </div>
@@ -133,10 +167,18 @@ function Register() {
         </div>
 
         <div className='has-text-centered'>
-          <input className='button is-dark is-outlined' type='submit' value='Register'></input>
+          <button
+            className={`button is-dark is-outlined ${isLoading ? 'is-loading' : ''}`}
+            type='submit'
+          >
+            Register
+          </button>
         </div>
       </form>
       {error && <Modal title='Registration Failed' message={error} stateHandler={setError} />}
+      {success && (
+        <Modal title='Registration Submitted' message={success} stateHandler={setSuccess} success />
+      )}
     </div>
   );
 }

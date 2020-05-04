@@ -8,5 +8,5 @@ export const AuthContext = createContext({
   leagueNum: null,
   token: null,
   login: () => {},
-  logout: () => {}
+  logout: () => {},
 });

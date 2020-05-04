@@ -1,16 +1,21 @@
 import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/auth-context';
+import LoadingSpinner from '../shared/LoadingSpinner';
 
 const Account = () => {
   const auth = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState([]);
   const [leagues, setLeagues] = useState();
   const [birthday, setBirthday] = useState();
   const uid = auth.userId;
+
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
+
   useEffect(() => {
     const fetchUser = async () => {
+      setIsLoading(true);
       try {
         const response = await axios.get(`http://localhost:5000/user/${uid}`);
         setUser(response.data);
@@ -21,14 +26,18 @@ const Account = () => {
             </p>
           ))
         );
-        // setBirthday(new Date(response.data.birthdate).substring(0, 10));
-        // setBirthday(new Date(response.data.birthdate));
-        // setBirthday(response.data.birthdate.substring(0, 10));
         setBirthday(new Date(response.data.birthdate).toUTCString().split(' '));
-      } catch (err) {}
+        setIsLoading(false);
+      } catch (err) {
+        setIsLoading(false);
+      }
     };
     fetchUser();
   }, [uid]);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className='content has-text-dark'>

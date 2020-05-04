@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
-import UserPrediction from './UserPrediction';
-import Pagination from '../../shared/Pagination';
-import Person from '../../../assets/Person';
-import Antenna from '../../../assets/Antenna';
+import UserPrediction from '../UserPrediction';
+import Pagination from '../../../shared/Pagination';
+import Person from '../../../../assets/Person';
+import Antenna from '../../../../assets/Antenna';
+
+import './MakePredictions.css';
+/* <link href="https://css.gg/css?=|chevron-left|chevron-right" rel="stylesheet" /> */
 
 const MakePredictions = ({ lid, startDate, networks, members, changes, toggles }) => {
   const [currentNetwork, setCurrentNetwork] = useState(1);
@@ -59,11 +62,11 @@ const MakePredictions = ({ lid, startDate, networks, members, changes, toggles }
               />
               <div className='has-text-centered'>
                 <span onClick={prevNetwork} className={`icon ${leftArrowClass}`}>
-                  <i className='fas fa-2x fa-angle-left'></i>
+                  <i className='gg-chevron-left'></i>
                 </span>
                 <span>&emsp; &emsp;</span>
                 <span onClick={nextNetwork} className={`icon ${rightArrowClass}`}>
-                  <i className='fas fa-2x fa-angle-right'></i>
+                  <i className='gg-chevron-right'></i>
                 </span>
               </div>
             </React.Fragment>

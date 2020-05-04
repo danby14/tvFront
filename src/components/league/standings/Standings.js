@@ -57,8 +57,7 @@ const Standings = ({ members, networks, lgName, startDate, predictionsAvailable 
         <div className='content has-text-dark has-text-centered'>
           {predictionsAvailable && (
             <Link to={`${url}/predictions`}>
-              Predictions are open and must be submitted by {new Date(startDate).toLocaleString()}.
-              Click here to make yours now.
+              Predictions must be submitted by {new Date(startDate).toLocaleString()}.
             </Link>
           )}
         </div>
@@ -69,7 +68,11 @@ const Standings = ({ members, networks, lgName, startDate, predictionsAvailable 
                 <tr className='has-background-light'>
                   <th className='is-stuck'>League: {lgName}</th>
                   {members.map(member => (
-                    <th className='has-text-centered is-stuck' key={member.memberId[0]._id}>
+                    <th
+                      className='has-text-centered is-stuck ellipsis'
+                      data-text={member.memberId[0].username}
+                      key={member.memberId[0]._id}
+                    >
                       {member.memberId[0].username}
                       {/* {member.memberId[0].username.slice(0, 6) +
                         ' ' +
@@ -127,20 +130,20 @@ const Standings = ({ members, networks, lgName, startDate, predictionsAvailable 
                   </React.Fragment>
                 ))}
                 <tr className='has-background-dark'>
-                  <td className='has-text-white has-text-weight-bold'>Totals</td>
+                  <td className='has-text-white has-text-weight-bold is-stuck2'>Totals</td>
                   {totals.map((total, t) => (
                     <React.Fragment key={t}>
                       {Math.max(...totals) === total ? (
-                        <td className='has-text-white has-text-weight-bold has-text-centered'>
+                        <td className='has-text-white has-text-weight-bold has-text-centered is-stuck2'>
                           {total}
                           {total > 0 && findWinnerUsername(t)}
                         </td>
                       ) : (
-                        <td className='has-text-grey has-text-centered'>{total}</td>
+                        <td className='has-text-grey has-text-centered is-stuck2'>{total}</td>
                       )}
                     </React.Fragment>
                   ))}
-                  <td className='has-text-white has-text-weight-bold has-text-centered '>
+                  <td className='has-text-white has-text-weight-bold has-text-centered is-stuck2'>
                     {winners.length > 0 &&
                       winners.map(winner => `${members[winner].memberId[0].username} `)}
                   </td>

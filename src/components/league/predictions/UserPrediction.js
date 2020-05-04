@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
-// import { useHistory } from 'react-router-dom';
 
 import { AuthContext } from '../../context/auth-context';
 
@@ -26,16 +25,14 @@ export default function App({ shows, lid, networkNumber, members, toggles, chang
         : null;
     });
 
-    // console.log(combinedPredictions);
     try {
       await axios.patch(`http://localhost:5000/leagues/${lid}/predictions`, {
         predictions: { network: networkNumber, shows: combinedPredictions },
         currentNetwork: networkNumber,
-        userId: auth.userId
+        userId: auth.userId,
       });
       setCurrentData(watchAllFields); // so we can tell if data has been submitted by user or not yet
       changes(); // so parent can update
-      // history.goBack();
     } catch (err) {
       console.log(err);
     }
@@ -44,8 +41,6 @@ export default function App({ shows, lid, networkNumber, members, toggles, chang
   const member = members.find(({ memberId }) => memberId[0]._id === auth.userId);
 
   const networkFinder = member.predictions.find(({ network }) => network === networkNumber);
-
-  // console.log(toggles[networkNumber]);
 
   const isEqual = (obj1, obj2) => {
     let obj1Keys = Object.keys(obj1);
