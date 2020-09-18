@@ -4,6 +4,7 @@ import { AuthContext } from '../context/auth-context';
 import LoadingSpinner from '../shared/LoadingSpinner';
 
 const Account = () => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState([]);
@@ -17,7 +18,7 @@ const Account = () => {
     const fetchUser = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`http://localhost:5000/user/${uid}`);
+        const response = await axios.get(`${BASE_URL}/user/${uid}`);
         setUser(response.data);
         setLeagues(
           response.data.leagues.map(lg => (
@@ -33,7 +34,7 @@ const Account = () => {
       }
     };
     fetchUser();
-  }, [uid]);
+  }, [uid, BASE_URL]);
 
   if (isLoading) {
     return <LoadingSpinner />;

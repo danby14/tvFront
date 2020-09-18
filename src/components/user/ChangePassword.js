@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
 
 const ChangePassword = () => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const { token } = useParams();
   const { register, handleSubmit, errors } = useForm();
   const [error, setError] = useState(false);
@@ -14,7 +15,7 @@ const ChangePassword = () => {
   const onSubmit = async data => {
     if (data.password === data.password2) {
       try {
-        const response = await axios.post(`http://localhost:5000/user/changePassword`, {
+        const response = await axios.post(`${BASE_URL}/user/changePassword`, {
           password: data.password,
           token: token,
         });

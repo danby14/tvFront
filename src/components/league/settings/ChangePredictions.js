@@ -9,6 +9,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import subDays from 'date-fns/subDays';
 
 const ChangePredictions = ({ id, networks, toggles, changes, currentStartDate }) => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
   const { control, register, handleSubmit, errors } = useForm();
   const [submitted, setSubmitted] = useState(false);
@@ -27,7 +28,7 @@ const ChangePredictions = ({ id, networks, toggles, changes, currentStartDate })
           network: i,
         };
       });
-      await axios.patch(`http://localhost:5000/leagues/${id}/togglePredictions`, {
+      await axios.patch(`${BASE_URL}/leagues/${id}/togglePredictions`, {
         predictionEdits: updatedToggles,
         startDate: data.startDate,
       });

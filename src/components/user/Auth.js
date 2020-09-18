@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Login from './Login';
 import Register from './Register';
 import Antenna from '../../assets/Antenna';
-// import { Link } from 'react-router-dom';
 
 const Auth = () => {
   const [login, setLogin] = useState(true);
@@ -25,9 +24,9 @@ const Auth = () => {
   };
 
   return (
-    <div className='columns container'>
+    <div className='columns'>
       <div className='column'></div>
-      <div className='column'>
+      <div id='auth-width' className='column'>
         <div className='has-text-centered'>
           <Antenna size={28} />
         </div>

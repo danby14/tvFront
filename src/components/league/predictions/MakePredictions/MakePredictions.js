@@ -36,9 +36,9 @@ const MakePredictions = ({ lid, startDate, networks, members, changes, toggles }
   return (
     <div className='columns'>
       <div className='column'></div>
-      <div className='column'>
+      <div id='predictions-width' className='column '>
         <div className='has-text-centered'>
-          <Antenna size={28} />
+          <Antenna size={22} />
         </div>
         <div className='box'>
           <h3 className='title has-text-centered is-3 has-text-grey-darker'>Make Predicitons</h3>

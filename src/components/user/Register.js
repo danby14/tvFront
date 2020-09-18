@@ -11,6 +11,7 @@ import subDays from 'date-fns/subDays';
 import startOfDay from 'date-fns/startOfDay';
 
 function Register() {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -22,7 +23,7 @@ function Register() {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        'http://localhost:5000/user/register',
+        `${BASE_URL}/user/register`,
         {
           username: data.username,
           email: data.email,

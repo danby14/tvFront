@@ -10,6 +10,7 @@ import Settings from './settings/Settings';
 import LoadingSpinner from '../shared/LoadingSpinner';
 
 const LeagueHome = () => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [isLoading, setIsLoading] = useState(false);
   const [league, setLeague] = useState([]);
   const [members, setMembers] = useState([]);
@@ -30,12 +31,12 @@ const LeagueHome = () => {
       setIsLoading(true);
       try {
         // can probably make this one call to db if I add ref to schema and populate networks on backend
-        const response1 = await axios.get(`http://localhost:5000/leagues/${lid}`);
+        const response1 = await axios.get(`${BASE_URL}/leagues/${lid}`);
 
         // only get networks on first call because they don't change when predictions updates
         if (changer === 0) {
           const listId = response1.data.listUsed;
-          const response2 = await axios.get(`http://localhost:5000/monthlyLists/${listId}`);
+          const response2 = await axios.get(`${BASE_URL}/monthlyLists/${listId}`);
           setNetworks(response2.data.networks);
         }
         setLeague(response1.data);
@@ -46,7 +47,7 @@ const LeagueHome = () => {
       }
     };
     fetchLeague();
-  }, [lid, changer]);
+  }, [lid, changer, BASE_URL]);
 
   // used to update context for league name in navbar
   useEffect(() => {

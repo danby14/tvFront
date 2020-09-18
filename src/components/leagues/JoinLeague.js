@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
 const JoinLeague = () => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
   const [error, setError] = useState(null);
   const { register, handleSubmit, errors } = useForm();
@@ -17,8 +18,8 @@ const JoinLeague = () => {
   // need to generate :lid from leagueName | have user follow links with :lid in them | change :lid to leagueName, then adjust for alteration on backend
   const onSubmit = async data => {
     try {
-      await axios.patch(`http://localhost:5000/leagues/${data.leagueId}`, {
-        leaguePassword: data.leaguePassword
+      await axios.patch(`${BASE_URL}/leagues/${data.leagueId}`, {
+        leaguePassword: data.leaguePassword,
       });
       history.push('/Leagues');
     } catch (err) {
@@ -52,7 +53,7 @@ const JoinLeague = () => {
                 type='password'
                 ref={register({
                   required: 'Please Enter a Valid Password',
-                  minLength: { value: 6, message: 'miniumum of 6 characters' }
+                  minLength: { value: 6, message: 'miniumum of 6 characters' },
                 })}
               />
               <p className='has-text-danger'>

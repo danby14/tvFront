@@ -6,6 +6,7 @@ import Box from '../shared/Box';
 import LoadingSpinner from '../shared/LoadingSpinner';
 
 const Leagues = () => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
   const [leagues, setLeagues] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,7 +18,7 @@ const Leagues = () => {
     const fetchLeague = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`http://localhost:5000/user/${uid}/leagues`);
+        const response = await axios.get(`${BASE_URL}/user/${uid}/leagues`);
         setLeagues(response.data);
         setIsLoading(false);
       } catch (err) {
@@ -26,7 +27,7 @@ const Leagues = () => {
       }
     };
     fetchLeague();
-  }, [uid]);
+  }, [uid, BASE_URL]);
 
   if (isLoading) {
     return <LoadingSpinner />;

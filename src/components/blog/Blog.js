@@ -1,16 +1,16 @@
 import React from 'react';
 // import { Switch, Route, useRouteMatch } from 'react-router-dom';
 import Person from '../../assets/Person';
-import GrowthChart from '../../assets/GrowthChart';
+import BattleForFirst from '../../assets/BattleForFirst';
 
 const Blog = () => {
   // let { path } = useRouteMatch();
   return (
-    <div className='content has-text-centered'>
-      <GrowthChart size={60} />
-      <p className='title has-text-primary'>Blog</p>
+    <div className='mt-0'>
+      {/* <p className='title has-text-primary'>Blog</p>
       <p className='has-text-dark'>words go here</p>
-      <Person size={30} />
+      <Person size={30} /> */}
+      <BattleForFirst size={60} />
       {/* <Switch>
         <Route exact path={`${path}/2`}>
           <MakePredictions2 />

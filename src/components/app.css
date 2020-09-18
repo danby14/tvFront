@@ -2,6 +2,22 @@ html {
   overflow-y: auto;
 }
 
+.hero-body-adjusted {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 0;
+  padding: 0.5rem 1rem;
+
+  /* change to center for content to be in middle of page */
+  align-items: flex-start;
+}
+
+@media screen and (min-width: 1024px) {
+  .hero-body-adjusted {
+    padding: 3rem 1.5rem;
+  }
+}
+
 .is-clickable {
   cursor: pointer;
 }
@@ -28,6 +44,7 @@ html {
   overflow: auto;
   height: 80vh;
 }
+
 @media screen and (max-width: 1023px) {
   .is-mobile-table-overflow-fix {
     display: block !important;
@@ -46,6 +63,12 @@ html {
   }
   .navbar-item.is-hoverable:focus-within .navbar-dropdown {
     display: none;
+  }
+  /* for making predictions */
+  .is-max {
+    height: 28vh;
+    /* max-height: 28vh; */
+    overflow: auto;
   }
 }
 
@@ -94,8 +117,18 @@ still need to make dynamic by making max-width change under different test cases
 .ellipsis {
   overflow: hidden;
   white-space: break-spaces;
-  max-width: 86px;
+  max-width: 75px;
   text-overflow: ellipsis;
+}
+
+@media screen and (min-width: 1024px) {
+  .ellipsis {
+    overflow: hidden;
+    white-space: break-spaces;
+    max-width: 3.5rem;
+    /* max-width: 4.5rem; */
+    text-overflow: ellipsis;
+  }
 }
 
 /* shows user names on hover on standings page */
@@ -110,5 +143,17 @@ still need to make dynamic by making max-width change under different test cases
 td:first-child,
 th:first-child,
 th:last-child {
-  max-width: 165px;
+  max-width: 115px;
+}
+
+#main-container-width {
+  max-width: 1728px;
+}
+
+#auth-width {
+  max-width: 425px;
+}
+
+#predictions-width {
+  max-width: 445px;
 }

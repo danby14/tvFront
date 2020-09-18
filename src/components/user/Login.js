@@ -7,9 +7,9 @@ import { useForm } from 'react-hook-form';
 import ForgotPassword from './ForgotPassword';
 
 function Login() {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
   const [submitted, setSubmitted] = useState(null);
-
   const [isLoading, setIsLoading] = useState(false);
   const [resetPassword, setResetPassword] = useState(false);
   const [error, setError] = useState(null);
@@ -26,7 +26,7 @@ function Login() {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        'http://localhost:5000/user/login',
+        `${BASE_URL}/user/login`,
         {
           email: data.email,
           password: data.password,

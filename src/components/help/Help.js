@@ -37,10 +37,14 @@ const Help = () => {
       </div>
 
       <div className='content'>
-        <p className='title is-4 has-text-dark'>How can I support this site?</p>
+        <p className='title is-4 has-text-dark'>Is it too late to start/join a league?</p>
         <p className='subtitle is-6 has-text-dark'>
-          Donations can be made here. Or given to a random stranger who will hopefully one day pass
-          them on to me. The first method is faster.
+          Always try to start your leagues before the premieres of new fall shows begin each year,
+          but all predictions for a group become final at the same time. So it's never too late to
+          get a league started, because you are only competing versus the group you join. Just know
+          that if a show has already started for the year, your friends probably already know it
+          has, and will use any advantage they can to prove their dominance. So do your research and
+          don't pick multiple seasons for a show that is on the brink of being cancelled.
         </p>
       </div>
 
@@ -76,6 +80,14 @@ const Help = () => {
         <p className='subtitle is-6 has-text-dark'>
           Bragging rights, validation for watching so much tv, and maybe even a fun little blurb on
           your resume.
+        </p>
+      </div>
+
+      <div className='content'>
+        <p className='title is-4 has-text-dark'>How can I support this site?</p>
+        <p className='subtitle is-6 has-text-dark'>
+          Donations can be made here. Or given to a random stranger who will hopefully one day pass
+          them on to me. The first method is faster.
         </p>
       </div>
 

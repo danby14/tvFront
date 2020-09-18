@@ -49,11 +49,12 @@ const Standings = ({ members, networks, lgName, startDate, predictionsAvailable 
   return (
     <div className='columns'>
       <div className='column'>
-        <div className='has-svg is-hidden-touch'>
+        <div className='has-svg is-hidden-touch is-hidden-desktop-only'>
           <CelebratingGirl size={85} />
         </div>
       </div>
       <div className='column is-four-fifths'>
+        {/* <div className='column is-'> */}
         <div className='content has-text-dark has-text-centered'>
           {predictionsAvailable && (
             <Link to={`${url}/predictions`}>
@@ -154,7 +155,7 @@ const Standings = ({ members, networks, lgName, startDate, predictionsAvailable 
         </div>
       </div>
       <div className='column has-text-centered'>
-        <div className='has-svg'>
+        <div className='has-svg is-hidden-touch is-hidden-desktop-only'>
           <CelebratingGuy size={95} />
         </div>
       </div>

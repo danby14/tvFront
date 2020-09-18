@@ -13,6 +13,7 @@ import addDays from 'date-fns/addDays';
 import startOfDay from 'date-fns/startOfDay';
 
 function CreateLeague() {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
   const [error, setError] = useState(null);
   const { control, register, handleSubmit, errors } = useForm();
@@ -22,7 +23,7 @@ function CreateLeague() {
 
   const onSubmit = async data => {
     try {
-      await axios.post('http://localhost:5000/leagues/create', {
+      await axios.post(`${BASE_URL}/leagues/create`, {
         leagueName: data.leagueName,
         password: data.password,
         startDate: data.startDate,

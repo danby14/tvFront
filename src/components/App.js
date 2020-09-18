@@ -23,6 +23,7 @@ import Verify from './user/Verify';
 let logoutTimer;
 
 const App = () => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [isLoading, setIsLoading] = useState(true);
   const [token, setToken] = useState(false);
   const [userId, setUserId] = useState(false);
@@ -44,41 +45,40 @@ const App = () => {
     setLeagueName(null);
     setLeagueNum(null);
     try {
-      axios.get('http://localhost:5000/user/logout', { withCredentials: true });
+      axios.get(`${BASE_URL}/user/logout`, { withCredentials: true });
     } catch (err) {
       console.log(err);
     }
     clearTimeout(logoutTimer);
-  }, []);
+  }, [BASE_URL]);
 
   const refresh = useCallback(() => {
-    fetch('http://localhost:5000/refresh_token', { method: 'POST', credentials: 'include' }).then(
-      async x => {
-        const { userId, username, accessToken, ok } = await x.json();
-        if (ok) {
-          setToken(accessToken);
-          setUserId(userId);
-          setUserName(username);
-        } else {
-          setToken(false);
-          // try {
-          //   axios.get('http://localhost:5000/user/logout', { withCredentials: true });
-          // } catch (err) {
-          //   console.log(err);
-          // }
-        }
-        setIsLoading(false);
+    fetch(`${BASE_URL}/refresh_token`, { method: 'POST', credentials: 'include' }).then(async x => {
+      const { userId, username, accessToken, ok } = await x.json();
+      if (ok) {
+        setToken(accessToken);
+        setUserId(userId);
+        setUserName(username);
+      } else {
+        setToken(false);
+        // try {
+        //   axios.get(`${BASE_URL}/user/logout`, { withCredentials: true });
+        // } catch (err) {
+        //   console.log(err);
+        // }
       }
-    );
+      setIsLoading(false);
+    });
     // setIsLoading(false);  gets site to show when server is not available
-  }, []);
+  }, [BASE_URL]);
 
   // allow users to stay logged in on page refresh, but defaults to default route/page.
+  // maybe add location to session storage
   useEffect(() => {
     refresh();
   }, [refresh]);
 
-  // the countdown to be auto logged out
+  // the countdown to silently refresh access token
   useEffect(() => {
     if (token) {
       const remainingTime = 900000; // match token exp time (currently 15mins) on server (makeTokens for access token)
@@ -149,8 +149,11 @@ const App = () => {
             <MainNavbar2 leagueName={leagueName} token={token} />
           </div>
           <section className='hero is-dark is-bold is-fullheight-with-navbar'>
-            <div className='hero-body has-background-white-ter is-mobile-table-overflow-fix'>
-              <div className='container'>{routes}</div>
+            {/* <div className='hero-body has-background-white-ter is-mobile-table-overflow-fix'> */}
+            <div className='hero-body-adjusted has-background-white-ter is-mobile-table-overflow-fix'>
+              <div id='main-container-width' className='container'>
+                {routes}
+              </div>
             </div>
             <div className='hero-foot has-text-centered'>contact help about feedback (c)2020</div>
           </section>
