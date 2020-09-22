@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import ResendConfirmation from '../user/ResendConfirmation';
 import Modal from '../shared/Modal';
 
@@ -13,10 +14,20 @@ const Help = () => {
 
   return (
     <div className='box'>
-      <div className='title is-1 has-text-info has-text-centered'>Frequently Asked Questions</div>
+      <div className='title is-1 has-text-info has-text-centered'>Help / FAQ</div>
 
       <div className='content'>
-        <p className='title is-4 has-text-dark'>
+        <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>How can I contact you.</p>
+        <p className='subtitle is-6 has-text-dark'>
+          By messaging us on Facebook, Twitter, or filling out this form
+          <Link to='/Contact' className='has-text-info'>
+            {` here.`}
+          </Link>
+        </p>
+      </div>
+
+      <div className='content'>
+        <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>
           How do I login, it says my email is not confirmed?
         </p>
         <p className='subtitle is-6 has-text-dark'>
@@ -30,14 +41,18 @@ const Help = () => {
       </div>
 
       <div className='content'>
-        <p className='title is-4 has-text-dark'>How many leagues can I join?</p>
+        <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>
+          How many leagues can I join?
+        </p>
         <p className='subtitle is-6 has-text-dark'>
           The current maximum is 2 per year. Which will reset just before the fall premieres.
         </p>
       </div>
 
       <div className='content'>
-        <p className='title is-4 has-text-dark'>Is it too late to start/join a league?</p>
+        <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>
+          Is it too late to start/join a league?
+        </p>
         <p className='subtitle is-6 has-text-dark'>
           Always try to start your leagues before the premieres of new fall shows begin each year,
           but all predictions for a group become final at the same time. So it's never too late to
@@ -49,21 +64,23 @@ const Help = () => {
       </div>
 
       <div className='content'>
-        <p className='title is-4 has-text-dark'>How many members can one league have?</p>
+        <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>
+          How many members can one league have?
+        </p>
         <p className='subtitle is-6 has-text-dark'>The current maximum is 10 members.</p>
       </div>
 
       <div className='content'>
-        <p className='title is-4 has-text-dark'>
+        <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>
           I came up with a great league name, How do I invite people to join my league?
         </p>
-        <p className='subtitle is-6 has-text-dark'>
+        <p className='subtitle is-6 has-text-grey has-text-weight-bold pb-2'>
           Just send them your league ID and the password that you used to create the league.
         </p>
       </div>
 
       <div className='content'>
-        <p className='title is-4 has-text-dark'>
+        <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>
           Which one has more weight to it when it comes to making predictions, number of episodes or
           seasons?
         </p>
@@ -76,7 +93,9 @@ const Help = () => {
       </div>
 
       <div className='content'>
-        <p className='title is-4 has-text-dark'>What do I get for winning?</p>
+        <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>
+          What do I get for winning?
+        </p>
         <p className='subtitle is-6 has-text-dark'>
           Bragging rights, validation for watching so much tv, and maybe even a fun little blurb on
           your resume.
@@ -84,7 +103,9 @@ const Help = () => {
       </div>
 
       <div className='content'>
-        <p className='title is-4 has-text-dark'>How can I support this site?</p>
+        <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>
+          How can I support this site?
+        </p>
         <p className='subtitle is-6 has-text-dark'>
           Donations can be made here. Or given to a random stranger who will hopefully one day pass
           them on to me. The first method is faster.
@@ -92,36 +113,37 @@ const Help = () => {
       </div>
 
       <div className='content'>
-        <p className='title is-4 has-text-dark'>What do premium members get?</p>
+        <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>
+          What do premium members get?
+        </p>
         <p className='subtitle is-6 has-text-dark'>Whatever they want.</p>
       </div>
 
       <div className='content'>
-        <p className='title is-4 has-text-dark'>How can I become a premium member?</p>
+        <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>
+          How can I become a premium member?
+        </p>
         <p className='subtitle is-6 has-text-dark'>You can't.</p>
       </div>
 
       <div className='content'>
-        <p className='title is-4 has-text-dark'>Are you associated with the networks?</p>
-        <p className='subtitle is-6 has-text-dark'>I watch tv, but that's about it.</p>
-      </div>
-
-      <div className='content'>
-        <p className='title is-4 has-text-dark'>I have a great idea for you.</p>
+        <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>
+          Are you associated with the networks?
+        </p>
         <p className='subtitle is-6 has-text-dark'>
-          Not really a question, but you can contact me here.
+          I saw a peacock at the zoo once. Does that count?
         </p>
       </div>
 
       <div className='content'>
-        <p className='title is-4 has-text-dark'>
+        <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>
           Did anybody really ask any of these questions, or are you just making them up as you go?
         </p>
         <p className='subtitle is-6 has-text-dark'>Yes.</p>
       </div>
 
       <div className='content'>
-        <p className='title is-4 has-text-dark'>
+        <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>
           Why didn't you stop after the last question? This F.A.Q. seems to be lingering past its
           point of usefulness.
         </p>
@@ -132,7 +154,9 @@ const Help = () => {
       </div>
 
       <div className='content'>
-        <p className='title is-4 has-text-dark'>Ok, now it's getting ridiculous. Please Stop.</p>
+        <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>
+          Ok, now it's getting ridiculous. Please Stop.
+        </p>
         <p className='subtitle is-6 has-text-dark'>Ok.</p>
       </div>
 

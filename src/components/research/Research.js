@@ -1,58 +1,34 @@
-import React from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useState } from 'react';
+import ReactPlayer from 'react-player/lazy';
+
+import Modal from '../shared/Modal';
 
 const Research = () => {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = data => {
-    console.log(data);
+  const [enableTrailer, setEnableTrailer] = useState(false);
+  const [url, setUrl] = useState(null);
+
+  const activateTrailer = selectedUrl => {
+    setEnableTrailer(true);
+    setUrl(selectedUrl);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className='field-body'>
-        <div className='field'>
-          <label className='label'>show1</label>
-          <div className='control'>
-            <div className='select'>
-              <select name='a' ref={register({ required: true })}>
-                <option value='0'>Please Select One</option>
-                <option value='1e'>1 Episode</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div className='field'>
-          <label className='label'>show1</label>
-          <div className='control'>
-            <div className='select'>
-              <select name='a' ref={register({ required: true })}>
-                <option value='0'>Please Select One</option>
-                <option value='1e'>1 Episode</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div className='field'>
-          <label className='label'>show1</label>
-          <div className='control'>
-            <div className='select'>
-              <select name='a' ref={register({ required: true })}>
-                <option value='0'>Please Select One</option>
-                <option value='1e'>1 Episode</option>
-              </select>
-            </div>
-          </div>
-        </div>
+    <div className='container'>
+      <div className='content'>
+        <h1 className='title has-text-info'>Research</h1>
+        <p className='has-text-dark'>
+          This would be really helpful. Hmm... Maybe it will show up one day.
+        </p>
+        <button className='button' onClick={() => activateTrailer('https://youtu.be/sj9J2ecsSpo')}>
+          Play Trailer
+        </button>
       </div>
-
-      <div className='field'>
-        <div className='control'>
-          <button type='submit' className='button is-link'>
-            Submit
-          </button>
-        </div>
-      </div>
-    </form>
+      {enableTrailer && (
+        <Modal title='Trailer' stateHandler={setEnableTrailer} success submitted={true} trailer>
+          <ReactPlayer url={url} width='100%' height='100%' controls className='react-player' />
+        </Modal>
+      )}
+    </div>
   );
 };
 

@@ -24,9 +24,9 @@ const Auth = () => {
   };
 
   return (
-    <div className='columns'>
+    <div className='columns is-lower'>
       <div className='column'></div>
-      <div id='auth-width' className='column'>
+      <div id='auth-width' className='column is-7-tablet'>
         <div className='has-text-centered'>
           <Antenna size={28} />
         </div>

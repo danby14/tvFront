@@ -18,7 +18,7 @@ const Leagues = () => {
     const fetchLeague = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`${BASE_URL}/user/${uid}/leagues`);
+        const response = await axios.get(`${BASE_URL}/leagues/${uid}/leagues`);
         setLeagues(response.data);
         setIsLoading(false);
       } catch (err) {
@@ -35,9 +35,9 @@ const Leagues = () => {
 
   if (leagues.length === 0 && !isLoading) {
     return (
-      <div className='columns'>
+      <div className='columns is-gapless is-lower is-mobile'>
         <div className='column'></div>
-        <div className='column'>
+        <div className='column is-11-mobile is-7-tablet is-6-desktop is-5-widescreen'>
           <Box svgSize={35}>
             <div className='has-text-dark has-text-centered'>
               <div className='content'>
@@ -65,12 +65,12 @@ const Leagues = () => {
 
   if (leagues.length !== 0 && !isLoading) {
     return (
-      <div className='columns'>
+      <div className='columns is-gapless is-lower is-mobile'>
         <div className='column'></div>
-        <div className='column'>
+        <div className='column is-11-mobile is-7-tablet is-6-desktop is-5-widescreen'>
           <Box className='box has-text-centered' svgSize={28}>
             <h2 className='title has-text-dark'>Your Leagues</h2>
-            <div className='content has-text-centered'>
+            <div className='content'>
               {leagues.length > 0 &&
                 leagues.map(lg => (
                   <p key={lg._id} id={lg._id}>
@@ -81,13 +81,16 @@ const Leagues = () => {
                 ))}
               <p>-----</p>
             </div>
-            <Link to='/JoinLeague'>
-              <button className='button'>Join an Existing League</button>
-            </Link>
-
-            <Link to='/CreateLeague'>
-              <button className='button'>Create a New League</button>
-            </Link>
+            <p className='pb-2'>
+              <Link to='/JoinLeague'>
+                <button className='button'>Join an Existing League</button>
+              </Link>
+            </p>
+            <p>
+              <Link to='/CreateLeague'>
+                <button className='button'>Create a New League</button>
+              </Link>
+            </p>
           </Box>
         </div>
         <div className='column'></div>

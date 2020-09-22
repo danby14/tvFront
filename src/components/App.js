@@ -19,6 +19,9 @@ import MainNavbar2 from './navbar/MainNavbar2';
 import RemoveUser from './league/settings/RemoveUser';
 import Research from './research/Research';
 import Verify from './user/Verify';
+import Contact from './contact/Contact';
+import Footer from './footer/Footer';
+import Admin from './admin/Admin';
 
 let logoutTimer;
 
@@ -69,7 +72,7 @@ const App = () => {
       }
       setIsLoading(false);
     });
-    // setIsLoading(false);  gets site to show when server is not available
+    // setIsLoading(false);  gets site to render when server is not available
   }, [BASE_URL]);
 
   // allow users to stay logged in on page refresh, but defaults to default route/page.
@@ -107,10 +110,12 @@ const App = () => {
           <Route path='/leagueHome/:lid'>
             <LeagueHome />
           </Route>
+          <Route path='/contact' component={Contact} />
           <Route path='/blog' component={Blog} />
           <Route path='/research' component={Research} />
           <Route path='/help' component={Help} />
           <Route path='/account' component={Account} />
+          <Route path='/admin' component={Admin} />
           <Redirect to='/leagues' />
         </Switch>
       );
@@ -118,6 +123,7 @@ const App = () => {
       routes = (
         <Switch>
           <Route path='/' exact component={Home} />
+          <Route path='/contact' component={Contact} />
           <Route path='/blog' component={Blog} />
           <Route path='/research' component={Research} />
           <Route path='/help' component={Help} />
@@ -155,7 +161,9 @@ const App = () => {
                 {routes}
               </div>
             </div>
-            <div className='hero-foot has-text-centered'>contact help about feedback (c)2020</div>
+            <div className='hero-foot'>
+              <Footer />
+            </div>
           </section>
         </>
       </Router>

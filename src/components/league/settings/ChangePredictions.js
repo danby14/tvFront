@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useContext } from 'react';
 import { AuthContext } from '../../context/auth-context';
 
 import axios from 'axios';
@@ -8,11 +8,18 @@ import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import subDays from 'date-fns/subDays';
 
-const ChangePredictions = ({ id, networks, toggles, changes, currentStartDate }) => {
+const ChangePredictions = ({
+  id,
+  networks,
+  toggles,
+  changes,
+  currentStartDate,
+  submitted,
+  setSubmitted,
+}) => {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
   const { control, register, handleSubmit, errors } = useForm();
-  const [submitted, setSubmitted] = useState(false);
 
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 

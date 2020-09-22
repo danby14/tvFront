@@ -4,12 +4,11 @@ import { AuthContext } from '../../context/auth-context';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 
-const ChangeLeaguePassword = ({ id, currentPass, changes }) => {
+const ChangeLeaguePassword = ({ id, currentPass, changes, submitted, setSubmitted }) => {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
   const { register, handleSubmit, errors } = useForm();
   const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
@@ -21,14 +20,14 @@ const ChangeLeaguePassword = ({ id, currentPass, changes }) => {
         oldPassword: data.oldPassword,
         newPassword: data.password,
       });
-      setSuccess(true);
+      setSubmitted(true);
       changes();
     } catch (err) {
       setError(err.response.data);
     }
   };
 
-  if (!success) {
+  if (!submitted) {
     return (
       <div>
         <form id='changePassword' onSubmit={handleSubmit(onSubmit)}>

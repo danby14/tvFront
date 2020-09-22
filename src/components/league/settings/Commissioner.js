@@ -8,13 +8,16 @@ import ChangePredictions from './ChangePredictions';
 const Commissioner = ({ league, networks, toggles, changes }) => {
   const [enablePredictions, setEnablePredictions] = useState(false);
   const [enablePasswordUpdater, setEnablePasswordUpdater] = useState(false);
+  const [submitted, setSubmitted] = useState(null);
   let { url } = useRouteMatch();
 
   function changePredictionsHandler() {
+    setSubmitted(false);
     setEnablePredictions(true);
   }
 
   function updatePasswordHandler() {
+    setSubmitted(false);
     setEnablePasswordUpdater(true);
   }
 
@@ -40,7 +43,7 @@ const Commissioner = ({ league, networks, toggles, changes }) => {
             </li>
             <li className='pb-3'>
               <p className='is-size-5 has-text-weight-medium'>Invite Users</p>
-              {10 - league.members.length}/10 slots remaining
+              {10 - league.members.length} open slots.
             </li>
             <li className='pb-3'>
               <p className='is-size-5 has-text-weight-medium'>Start Date:</p>
@@ -56,7 +59,7 @@ const Commissioner = ({ league, networks, toggles, changes }) => {
               >
                 ⇒ Change ⇐
               </span>
-              <ul className='has-text-info pt-1'>
+              <ul className='has-text-grey pt-1'>
                 <li>▫ Can reopen or extend Start Date by choosing a future date.</li>
                 <li>▫ Can close predictions for all users by choosing a date in the past.</li>
                 <li>▫ Can close predictions for certain shows by unchecking their boxes.</li>
@@ -67,12 +70,14 @@ const Commissioner = ({ league, networks, toggles, changes }) => {
                 </li>
               </ul>
             </li>
-            <li className='pb-2'>
+            <li className='pb-4'>
               <p className='is-size-5 has-text-weight-medium'>League Created:</p>
               {new Date(league.createdAt).toLocaleString().split(',')[0]}
             </li>
-            <li className='has-text-danger is-size-5 has-text-centered pb-3'>⇓ DANGER ZONE ⇓</li>
-            <li className='pb-3'>
+            <li className='has-text-danger is-size-5 has-text-centered py-2 has-danger-border'>
+              ⇓ DANGER ZONE ⇓
+            </li>
+            <li className='pb-3 pt-3'>
               <p className='is-size-5 has-text-weight-medium'>Remove a User from this League:</p>
               <p className='has-text-danger pb-1'>
                 WARNING: The Following Action Can Not Be Undone. All predictions for this user and
@@ -103,6 +108,7 @@ const Commissioner = ({ league, networks, toggles, changes }) => {
           stateHandler={setEnablePredictions}
           success
           form='changePredictions'
+          submitted={submitted}
         >
           <ChangePredictions
             currentStartDate={league.startDate}
@@ -110,6 +116,8 @@ const Commissioner = ({ league, networks, toggles, changes }) => {
             toggles={toggles}
             networks={networks}
             changes={changes}
+            submitted={submitted}
+            setSubmitted={setSubmitted}
           />
         </Modal>
       )}
@@ -119,8 +127,15 @@ const Commissioner = ({ league, networks, toggles, changes }) => {
           stateHandler={setEnablePasswordUpdater}
           success
           form='changePassword'
+          submitted={submitted}
         >
-          <ChangeLeaguePassword id={league._id} currentPass={league.password} changes={changes} />
+          <ChangeLeaguePassword
+            id={league._id}
+            currentPass={league.password}
+            changes={changes}
+            submitted={submitted}
+            setSubmitted={setSubmitted}
+          />
         </Modal>
       )}
     </div>

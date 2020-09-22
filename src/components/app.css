@@ -6,7 +6,8 @@ html {
   display: flex;
   flex-grow: 1;
   flex-shrink: 0;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.3rem;
+  line-height: 1.4;
 
   /* change to center for content to be in middle of page */
   align-items: flex-start;
@@ -14,8 +15,12 @@ html {
 
 @media screen and (min-width: 1024px) {
   .hero-body-adjusted {
-    padding: 3rem 1.5rem;
+    padding: 1rem 1.5rem;
   }
+}
+
+.is-lower {
+  padding-top: 10%;
 }
 
 .is-clickable {
@@ -152,8 +157,35 @@ th:last-child {
 
 #auth-width {
   max-width: 425px;
+  margin: 0 auto;
 }
 
 #predictions-width {
   max-width: 445px;
+}
+
+.player-wrapper {
+  position: relative;
+  padding-top: 56.25%; /* 720 / 1280 = 0.5625 */
+  overflow: hidden;
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.has-danger-border {
+  border: 1px solid red;
+}
+
+.is-aligned {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pr-tiny {
+  padding-right: 2px;
 }
