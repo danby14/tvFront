@@ -8,6 +8,7 @@ const Admin = () => {
   const auth = useContext(AuthContext);
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
@@ -21,6 +22,7 @@ const Admin = () => {
       } catch (err) {
         setMessages(null);
         setIsLoading(false);
+        setNotFound(true);
       }
     };
     fetchMessages();
@@ -30,19 +32,45 @@ const Admin = () => {
     return <LoadingSpinner />;
   }
 
+  if (notFound) {
+    return (
+      <div className='columns has-text-dark pt-5'>
+        <div className='column'></div>
+        <div className='column has-text-centered'>Page not found</div>
+        <div className='column'></div>
+      </div>
+    );
+  }
+
   if (!isLoading && messages) {
     return (
       <div className='columns'>
         <div className='column'></div>
         <div className='column has-text-dark'>
-          <p>Total Messages: {messages.length}</p>
-          <ul>
-            <li>Reason: {messages[0].reason}</li>
-            <li>Name: {messages[0].name}</li>
-            <li>Email: {messages[0].email}</li>
-            <li>Subject: {messages[0].subject}</li>
-            <li>Message: {messages[0].name}</li>
-          </ul>
+          <p className='pb-5 has-text-weight-bold is-size-4'>Total Messages: {messages.length}</p>
+          {messages.map((message, idx) => (
+            <div className='box' key={idx}>
+              <ul className=''>
+                <li className='pb-3'>
+                  <span className='has-text-weight-semibold'>Reason:</span> <p>{message.reason}</p>
+                </li>
+                <li className='pb-3'>
+                  <span className='has-text-weight-semibold'>Name:</span> <p>{message.name}</p>
+                </li>
+                <li className='pb-3'>
+                  <span className='has-text-weight-semibold'>Email:</span> <p>{message.email}</p>
+                </li>
+                <li className='pb-3'>
+                  <span className='has-text-weight-semibold'>Subject:</span>{' '}
+                  <p>{message.subject}</p>
+                </li>
+                <li>
+                  <span className='has-text-weight-semibold'>Message:</span>{' '}
+                  <p>{message.message}</p>
+                </li>
+              </ul>
+            </div>
+          ))}
         </div>
         <div className='column'></div>
       </div>

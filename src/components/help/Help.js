@@ -85,10 +85,16 @@ const Help = () => {
           seasons?
         </p>
         <p className='subtitle is-6 has-text-dark'>
-          Due to varying season lengths, episodes are the stronger indicator of performance. Price
-          is right rules are also in effect for tie breakers. So if someone predicts 5 episodes
-          under, and another person predicts 5 episodes over, the under prediction is going to win.
-          For 5 under and 4 over, the 4 over would win, since it is not a tie.
+          Due to varying season lengths for different networks and shows, episodes are the stronger
+          indicator of performance. Tie breakers are won by episodes and the under prediction. So if
+          someone predicts 5 episodes under the final result, and another person predicts 5 episodes
+          over, the under prediction is going to win. For 5 episodes under and 4 over, the 4 over
+          would win, since it is not a tie.
+        </p>
+        <p className='subtitle is-6 has-text-dark'>
+          To be precise, the current cutoff is 35 episodes or less, you pick episodes. If you think
+          36 episodes+, pick seasons. So if someone picks 35 episodes for a netflix show that has 10
+          episode seasons. They would beat the person who picked 3.5 seasons.
         </p>
       </div>
 

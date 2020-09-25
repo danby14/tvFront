@@ -1,8 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { FiYoutube } from 'react-icons/fi';
+import ReactPlayer from 'react-player/lazy';
 import axios from 'axios';
 
 import { AuthContext } from '../../context/auth-context';
+import Modal from '../../shared/Modal';
 
 export default function App({ shows, lid, networkNumber, members, toggles, changes }) {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -11,6 +14,8 @@ export default function App({ shows, lid, networkNumber, members, toggles, chang
   const { register, handleSubmit, watch } = useForm();
   // const { register, handleSubmit, watch, errors } = useForm();
   const watchAllFields = watch();
+  const [enableTrailer, setEnableTrailer] = useState(false);
+  const [url, setUrl] = useState(null);
 
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
@@ -56,6 +61,11 @@ export default function App({ shows, lid, networkNumber, members, toggles, chang
     return true;
   };
 
+  const activateTrailer = selectedUrl => {
+    setEnableTrailer(true);
+    setUrl(selectedUrl);
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className='field is-max'>
@@ -64,7 +74,12 @@ export default function App({ shows, lid, networkNumber, members, toggles, chang
             {toggles[networkNumber].shows[i] === true && (
               <>
                 <div className='control'>
-                  <label className='label'>{show.show}</label>
+                  <label
+                    className='label is-clickable'
+                    onClick={() => activateTrailer(show.trailer)}
+                  >
+                    {show.show} <FiYoutube />
+                  </label>
                   <div className='select'>
                     <select
                       name={show.show}
@@ -132,6 +147,11 @@ export default function App({ shows, lid, networkNumber, members, toggles, chang
           )}
         </div>
       </div>
+      {enableTrailer && (
+        <Modal title='Trailer' stateHandler={setEnableTrailer} success submitted={true} trailer>
+          <ReactPlayer url={url} width='100%' height='100%' controls className='react-player' />
+        </Modal>
+      )}
     </form>
   );
 }

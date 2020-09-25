@@ -27,6 +27,15 @@ html {
   cursor: pointer;
 }
 
+.is-centered-icon {
+  vertical-align: center;
+  margin-left: 5px;
+}
+
+.is-icon-top {
+  vertical-align: top;
+}
+
 /* to keep the table header sticky and visible at all times */
 .is-stuck {
   background: white;
@@ -54,6 +63,12 @@ html {
   .is-mobile-table-overflow-fix {
     display: block !important;
   }
+}
+
+.make-disappear {
+  /* display: none; */
+  display: none;
+  max-width: 5px;
 }
 
 .has-svg {

@@ -76,6 +76,26 @@ const Contact = () => {
                 <input
                   name='reason'
                   type='radio'
+                  value='Add show'
+                  className='mr-1'
+                  ref={register({ required: 'Please Choose One' })}
+                />
+                Request to add show
+              </label>
+              <label className='radio'>
+                <input
+                  name='reason'
+                  type='radio'
+                  value='Show cancelled'
+                  className='mr-1'
+                  ref={register({ required: 'Please Choose One' })}
+                />
+                This show got cancelled
+              </label>
+              <label className='radio'>
+                <input
+                  name='reason'
+                  type='radio'
                   value='Other'
                   className='mr-1'
                   ref={register({ required: true })}
@@ -87,7 +107,7 @@ const Contact = () => {
 
             <div className='field'>
               <label htmlFor='name' className='label'>
-                Name
+                Your Name or Username
               </label>
               <input type='text' name='name' ref={register({ required: true })} />
               <p className='has-text-danger'>{errors.name && errors.name.type}</p>

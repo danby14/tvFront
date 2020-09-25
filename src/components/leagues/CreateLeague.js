@@ -33,11 +33,11 @@ function CreateLeague() {
       setError(err.response.data);
     }
   };
-
+  // columns has-text-centered has-text-dark
   return (
-    <div className='columns has-text-centered has-text-dark '>
+    <div className=' columns is-gapless is-lower is-mobile'>
       <div className='column'></div>
-      <div className='column'>
+      <div className='column is-11-mobile is-7-tablet is-6-desktop is-5-widescreen'>
         <Box>
           <p className='title has-text-dark'>Create League</p>
           <form onSubmit={handleSubmit(onSubmit)}>
