@@ -5,7 +5,6 @@ import Person from '../../../../assets/Person';
 import Antenna from '../../../../assets/Antenna';
 
 import './MakePredictions.css';
-/* <link href="https://css.gg/css?=|chevron-left|chevron-right" rel="stylesheet" /> */
 
 const MakePredictions = ({ lid, startDate, networks, members, changes, toggles }) => {
   const [currentNetwork, setCurrentNetwork] = useState(1);

@@ -61,15 +61,6 @@ const Standings = ({ members, networks, lgName, startDate, predictionsAvailable 
       let updatedList = usersToHide;
       updatedList.push(playerNum);
       setUsersToHide(updatedList);
-      // let updatedList;
-      // if (usersToHide.length > 0 && usersToHide.includes(playerNum)) {
-      //   updatedList = usersToHide.filter(num => num !== playerNum);
-      //   setUsersToHide(updatedList);
-      // } else {
-      //   updatedList = usersToHide;
-      //   updatedList.push(playerNum);
-      //   setUsersToHide(updatedList);
-      // }
     }
     setCount((count += 1));
   };

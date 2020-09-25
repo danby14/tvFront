@@ -75,7 +75,12 @@ const Help = () => {
           I came up with a great league name, How do I invite people to join my league?
         </p>
         <p className='subtitle is-6 has-text-grey has-text-weight-bold pb-2'>
-          Just send them your league ID and the password that you used to create the league.
+          Just send them your league ID and the password that you used to create the league. The ID
+          can be found in your league's settings page. The league password can also be changed from
+          there if you don't want any more random people joining your league. Useful in cases where
+          league information is shared on social media sites like Facebook groups, reddit, twitter,
+          etc. The commissioner can also kick people from the league, then change the league
+          password if so desired.
         </p>
       </div>
 
