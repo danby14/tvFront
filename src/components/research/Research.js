@@ -1,33 +1,24 @@
-import React, { useState } from 'react';
-import ReactPlayer from 'react-player/lazy';
-
-import Modal from '../shared/Modal';
+import React from 'react';
+import Logo from '../../assets/Logo';
 
 const Research = () => {
-  const [enableTrailer, setEnableTrailer] = useState(false);
-  const [url, setUrl] = useState(null);
-
-  const activateTrailer = selectedUrl => {
-    setEnableTrailer(true);
-    setUrl(selectedUrl);
-  };
-
   return (
-    <div className='container'>
+    <div className='container is-padded'>
       <div className='content'>
         <h1 className='title has-text-info'>Research</h1>
         <p className='has-text-dark'>
           This would be really helpful. Hmm... Maybe it will show up one day.
         </p>
-        <button className='button' onClick={() => activateTrailer('https://youtu.be/sj9J2ecsSpo')}>
-          Play Trailer
-        </button>
+        <p>
+          <Logo size='178' unit='px' color='#C9B037' />
+        </p>
+        <p>
+          <Logo size='178' unit='px' color='silver' />
+        </p>
+        <p>
+          <Logo size='178' unit='px' color='#AD8A56' />
+        </p>
       </div>
-      {enableTrailer && (
-        <Modal title='Trailer' stateHandler={setEnableTrailer} success submitted={true} trailer>
-          <ReactPlayer url={url} width='100%' height='100%' controls className='react-player' />
-        </Modal>
-      )}
     </div>
   );
 };

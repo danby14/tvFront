@@ -15,13 +15,14 @@ import Home from './home/Home';
 import JoinLeague from './leagues/JoinLeague';
 import LeagueHome from './league/LeagueHome';
 import Leagues from './leagues/Leagues';
-import MainNavbar2 from './navbar/MainNavbar2';
+import MainNavbar from './navbar/MainNavbar';
 import RemoveUser from './league/settings/RemoveUser';
 import Research from './research/Research';
 import Verify from './user/Verify';
 import Contact from './contact/Contact';
 import Footer from './footer/Footer';
 import Admin from './admin/Admin';
+import LoadingSpinner from './shared/LoadingSpinner';
 
 let logoutTimer;
 
@@ -72,11 +73,10 @@ const App = () => {
       }
       setIsLoading(false);
     });
-    // setIsLoading(false);  gets site to render when server is not available
+    // gets site to render when server is not available
+    // setIsLoading(false);
   }, [BASE_URL]);
 
-  // allow users to stay logged in on page refresh, but defaults to default route/page.
-  // maybe add location to session storage
   useEffect(() => {
     refresh();
   }, [refresh]);
@@ -134,6 +134,12 @@ const App = () => {
         </Switch>
       );
     }
+  } else {
+    routes = (
+      <Switch>
+        <Route path='/' component={LoadingSpinner} />
+      </Switch>
+    );
   }
 
   return (
@@ -151,17 +157,14 @@ const App = () => {
     >
       <Router>
         <>
-          <div className='navbar'>
-            <MainNavbar2 leagueName={leagueName} token={token} />
+          <div className='navbar is-light'>
+            <MainNavbar leagueName={leagueName} token={token} />
           </div>
-          <section className='hero is-dark is-bold is-fullheight-with-navbar'>
-            {/* <div className='hero-body has-background-white-ter is-mobile-table-overflow-fix'> */}
+          <section className='hero is-dark  is-fullheight-with-navbar'>
             <div className='hero-body-adjusted has-background-white-ter is-mobile-table-overflow-fix'>
-              <div id='main-container-width' className='container'>
-                {routes}
-              </div>
+              {routes}
             </div>
-            <div className='hero-foot'>
+            <div className='hero-foot has-background-grey-dark'>
               <Footer />
             </div>
           </section>

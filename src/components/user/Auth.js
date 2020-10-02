@@ -24,35 +24,35 @@ const Auth = () => {
   };
 
   return (
-    <div className='columns is-lower'>
-      <div className='column'></div>
-      <div id='auth-width' className='column is-7-tablet'>
-        <div className='has-text-centered'>
-          <Antenna size={28} />
-        </div>
-        <div className='card has-radius'>
-          <footer className='card-footer is-clickable has-text-white has-radius'>
-            <p
-              className={`card-footer-item ${loginClass} has-radius-top-left`}
-              onClick={loginHandler}
-            >
-              <span>Sign In</span>
-            </p>
-            <p
-              className={`card-footer-item ${registerClass} has-radius-top-right`}
-              onClick={registerHandler}
-            >
-              <span>Register</span>
-            </p>
-          </footer>
-          <div className='is-divider'></div>
-          <div className='card-content'>
-            {login && <Login />}
-            {register && <Register />}
+    <div className='container'>
+      <div className='columns is-lower is-centered'>
+        <div id='auth-width' className='column is-7-tablet'>
+          <div className='has-text-centered'>
+            <Antenna size={28} />
+          </div>
+          <div className='card has-radius'>
+            <footer className='card-footer is-clickable has-text-white has-radius'>
+              <p
+                className={`card-footer-item ${loginClass} has-radius-top-left`}
+                onClick={loginHandler}
+              >
+                <span>Sign In</span>
+              </p>
+              <p
+                className={`card-footer-item ${registerClass} has-radius-top-right`}
+                onClick={registerHandler}
+              >
+                <span>Register</span>
+              </p>
+            </footer>
+            <div className='is-divider'></div>
+            <div className='card-content'>
+              {login && <Login />}
+              {register && <Register />}
+            </div>
           </div>
         </div>
       </div>
-      <div className='column'></div>
     </div>
   );
 };

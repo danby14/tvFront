@@ -27,8 +27,7 @@ const ChangePassword = () => {
   };
 
   return (
-    <div className='columns has-text-dark'>
-      <div className='column'></div>
+    <div className='columns is-centered has-text-dark'>
       <div className='column is-half has-text-centered '>
         <Box>
           {!success ? (
@@ -73,7 +72,6 @@ const ChangePassword = () => {
           )}
         </Box>
       </div>
-      <div className='column'></div>
     </div>
   );
 };

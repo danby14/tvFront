@@ -42,90 +42,92 @@ const DeleteLeague = () => {
   let { lid } = useParams();
 
   return (
-    <div className='columns has-text-centered has-text-dark '>
-      <div className='column'></div>
-      <div className='column'>
-        <Box>
-          <h1 className='title has-text-danger pb-2'>
-            Are you sure you want to delete the league {lgName}?
-          </h1>
-          <h2 className='subtitle has-text-dark'>
-            Please fill out the following information to continue.
-          </h2>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className='field'>
-              <label htmlFor='leagueName'>League Name (must match exactly)</label>
-              <div className='control'>
-                <input
-                  className='input'
-                  name='leagueName'
-                  type='text'
-                  // defaultValue={lid}
-                  ref={register({ required: 'Please Enter Valid League Name' })}
-                />
-                <p className='has-text-danger'>{errors.leagueName && errors.leagueName.message}</p>
+    <div className='container pt-4 px-4'>
+      <div className='columns has-text-centered has-text-dark is-centered '>
+        <div className='column is-6-tablet is-5'>
+          <Box>
+            <h1 className='title has-text-danger pb-2'>
+              Are you sure you want to delete the league {lgName}?
+            </h1>
+            <h2 className='subtitle has-text-dark'>
+              Please fill out the following information to continue.
+            </h2>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className='field'>
+                <label htmlFor='leagueName'>League Name (must match exactly)</label>
+                <div className='control'>
+                  <input
+                    className='input'
+                    name='leagueName'
+                    type='text'
+                    // defaultValue={lid}
+                    ref={register({ required: 'Please Enter Valid League Name' })}
+                  />
+                  <p className='has-text-danger'>
+                    {errors.leagueName && errors.leagueName.message}
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <div className='field'>
-              <label htmlFor='leagueId'>League Id</label>
-              <div className='control'>
-                <input
-                  className='input'
-                  name='leagueId'
-                  type='text'
-                  defaultValue={lid}
-                  ref={register({ required: 'Please Enter a Valid League ID' })}
-                />
-                <p className='has-text-danger'>{errors.leagueId && errors.leagueId.message}</p>
+              <div className='field'>
+                <label htmlFor='leagueId'>League Id</label>
+                <div className='control'>
+                  <input
+                    className='input'
+                    name='leagueId'
+                    type='text'
+                    defaultValue={lid}
+                    ref={register({ required: 'Please Enter a Valid League ID' })}
+                  />
+                  <p className='has-text-danger'>{errors.leagueId && errors.leagueId.message}</p>
+                </div>
               </div>
-            </div>
 
-            <div className='field'>
-              <label htmlFor='leaguePassword'>League Password</label>
-              <div className='control'>
-                <input
-                  className='input is-small'
-                  name='leaguePassword'
-                  type='password'
-                  ref={register({
-                    required: 'Please Enter a Valid Password',
-                    minLength: { value: 6, message: 'miniumum of 6 characters' },
-                  })}
-                />
-                <p className='has-text-danger'>
-                  {errors.leaguePassword && errors.leaguePassword.message}
-                </p>
+              <div className='field'>
+                <label htmlFor='leaguePassword'>League Password</label>
+                <div className='control'>
+                  <input
+                    className='input is-small'
+                    name='leaguePassword'
+                    type='password'
+                    ref={register({
+                      required: 'Please Enter a Valid Password',
+                      minLength: { value: 6, message: 'miniumum of 6 characters' },
+                    })}
+                  />
+                  <p className='has-text-danger'>
+                    {errors.leaguePassword && errors.leaguePassword.message}
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <input className='button' type='submit' value='Submit'></input>
-          </form>
-        </Box>
+              <input className='button' type='submit' value='Submit'></input>
+            </form>
+          </Box>
+        </div>
+
+        {success && (
+          <div className='has-text-left'>
+            <Modal
+              title='League has been deleted'
+              message={success}
+              stateHandler={setSuccess}
+              extras={setRedirectOnSuccess}
+            />
+          </div>
+        )}
+
+        {redirectOnSuccess &&
+          setTimeout(() => {
+            history.push('/Leagues');
+          }, 1)}
+
+        {error && (
+          <div className='has-text-left'>
+            <Modal title='Deleting League Failed' message={error} stateHandler={setError} />
+          </div>
+        )}
       </div>
-      <div className='column'></div>
-
-      {success && (
-        <div className='has-text-left'>
-          <Modal
-            title='League has been deleted'
-            message={success}
-            stateHandler={setSuccess}
-            extras={setRedirectOnSuccess}
-          />
-        </div>
-      )}
-
-      {redirectOnSuccess &&
-        setTimeout(() => {
-          history.push('/Leagues');
-        }, 1)}
-
-      {error && (
-        <div className='has-text-left'>
-          <Modal title='Deleting League Failed' message={error} stateHandler={setError} />
-        </div>
-      )}
     </div>
   );
 };

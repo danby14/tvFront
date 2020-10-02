@@ -41,20 +41,22 @@ const Account = () => {
   }
 
   return (
-    <div className='content has-text-dark'>
-      <h2 className='has-text-primary'>Welcome, {user.username}</h2>
-      <h2 className='has-text-primary'>Email</h2>
-      <p>{user.email}</p>
-      <h2 className='has-text-primary'>Birthday</h2>
-      {birthday && (
-        <p>
-          {birthday[2]} {birthday[1]}, {birthday[3]}
-        </p>
-      )}
-      <h2 className='has-text-primary'>Gender</h2>
-      <p>{user.gender}</p>
-      <h2 className='has-text-primary'>Leagues</h2>
-      {leagues}
+    <div className='container pt-5 pl-3'>
+      <div className='content has-text-dark'>
+        <h2 className='has-text-dark has-text-weight-bold'>{user.username}</h2>
+        <h3 className='has-text-info'>Email</h3>
+        <p>{user.email}</p>
+        <h3 className='has-text-info'>Birthday</h3>
+        {birthday && (
+          <p>
+            {birthday[2]} {birthday[1]}, {birthday[3]}
+          </p>
+        )}
+        <h3 className='has-text-info'>Gender</h3>
+        <p>{user.gender}</p>
+        <h3 className='has-text-info'>Leagues</h3>
+        {leagues}
+      </div>
     </div>
   );
 };

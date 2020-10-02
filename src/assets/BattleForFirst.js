@@ -210,7 +210,7 @@ function BattleForFirst({ size }) {
 }
 
 BattleForFirst.defaultProps = {
-  size: '80',
+  size: '100',
 };
 
 export default BattleForFirst;

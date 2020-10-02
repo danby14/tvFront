@@ -28,53 +28,53 @@ const JoinLeague = () => {
     }
   };
   return (
-    <div className='columns is-gapless is-lower is-mobile'>
-      <div className='column'></div>
-      <div className='column is-11-mobile is-7-tablet is-6-desktop is-5-widescreen'>
-        <Box>
-          <p className='title has-text-dark'>Join League</p>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className='field'>
-              <label htmlFor='leagueId'>League Id</label>
-              <div className='control'>
-                <input
-                  className='input is-small'
-                  name='leagueId'
-                  type='text'
-                  ref={register({ required: 'Please Enter a Valid League ID' })}
-                />
-                <p className='has-text-danger'>{errors.leagueId && errors.leagueId.message}</p>
+    <div className='container'>
+      <div className='columns is-gapless is-lower is-mobile is-centered'>
+        <div className='column is-11-mobile is-7-tablet is-6-desktop is-5-widescreen'>
+          <Box>
+            <p className='title has-text-dark'>Join League</p>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className='field'>
+                <label htmlFor='leagueId'>League Id</label>
+                <div className='control'>
+                  <input
+                    className='input is-small'
+                    name='leagueId'
+                    type='text'
+                    ref={register({ required: 'Please Enter a Valid League ID' })}
+                  />
+                  <p className='has-text-danger'>{errors.leagueId && errors.leagueId.message}</p>
+                </div>
               </div>
-            </div>
 
-            <div className='field'>
-              <label htmlFor='leaguePassword'>League Password</label>
-              <div className='control'>
-                <input
-                  className='input is-small'
-                  name='leaguePassword'
-                  type='password'
-                  ref={register({
-                    required: 'Please Enter a Valid Password',
-                    minLength: { value: 6, message: 'miniumum of 6 characters' },
-                  })}
-                />
-                <p className='has-text-danger'>
-                  {errors.leaguePassword && errors.leaguePassword.message}
-                </p>
+              <div className='field'>
+                <label htmlFor='leaguePassword'>League Password</label>
+                <div className='control'>
+                  <input
+                    className='input is-small'
+                    name='leaguePassword'
+                    type='password'
+                    ref={register({
+                      required: 'Please Enter a Valid Password',
+                      minLength: { value: 6, message: 'miniumum of 6 characters' },
+                    })}
+                  />
+                  <p className='has-text-danger'>
+                    {errors.leaguePassword && errors.leaguePassword.message}
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <input className='button' type='submit' value='Submit'></input>
-          </form>
-        </Box>
-        {error && (
-          <div className='has-text-left'>
-            <Modal title='Joining League Failed' message={error} stateHandler={setError} />
-          </div>
-        )}
+              <input className='button' type='submit' value='Submit'></input>
+            </form>
+          </Box>
+          {error && (
+            <div className='has-text-left'>
+              <Modal title='Joining League Failed' message={error} stateHandler={setError} />
+            </div>
+          )}
+        </div>
       </div>
-      <div className='column'></div>
     </div>
   );
 };

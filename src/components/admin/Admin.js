@@ -44,21 +44,29 @@ const Admin = () => {
 
   if (!isLoading && messages) {
     return (
-      <div className='columns'>
-        <div className='column'></div>
-        <div className='column has-text-dark'>
+      <div className='columns is-centered'>
+        <div className='column has-text-dark is-6'>
           <p className='pb-5 has-text-weight-bold is-size-4'>Total Messages: {messages.length}</p>
           {messages.map((message, idx) => (
             <div className='box' key={idx}>
               <ul className=''>
                 <li className='pb-3'>
-                  <span className='has-text-weight-semibold'>Reason:</span> <p>{message.reason}</p>
+                  <span className='has-text-weight-semibold'>Created:</span>{' '}
+                  <p>{new Date(message.createdAt) + ''}</p>
                 </li>
                 <li className='pb-3'>
-                  <span className='has-text-weight-semibold'>Name:</span> <p>{message.name}</p>
+                  <span className='has-text-weight-semibold'>Status:</span> <p>{message.status}</p>
                 </li>
                 <li className='pb-3'>
-                  <span className='has-text-weight-semibold'>Email:</span> <p>{message.email}</p>
+                  <span className='has-text-weight-semibold'>Reason for contact:</span>{' '}
+                  <p>{message.reason}</p>
+                </li>
+                <li className='pb-3'>
+                  <span className='has-text-weight-semibold'>User name:</span> <p>{message.name}</p>
+                </li>
+                <li className='pb-3'>
+                  <span className='has-text-weight-semibold'>User email:</span>{' '}
+                  <p>{message.email}</p>
                 </li>
                 <li className='pb-3'>
                   <span className='has-text-weight-semibold'>Subject:</span>{' '}
@@ -72,7 +80,6 @@ const Admin = () => {
             </div>
           ))}
         </div>
-        <div className='column'></div>
       </div>
     );
   }

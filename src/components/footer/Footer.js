@@ -18,13 +18,6 @@ const Footer = () => {
             </Link>
           </li>
 
-          <li className='has-text-centered'>
-            <div className='is-aligned is-size-7'>
-              <span className='is-size-7 pr-tiny'>©</span>
-              {new Date(Date.now()).getFullYear()}
-            </div>
-          </li>
-
           <li>
             <a
               href='https://www.facebook.com'
@@ -44,6 +37,10 @@ const Footer = () => {
             >
               <FiTwitter />
             </a>
+          </li>
+
+          <li className='has-text-centered'>
+            <div className='is-aligned is-size-6'>©{new Date(Date.now()).getFullYear()}</div>
           </li>
         </ul>
       </div>
