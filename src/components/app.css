@@ -73,6 +73,12 @@ html {
   .navbar-item.is-hoverable:focus-within .navbar-dropdown {
     display: none;
   }
+
+  .navbar-item:hover,
+  .navbar-link:hover {
+    color: #3298dc !important;
+  }
+
   /* for making predictions */
   .is-max {
     height: 28vh;
@@ -161,7 +167,7 @@ th:last-child {
 }
 
 .is-padded {
-  padding: 45px 10px;
+  padding: 45px 30px;
 }
 
 #home-main-fix {
@@ -174,8 +180,8 @@ th:last-child {
 
 @media screen and (min-width: 1024px) {
   .is-padded {
-    padding: 90px 20px;
-    max-width: 1140px !important;
+    padding: 70px 15px;
+    max-width: 1200px !important;
   }
 
   #home-main-fix {

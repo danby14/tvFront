@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/auth-context';
 import LoadingSpinner from '../shared/LoadingSpinner';
+import Box from '../shared/Box';
 
 const Account = () => {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -41,21 +42,27 @@ const Account = () => {
   }
 
   return (
-    <div className='container pt-5 pl-3'>
-      <div className='content has-text-dark'>
-        <h2 className='has-text-dark has-text-weight-bold'>{user.username}</h2>
-        <h3 className='has-text-info'>Email</h3>
-        <p>{user.email}</p>
-        <h3 className='has-text-info'>Birthday</h3>
-        {birthday && (
-          <p>
-            {birthday[2]} {birthday[1]}, {birthday[3]}
-          </p>
-        )}
-        <h3 className='has-text-info'>Gender</h3>
-        <p>{user.gender}</p>
-        <h3 className='has-text-info'>Leagues</h3>
-        {leagues}
+    <div className='container'>
+      <div className='columns is-gapless is-lower is-mobile is-centered'>
+        <div className='column is-10-mobile is-6-tablet is-4-widescreen'>
+          <Box>
+            <div className='content'>
+              <h2 className='has-text-dark has-text-weight-bold'>{user.username}</h2>
+              <h3 className='has-text-info'>Email</h3>
+              <p>{user.email}</p>
+              <h3 className='has-text-info'>Birthday</h3>
+              {birthday && (
+                <p>
+                  {birthday[2]} {birthday[1]}, {birthday[3]}
+                </p>
+              )}
+              <h3 className='has-text-info'>Gender</h3>
+              <p>{user.gender}</p>
+              <h3 className='has-text-info'>Leagues</h3>
+              {leagues}
+            </div>
+          </Box>
+        </div>
       </div>
     </div>
   );

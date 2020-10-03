@@ -15,7 +15,7 @@ const MainNavbar = ({ leagueName, token }) => {
 
   return (
     <nav
-      className='navbar is-size-5 is-light is-fixed-top is-transparent container is-fullhd'
+      className='navbar is-size-6-touch is-size-5 is-light is-fixed-top is-transparent container is-fullhd is-hoverable py-1 pr-2'
       role='navigation'
       aria-label='main navigation'
     >
@@ -24,10 +24,10 @@ const MainNavbar = ({ leagueName, token }) => {
           exact
           to='/'
           className='navbar-item'
-          activeClassName='is-underlined has-text-info'
+          activeClassName='has-text-info'
           onClick={clickAndClose}
         >
-          <Logo size='161' unit='px' color='rgba(0,0,0,.7)' />
+          <Logo size='161' unit='px' color='currentColor' />
         </NavLink>
         <label
           onClick={() => {
@@ -51,7 +51,7 @@ const MainNavbar = ({ leagueName, token }) => {
             <NavLink
               to='/leagues'
               className='navbar-item'
-              activeClassName='is-underlined has-text-info has-text-weight-semibold'
+              activeClassName='has-text-info has-text-weight-semibold'
               onClick={clickAndClose}
             >
               Leagues
@@ -67,7 +67,7 @@ const MainNavbar = ({ leagueName, token }) => {
                   exact
                   to={`/leagueHome/${auth.leagueNum[0]}`}
                   className='navbar-item'
-                  activeClassName='has-text-weight-bold has-text-info'
+                  activeClassName='has-text-weight-semibold has-text-info'
                   onClick={clickAndClose}
                 >
                   Standings
@@ -75,7 +75,7 @@ const MainNavbar = ({ leagueName, token }) => {
                 <NavLink
                   to={`/leagueHome/${auth.leagueNum[0]}/predictions`}
                   className='navbar-item '
-                  activeClassName='has-text-weight-bold has-text-info'
+                  activeClassName='has-text-weight-semibold has-text-info'
                   onClick={clickAndClose}
                 >
                   Make Predictions
@@ -83,7 +83,7 @@ const MainNavbar = ({ leagueName, token }) => {
                 <NavLink
                   to={`/leagueHome/${auth.leagueNum[0]}/settings`}
                   className='navbar-item '
-                  activeClassName='has-text-weight-bold has-text-info'
+                  activeClassName='has-text-weight-semibold has-text-info'
                   onClick={clickAndClose}
                 >
                   Settings
@@ -101,7 +101,7 @@ const MainNavbar = ({ leagueName, token }) => {
               <NavLink
                 to='/blog'
                 className='navbar-item '
-                activeClassName='has-text-weight-bold has-text-info'
+                activeClassName='has-text-weight-semibold has-text-info'
                 onClick={clickAndClose}
               >
                 Blog
@@ -109,7 +109,7 @@ const MainNavbar = ({ leagueName, token }) => {
               <NavLink
                 to='/research'
                 className='navbar-item '
-                activeClassName='has-text-weight-bold has-text-info'
+                activeClassName='has-text-weight-semibold has-text-info'
                 onClick={clickAndClose}
               >
                 Research
@@ -117,7 +117,7 @@ const MainNavbar = ({ leagueName, token }) => {
               <NavLink
                 to='/help'
                 className='navbar-item '
-                activeClassName='has-text-weight-bold has-text-info'
+                activeClassName='has-text-weight-semibold has-text-info'
                 onClick={clickAndClose}
               >
                 Help
@@ -125,7 +125,7 @@ const MainNavbar = ({ leagueName, token }) => {
               <NavLink
                 to='/contact'
                 className='navbar-item '
-                activeClassName='has-text-weight-bold has-text-info'
+                activeClassName='has-text-weight-semibold has-text-info'
                 onClick={clickAndClose}
               >
                 Contact
@@ -149,14 +149,14 @@ const MainNavbar = ({ leagueName, token }) => {
 
           {auth.isLoggedIn && (
             <div className='navbar-item has-dropdow is-hoverable'>
-              <div className='button is-info is-rounded is-size-6-mobile is-size-5-tablet is-uppercase'>
+              <div className='button is-info is-rounded is-size-6-touch is-size-5-tablet is-uppercase'>
                 {auth.userName ? auth.userName[0] : 'empty'}
               </div>
               <div className='navbar-dropdown is-right is-boxed'>
                 <NavLink
                   to='/account'
                   className='navbar-item'
-                  activeClassName='has-text-weight-bold has-text-info'
+                  activeClassName='has-text-weight-semibold has-text-info'
                   onClick={clickAndClose}
                 >
                   Account
@@ -164,7 +164,7 @@ const MainNavbar = ({ leagueName, token }) => {
                 <NavLink
                   to='/auth'
                   className='navbar-item'
-                  activeClassName='has-text-weight-bold'
+                  activeClassName='has-text-weight-semibold'
                   onClick={() => {
                     auth.logout();
                     clickAndClose();
