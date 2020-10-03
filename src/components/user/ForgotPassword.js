@@ -4,13 +4,14 @@ import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
 const ForgotPassword = ({ submitted, setSubmitted }) => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const { register, handleSubmit, errors } = useForm();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
   const onSubmit = async data => {
     try {
-      const response = await axios.post(`http://localhost:5000/user/resetPassword`, {
+      const response = await axios.post(`${BASE_URL}/user/resetPassword`, {
         email: data.email,
       });
       setSubmitted(true);

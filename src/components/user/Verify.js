@@ -5,6 +5,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 const Verify = () => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const { token } = useParams();
   const [message, setMessage] = useState(null);
 
@@ -12,7 +13,7 @@ const Verify = () => {
     if (token.length > 100) {
       const verifyUser = async () => {
         try {
-          const response = await axios.post(`http://localhost:5000/email/verify`, { token: token });
+          const response = await axios.post(`${BASE_URL}/email/verify`, { token: token });
           setMessage(response.data.msg);
         } catch (err) {
           setMessage(err.response.data);
@@ -20,15 +21,13 @@ const Verify = () => {
       };
       verifyUser();
     }
-  }, [token]);
+  }, [token, BASE_URL]);
 
   return (
-    <div className='columns has-text-dark'>
-      <div className='column'></div>
+    <div className='columns is-centered has-text-dark'>
       <div className='column is-half has-text-centered '>
         <Box>{message ? message : 'Loading...'}</Box>
       </div>
-      <div className='column'></div>
     </div>
   );
 };

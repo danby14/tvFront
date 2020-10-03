@@ -2,8 +2,34 @@ html {
   overflow-y: auto;
 }
 
+.hero-body-adjusted {
+  display: flex;
+  flex-grow: 1;
+  flex-shrink: 0;
+  line-height: 1.4;
+
+  align-items: flex-start;
+}
+
+.is-lower {
+  padding-top: 10%;
+}
+
 .is-clickable {
   cursor: pointer;
+}
+
+.m-auto {
+  margin: auto;
+}
+
+.is-centered-icon {
+  vertical-align: center;
+  margin-left: 5px;
+}
+
+.is-icon-top {
+  vertical-align: top;
 }
 
 /* to keep the table header sticky and visible at all times */
@@ -23,11 +49,10 @@ html {
 }
 
 .fix-table-scroll {
-  /* overflow: hidden;
-  width: 20px; */
   overflow: auto;
-  height: 80vh;
+  height: 83vh;
 }
+
 @media screen and (max-width: 1023px) {
   .is-mobile-table-overflow-fix {
     display: block !important;
@@ -41,11 +66,23 @@ html {
 }
 
 @media screen and (min-width: 1024px) {
+  /* make dropdown disappear after clicking link */
   .navbar-item.is-hoverable:hover .navbar-dropdown {
     display: inline !important;
   }
   .navbar-item.is-hoverable:focus-within .navbar-dropdown {
     display: none;
+  }
+
+  .navbar-item:hover,
+  .navbar-link:hover {
+    color: #3298dc !important;
+  }
+
+  /* for making predictions */
+  .is-max {
+    height: 28vh;
+    overflow: auto;
   }
 }
 
@@ -89,18 +126,26 @@ html {
   animation: spinAround 1.2s infinite linear !important;
 }
 
-/* used to truncate usernames on standings page
-still need to make dynamic by making max-width change under different test cases */
+/* used to truncate usernames on standings page */
 .ellipsis {
   overflow: hidden;
   white-space: break-spaces;
-  max-width: 86px;
+  max-width: 75px;
   text-overflow: ellipsis;
+}
+
+@media screen and (min-width: 1024px) {
+  .ellipsis {
+    overflow: hidden;
+    white-space: break-spaces;
+    max-width: 75px;
+    text-overflow: ellipsis;
+  }
 }
 
 /* shows user names on hover on standings page */
 .ellipsis:hover {
-  max-width: 86px;
+  max-width: 75px;
   overflow: visible;
   text-overflow: unset;
   word-wrap: break-word;
@@ -110,5 +155,95 @@ still need to make dynamic by making max-width change under different test cases
 td:first-child,
 th:first-child,
 th:last-child {
-  max-width: 165px;
+  max-width: 115px;
+}
+
+#standings-container {
+  max-width: 1728px;
+}
+
+#home-container {
+  width: 100%;
+}
+
+.is-padded {
+  padding: 45px 30px;
+}
+
+#home-main-fix {
+  margin: 0 auto;
+  align-items: center;
+  padding: 45px 20px;
+  padding-bottom: 0;
+  max-width: 1425px;
+}
+
+@media screen and (min-width: 1024px) {
+  .is-padded {
+    padding: 70px 15px;
+    max-width: 1200px !important;
+  }
+
+  #home-main-fix {
+    padding: 90px 20px;
+    padding-bottom: 0;
+  }
+}
+
+#auth-width {
+  max-width: 425px;
+  margin: 0 auto;
+}
+
+#predictions-width {
+  max-width: 445px;
+}
+
+.features-width {
+  max-width: 500px;
+}
+
+@media screen and (max-width: 768px) {
+  .features-width {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .is-smaller-mobile {
+    margin: 0 auto !important;
+    max-width: 550px;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .is-relatively-higher {
+    position: relative;
+    bottom: 70px;
+  }
+}
+
+.player-wrapper {
+  position: relative;
+  padding-top: 56.25%; /* 720 / 1280 = 0.5625 */
+  overflow: hidden;
+}
+
+.react-player {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.has-danger-border {
+  border: 1px solid red;
+}
+
+.is-aligned {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pr-tiny {
+  padding-right: 2px;
 }

@@ -2,8 +2,10 @@ import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/auth-context';
 import LoadingSpinner from '../shared/LoadingSpinner';
+import Box from '../shared/Box';
 
 const Account = () => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState([]);
@@ -17,7 +19,7 @@ const Account = () => {
     const fetchUser = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get(`http://localhost:5000/user/${uid}`);
+        const response = await axios.get(`${BASE_URL}/user/${uid}`);
         setUser(response.data);
         setLeagues(
           response.data.leagues.map(lg => (
@@ -33,27 +35,35 @@ const Account = () => {
       }
     };
     fetchUser();
-  }, [uid]);
+  }, [uid, BASE_URL]);
 
   if (isLoading) {
     return <LoadingSpinner />;
   }
 
   return (
-    <div className='content has-text-dark'>
-      <h2 className='has-text-primary'>Welcome, {user.username}</h2>
-      <h2 className='has-text-primary'>Email</h2>
-      <p>{user.email}</p>
-      <h2 className='has-text-primary'>Birthday</h2>
-      {birthday && (
-        <p>
-          {birthday[2]} {birthday[1]}, {birthday[3]}
-        </p>
-      )}
-      <h2 className='has-text-primary'>Gender</h2>
-      <p>{user.gender}</p>
-      <h2 className='has-text-primary'>Leagues</h2>
-      {leagues}
+    <div className='container'>
+      <div className='columns is-gapless is-lower is-mobile is-centered'>
+        <div className='column is-10-mobile is-6-tablet is-4-widescreen'>
+          <Box>
+            <div className='content'>
+              <h2 className='has-text-dark has-text-weight-bold'>{user.username}</h2>
+              <h3 className='has-text-info'>Email</h3>
+              <p>{user.email}</p>
+              <h3 className='has-text-info'>Birthday</h3>
+              {birthday && (
+                <p>
+                  {birthday[2]} {birthday[1]}, {birthday[3]}
+                </p>
+              )}
+              <h3 className='has-text-info'>Gender</h3>
+              <p>{user.gender}</p>
+              <h3 className='has-text-info'>Leagues</h3>
+              {leagues}
+            </div>
+          </Box>
+        </div>
+      </div>
     </div>
   );
 };

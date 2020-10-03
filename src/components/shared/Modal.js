@@ -1,6 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const Modal = ({ children, title, message, stateHandler, extras, success, form, submitted }) => {
+const Modal = ({
+  children,
+  title,
+  message,
+  stateHandler,
+  extras,
+  success,
+  form,
+  submitted,
+  trailer,
+}) => {
   const [buttonCss, setButtonCss] = useState(null);
 
   const inputRef = useRef(null);
@@ -30,7 +40,7 @@ const Modal = ({ children, title, message, stateHandler, extras, success, form, 
           <p className={`modal-card-title has-text-${success ? 'info' : 'danger'}`}>{title}</p>
         </header>
 
-        <section className='modal-card-body'>
+        <section className={`modal-card-body ${trailer ? 'player-wrapper' : ''}`}>
           {message}
           {children}
         </section>

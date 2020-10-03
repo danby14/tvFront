@@ -1,11 +1,17 @@
-import React from 'react';
-// import Person from '../../../assets/StandingGuy';
+import React, { useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import CelebratingGirl from '../../../assets/CelebratingGirl';
-import CelebratingGuy from '../../../assets/CelebratingGuy';
+import { FiYoutube, FiRotateCcw } from 'react-icons/fi';
+import { CgUserRemove } from 'react-icons/cg';
+import ReactPlayer from 'react-player/lazy';
+
+import Modal from '../../shared/Modal';
 
 const Standings = ({ members, networks, lgName, startDate, predictionsAvailable }) => {
   let { url } = useRouteMatch();
+  let [usersToHide, setUsersToHide] = useState([]);
+  let [count, setCount] = useState(0);
+  const [enableTrailer, setEnableTrailer] = useState(false);
+  const [trailerUrl, setTrailerUrl] = useState(null);
 
   // get predictions for all users, besides user 0
   const otherMembers = (networkNum, shows) => {
@@ -46,118 +52,194 @@ const Standings = ({ members, networks, lgName, startDate, predictionsAvailable 
     winners.push(user);
   };
 
+  const hidePlayer = playerNum => {
+    if (playerNum === 'reset') {
+      setUsersToHide([]);
+    } else {
+      let updatedList = usersToHide;
+      updatedList.push(playerNum);
+      setUsersToHide(updatedList);
+    }
+    setCount((count += 1));
+  };
+
+  const activateTrailer = selectedUrl => {
+    setEnableTrailer(true);
+    setTrailerUrl(selectedUrl);
+  };
+
   return (
-    <div className='columns'>
-      <div className='column'>
-        <div className='has-svg is-hidden-touch'>
-          <CelebratingGirl size={85} />
-        </div>
+    <div id='standings-container' className='container px-5 py-5'>
+      <div
+        className={`pt-1 pb-1 has-text-dark has-text-centered is-size-6-mobile is-size-5-tablet ${
+          !predictionsAvailable ? 'is-hidden' : ''
+        }`}
+      >
+        <Link to={`${url}/predictions`}>
+          Predictions must be submitted by {new Date(startDate).toLocaleString()}.
+        </Link>
       </div>
-      <div className='column is-four-fifths'>
-        <div className='content has-text-dark has-text-centered'>
-          {predictionsAvailable && (
-            <Link to={`${url}/predictions`}>
-              Predictions must be submitted by {new Date(startDate).toLocaleString()}.
-            </Link>
-          )}
-        </div>
-        <div className='fix-table-scroll'>
-          {networks.length !== 0 && (
-            <table className='table is-hoverable is-fullwidth '>
-              <thead>
-                <tr className='has-background-light'>
-                  <th className='is-stuck'>League: {lgName}</th>
-                  {members.map(member => (
-                    <th
-                      className='has-text-centered is-stuck ellipsis'
-                      data-text={member.memberId[0].username}
-                      key={member.memberId[0]._id}
-                    >
-                      {member.memberId[0].username}
-                      {/* {member.memberId[0].username.slice(0, 6) +
-                        ' ' +
-                        member.memberId[0].username.slice(6, 12)} */}
-                    </th>
-                  ))}
+      <div className='fix-table-scroll'>
+        {networks.length !== 0 && (
+          <table className='table is-hoverable is-fullwidth '>
+            <thead>
+              <tr className='has-background-light'>
+                <th></th>
+                {members.map((member, idx) => (
+                  <th
+                    key={idx}
+                    className={`has-text-centered ${usersToHide.includes(idx) ? 'is-hidden' : ''}`}
+                  >
+                    <CgUserRemove
+                      className={`is-icon-top is-clickable`}
+                      onClick={() => hidePlayer(idx)}
+                      title='Hide User'
+                    />
+                  </th>
+                ))}
 
-                  <th className='has-text-centered is-stuck'>Final Result</th>
-                </tr>
-              </thead>
+                <th className='has-text-centered'>
+                  {usersToHide.length > 0 ? (
+                    <FiRotateCcw
+                      onClick={() => hidePlayer('reset')}
+                      title='Show All Users'
+                      className='is-clickable is-centered-icon'
+                    />
+                  ) : (
+                    ''
+                  )}
+                </th>
+              </tr>
+              <tr>
+                <th className='is-stuck'>{lgName}</th>
+                {members.map((member, idx) => (
+                  <th
+                    className={`has-text-centered is-stuck ellipsis ${
+                      usersToHide.includes(idx) ? 'is-hidden' : ''
+                    }`}
+                    data-text={member.memberId[0].username}
+                    key={member.memberId[0]._id}
+                  >
+                    {member.memberId[0].username}
+                  </th>
+                ))}
+                <th className='has-text-centered is-stuck'>Final Result</th>
+              </tr>
+            </thead>
 
-              <tbody>
-                {networks.map((network, n) => (
-                  <React.Fragment key={n}>
-                    <tr className='has-background-white-bis'>
-                      <td className='has-text-info has-text-weight-medium'>{network.network}</td>
-                      {members.map((member, x) => (
-                        <td key={x}></td>
-                      ))}
-                      <td></td>
-                    </tr>
-                    {members[0].predictions[n].shows.map((memberZeroPredictions, i) => {
-                      const finalResult = network.shows[i].finalResult;
-                      const showPredictions = [memberZeroPredictions, otherMembers(n, i)].flat();
+            <tbody>
+              {networks.map((network, n) => (
+                <React.Fragment key={n}>
+                  <tr className='has-background-white-bis'>
+                    <td className='has-text-info has-text-weight-medium'>{network.network}</td>
+                    {members.map((member, x) => (
+                      <td
+                        key={x}
+                        className={`has-text-centered ${
+                          usersToHide.includes(x) ? 'is-hidden' : ''
+                        }`}
+                      ></td>
+                    ))}
+                    <td></td>
+                  </tr>
+                  {members[0].predictions[n].shows.map((memberZeroPredictions, i) => {
+                    const finalResult = network.shows[i].finalResult;
+                    const showPredictions = [memberZeroPredictions, otherMembers(n, i)].flat();
 
-                      // ternary hides shows with null predictions, so new leagues don't show finished shows or unpredicted shows
-                      return memberZeroPredictions === null ? (
-                        <tr key={`${n}${i}`} style={{ display: 'none' }}></tr>
-                      ) : (
-                        <tr key={`${n}${i}`}>
-                          <>
-                            <td>{network.shows[i].show}</td>
-                            {showPredictions.map((memberPrediction, m) => (
-                              <React.Fragment key={`${i}${m}`}>
-                                {finalResult !== 0 &&
-                                memberPrediction === findClosest(showPredictions, finalResult) ? (
-                                  <td className='has-text-info has-text-weight-semibold has-text-centered'>
-                                    {memberTotals(m)}
-                                    {memberPrediction}
-                                  </td>
-                                ) : (
-                                  <td className='has-text-centered'>{memberPrediction}</td>
-                                )}
-                              </React.Fragment>
-                            ))}
-                            {finalResult > 0 ? (
-                              <td className='has-text-info has-text-centered'>{finalResult}</td>
-                            ) : (
-                              <td className='has-text-centered'>-</td>
-                            )}
-                          </>
-                        </tr>
-                      );
-                    })}
+                    // ternary hides shows with null predictions, so new leagues don't show finished shows or unpredicted shows
+                    return memberZeroPredictions === null ? (
+                      <tr key={`${n}${i}`} style={{ display: 'none' }}></tr>
+                    ) : (
+                      <tr key={`${n}${i}`}>
+                        <>
+                          <td>
+                            {network.shows[i].show}{' '}
+                            <FiYoutube
+                              className='is-clickable'
+                              onClick={() => activateTrailer(network.shows[i].trailer)}
+                            />
+                          </td>
+                          {showPredictions.map((memberPrediction, m) => (
+                            <React.Fragment key={`${i}${m}`}>
+                              {finalResult !== 0 &&
+                              memberPrediction === findClosest(showPredictions, finalResult) ? (
+                                <td
+                                  className={`has-text-info has-text-weight-semibold has-text-centered ${
+                                    usersToHide.includes(m) ? 'is-hidden' : ''
+                                  }`}
+                                >
+                                  {memberTotals(m)}
+                                  {memberPrediction}
+                                </td>
+                              ) : (
+                                <td
+                                  className={`has-text-centered ${
+                                    usersToHide.includes(m) ? 'is-hidden' : ''
+                                  }`}
+                                >
+                                  {memberPrediction}
+                                </td>
+                              )}
+                            </React.Fragment>
+                          ))}
+                          {finalResult > 0 ? (
+                            <td className='has-text-info has-text-centered'>
+                              {finalResult < 36 ? finalResult + 'e' : finalResult / 20 + 's'}
+                            </td>
+                          ) : (
+                            <td className='has-text-centered'>-</td>
+                          )}
+                        </>
+                      </tr>
+                    );
+                  })}
+                </React.Fragment>
+              ))}
+              <tr className='has-background-dark'>
+                <td className='has-text-white has-text-weight-bold is-stuck2'>Totals</td>
+                {totals.map((total, t) => (
+                  <React.Fragment key={t}>
+                    {Math.max(...totals) === total ? (
+                      <td
+                        className={`has-text-white has-text-weight-bold has-text-centered is-stuck2 ${
+                          usersToHide.includes(t) ? 'is-hidden' : ''
+                        }`}
+                      >
+                        {total}
+                        {total > 0 && findWinnerUsername(t)}
+                      </td>
+                    ) : (
+                      <td
+                        className={`has-text-grey has-text-centered is-stuck2 ${
+                          usersToHide.includes(t) ? 'is-hidden' : ''
+                        }`}
+                      >
+                        {total}
+                      </td>
+                    )}
                   </React.Fragment>
                 ))}
-                <tr className='has-background-dark'>
-                  <td className='has-text-white has-text-weight-bold is-stuck2'>Totals</td>
-                  {totals.map((total, t) => (
-                    <React.Fragment key={t}>
-                      {Math.max(...totals) === total ? (
-                        <td className='has-text-white has-text-weight-bold has-text-centered is-stuck2'>
-                          {total}
-                          {total > 0 && findWinnerUsername(t)}
-                        </td>
-                      ) : (
-                        <td className='has-text-grey has-text-centered is-stuck2'>{total}</td>
-                      )}
-                    </React.Fragment>
-                  ))}
-                  <td className='has-text-white has-text-weight-bold has-text-centered is-stuck2'>
-                    {winners.length > 0 &&
-                      winners.map(winner => `${members[winner].memberId[0].username} `)}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          )}
-        </div>
+                <td className='has-text-white has-text-weight-bold has-text-centered ellipsis is-stuck2'>
+                  {winners.length > 0 &&
+                    winners.map(winner => `${members[winner].memberId[0].username} `)}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        )}
       </div>
-      <div className='column has-text-centered'>
-        <div className='has-svg'>
-          <CelebratingGuy size={95} />
-        </div>
-      </div>
+
+      {enableTrailer && (
+        <Modal title='Trailer' stateHandler={setEnableTrailer} success submitted={true} trailer>
+          <ReactPlayer
+            url={trailerUrl}
+            width='100%'
+            height='100%'
+            controls
+            className='react-player'
+          />
+        </Modal>
+      )}
     </div>
   );
 };

@@ -15,14 +15,19 @@ import Home from './home/Home';
 import JoinLeague from './leagues/JoinLeague';
 import LeagueHome from './league/LeagueHome';
 import Leagues from './leagues/Leagues';
-import MainNavbar2 from './navbar/MainNavbar2';
+import MainNavbar from './navbar/MainNavbar';
 import RemoveUser from './league/settings/RemoveUser';
 import Research from './research/Research';
 import Verify from './user/Verify';
+import Contact from './contact/Contact';
+import Footer from './footer/Footer';
+import Admin from './admin/Admin';
+import LoadingSpinner from './shared/LoadingSpinner';
 
 let logoutTimer;
 
 const App = () => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [isLoading, setIsLoading] = useState(true);
   const [token, setToken] = useState(false);
   const [userId, setUserId] = useState(false);
@@ -44,41 +49,39 @@ const App = () => {
     setLeagueName(null);
     setLeagueNum(null);
     try {
-      axios.get('http://localhost:5000/user/logout', { withCredentials: true });
+      axios.get(`${BASE_URL}/user/logout`, { withCredentials: true });
     } catch (err) {
       console.log(err);
     }
     clearTimeout(logoutTimer);
-  }, []);
+  }, [BASE_URL]);
 
   const refresh = useCallback(() => {
-    fetch('http://localhost:5000/refresh_token', { method: 'POST', credentials: 'include' }).then(
-      async x => {
-        const { userId, username, accessToken, ok } = await x.json();
-        if (ok) {
-          setToken(accessToken);
-          setUserId(userId);
-          setUserName(username);
-        } else {
-          setToken(false);
-          // try {
-          //   axios.get('http://localhost:5000/user/logout', { withCredentials: true });
-          // } catch (err) {
-          //   console.log(err);
-          // }
-        }
-        setIsLoading(false);
+    fetch(`${BASE_URL}/refresh_token`, { method: 'POST', credentials: 'include' }).then(async x => {
+      const { userId, username, accessToken, ok } = await x.json();
+      if (ok) {
+        setToken(accessToken);
+        setUserId(userId);
+        setUserName(username);
+      } else {
+        setToken(false);
+        // try {
+        //   axios.get(`${BASE_URL}/user/logout`, { withCredentials: true });
+        // } catch (err) {
+        //   console.log(err);
+        // }
       }
-    );
-    // setIsLoading(false);  gets site to show when server is not available
-  }, []);
+      setIsLoading(false);
+    });
+    // gets site to render when server is not available
+    // setIsLoading(false);
+  }, [BASE_URL]);
 
-  // allow users to stay logged in on page refresh, but defaults to default route/page.
   useEffect(() => {
     refresh();
   }, [refresh]);
 
-  // the countdown to be auto logged out
+  // the countdown to silently refresh access token
   useEffect(() => {
     if (token) {
       const remainingTime = 900000; // match token exp time (currently 15mins) on server (makeTokens for access token)
@@ -107,10 +110,12 @@ const App = () => {
           <Route path='/leagueHome/:lid'>
             <LeagueHome />
           </Route>
+          <Route path='/contact' component={Contact} />
           <Route path='/blog' component={Blog} />
           <Route path='/research' component={Research} />
           <Route path='/help' component={Help} />
           <Route path='/account' component={Account} />
+          <Route path='/admin' component={Admin} />
           <Redirect to='/leagues' />
         </Switch>
       );
@@ -118,6 +123,7 @@ const App = () => {
       routes = (
         <Switch>
           <Route path='/' exact component={Home} />
+          <Route path='/contact' component={Contact} />
           <Route path='/blog' component={Blog} />
           <Route path='/research' component={Research} />
           <Route path='/help' component={Help} />
@@ -128,6 +134,12 @@ const App = () => {
         </Switch>
       );
     }
+  } else {
+    routes = (
+      <Switch>
+        <Route path='/' component={LoadingSpinner} />
+      </Switch>
+    );
   }
 
   return (
@@ -145,14 +157,16 @@ const App = () => {
     >
       <Router>
         <>
-          <div className='navbar'>
-            <MainNavbar2 leagueName={leagueName} token={token} />
+          <div className='navbar is-light'>
+            <MainNavbar leagueName={leagueName} token={token} />
           </div>
-          <section className='hero is-dark is-bold is-fullheight-with-navbar'>
-            <div className='hero-body has-background-white-ter is-mobile-table-overflow-fix'>
-              <div className='container'>{routes}</div>
+          <section className='hero is-dark  is-fullheight-with-navbar'>
+            <div className='hero-body-adjusted has-background-white-ter is-mobile-table-overflow-fix'>
+              {routes}
             </div>
-            <div className='hero-foot has-text-centered'>contact help about feedback (c)2020</div>
+            <div className='hero-foot has-background-grey-dark'>
+              <Footer />
+            </div>
           </section>
         </>
       </Router>
