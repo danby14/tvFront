@@ -125,7 +125,6 @@ export default function App({ shows, lid, networkNumber, members, toggles, chang
                       <option value='4.5s'>4.5 Seasons</option>
                       <option value='5s'>5 Seasons</option>
                       <option value='5.1s'>5+ Seasons</option>
-                      <option value='remove'>remove</option>
                     </select>
                   </div>
                 </div>
