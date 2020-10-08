@@ -122,8 +122,15 @@ const Home = () => {
                 <div>
                   <p className='has-text-weight-semibold'>I still need to know more.</p>
                   <p className='has-text-grey'>
-                    Click here to see more of our frequently asked questions. Or here if you want to
-                    contact us directly.
+                    Click{' '}
+                    <Link to='/Help' className=''>
+                      here
+                    </Link>{' '}
+                    to see more of our frequently asked questions. Or{' '}
+                    <Link to='/Contact' className=''>
+                      here
+                    </Link>{' '}
+                    if you want to contact us directly.
                   </p>
                 </div>
               </div>

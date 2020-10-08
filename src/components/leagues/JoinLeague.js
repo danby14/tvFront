@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../context/auth-context';
 import Box from '../shared/Box';
@@ -12,17 +12,24 @@ const JoinLeague = () => {
   const auth = useContext(AuthContext);
   const [error, setError] = useState(null);
   const { register, handleSubmit, errors } = useForm();
+  const [leagueId, setLeagueId] = useState('');
   const history = useHistory();
+
+  useEffect(() => {
+    if (leagueId.length > 0) {
+      history.push(`/LeagueHome/${leagueId}`);
+    }
+  }, [leagueId, history]);
 
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
   // need to generate :lid from leagueName | have user follow links with :lid in them | change :lid to leagueName, then adjust for alteration on backend
   const onSubmit = async data => {
     try {
-      await axios.patch(`${BASE_URL}/leagues/${data.leagueId}`, {
+      const response = await axios.patch(`${BASE_URL}/leagues/${data.leagueId}`, {
         leaguePassword: data.leaguePassword,
       });
-      history.push('/Leagues');
+      setLeagueId(response.data.league._id);
     } catch (err) {
       setError(err.response.data);
     }
@@ -69,7 +76,7 @@ const JoinLeague = () => {
             </form>
           </Box>
           {error && (
-            <div className='has-text-left'>
+            <div className='has-text-left has-text-dark'>
               <Modal title='Joining League Failed' message={error} stateHandler={setError} />
             </div>
           )}

@@ -123,8 +123,28 @@ const Help = () => {
           </p>
           <p className='subtitle is-6 has-text-dark'>
             Donations can be made here. Or given to a random stranger who will hopefully one day
-            pass them on to me. The first method is faster.
+            pass them on to me. The first method is probably faster.
           </p>
+          <form action='https://www.paypal.com/cgi-bin/webscr' method='post' target='_top'>
+            <input type='hidden' name='cmd' value='_donations' />
+            <input type='hidden' name='business' value='FPJLW8P3HNZ7G' />
+            <input type='hidden' name='currency_code' value='USD' />
+            <input
+              type='image'
+              src='https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif'
+              border='0'
+              name='submit'
+              title='PayPal - The safer, easier way to pay online!'
+              alt='Donate with PayPal button'
+            />
+            <img
+              alt=''
+              border='0'
+              src='https://www.paypal.com/en_US/i/scr/pixel.gif'
+              width='1'
+              height='1'
+            />
+          </form>
         </div>
 
         <div className='content'>
@@ -159,20 +179,13 @@ const Help = () => {
 
         <div className='content'>
           <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>
-            Why didn't you stop after the last question? This F.A.Q. seems to be lingering past its
-            point of usefulness.
+            Why didn't you stop after the last question? This F.A.Q. seems to be lingering on past
+            its point of usefulness.
           </p>
           <p className='subtitle is-6 has-text-dark'>
             I didn't feel like taking my hands off the keyboard, and obviously haven't gone back to
-            delete any of these test questions.
+            delete any of these test questions yet.
           </p>
-        </div>
-
-        <div className='content'>
-          <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>
-            Ok, now it's getting ridiculous. Please Stop.
-          </p>
-          <p className='subtitle is-6 has-text-dark'>Ok.</p>
         </div>
 
         {openResend && (

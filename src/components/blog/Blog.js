@@ -1,6 +1,5 @@
 import React from 'react';
 import Person from '../../assets/Person';
-
 const Blog = () => {
   return (
     <div className='container is-padded'>

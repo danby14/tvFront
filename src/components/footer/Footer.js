@@ -20,7 +20,7 @@ const Footer = () => {
 
           <li>
             <a
-              href='https://www.facebook.com'
+              href='https://www.facebook.com/PredictTV/'
               target='_blank'
               rel='noopener noreferrer'
               className='has-text-white is-center-spaced'
@@ -30,7 +30,7 @@ const Footer = () => {
           </li>
           <li>
             <a
-              href='https://www.twitter.com'
+              href='https://twitter.com/PredictTv'
               target='_blank'
               rel='noopener noreferrer'
               className='has-text-white is-center-spaced'

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../context/auth-context';
 import Box from '../shared/Box';
@@ -18,22 +18,29 @@ function CreateLeague() {
   const [error, setError] = useState(null);
   const { control, register, handleSubmit, errors } = useForm();
   const history = useHistory();
+  const [leagueId, setLeagueId] = useState('');
+
+  useEffect(() => {
+    if (leagueId.length > 0) {
+      history.push(`/LeagueHome/${leagueId}/settings`);
+    }
+  }, [leagueId, history]);
 
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
   const onSubmit = async data => {
     try {
-      await axios.post(`${BASE_URL}/leagues/create`, {
+      const response = await axios.post(`${BASE_URL}/leagues/create`, {
         leagueName: data.leagueName,
         password: data.password,
         startDate: data.startDate,
       });
-      history.push('/Leagues');
+      setLeagueId(response.data.league._id);
     } catch (err) {
       setError(err.response.data);
     }
   };
-  // columns has-text-centered has-text-dark
+
   return (
     <div className='container'>
       <div className=' columns is-gapless is-lower is-mobile is-centered'>
@@ -110,7 +117,7 @@ function CreateLeague() {
             </form>
           </Box>
           {error && (
-            <div className='has-text-left'>
+            <div className='has-text-left has-text-dark'>
               <Modal title='Creating League Failed' message={error} stateHandler={setError} />
             </div>
           )}

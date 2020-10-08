@@ -12,7 +12,22 @@ html {
 }
 
 .is-lower {
-  padding-top: 10%;
+  padding-top: 6%;
+  padding-bottom: 5%;
+}
+
+@media screen and (min-width: 1024px) {
+  .is-lower {
+    padding-top: 14%;
+    padding-bottom: 5%;
+  }
+}
+.is-shorty {
+  min-height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
 }
 
 .is-clickable {
@@ -98,6 +113,10 @@ html {
 }
 .has-radius-top-right {
   border-radius: 0 8px 0 0;
+}
+
+.has-overflow-card {
+  overflow: visible;
 }
 
 .is-divider {
@@ -192,11 +211,11 @@ th:last-child {
 
 #auth-width {
   max-width: 425px;
-  margin: 0 auto;
 }
 
 #predictions-width {
   max-width: 445px;
+  margin: 0 auto;
 }
 
 .features-width {

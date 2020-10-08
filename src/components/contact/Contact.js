@@ -15,9 +15,9 @@ const Contact = () => {
     setSuccess(false);
     setError(false);
     try {
-      const response = await axios.post(`${BASE_URL}/admin/contact`, {
+      const response = await axios.post(`${BASE_URL}/email/contact`, {
         reason: data.reason,
-        name: data.name,
+        username: data.name,
         email: data.email,
         subject: data.subject,
         message: data.message,

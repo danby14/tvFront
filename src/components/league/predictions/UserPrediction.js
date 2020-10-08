@@ -12,7 +12,6 @@ export default function App({ shows, lid, networkNumber, members, toggles, chang
   const [currentData, setCurrentData] = useState({});
   const auth = useContext(AuthContext);
   const { register, handleSubmit, watch } = useForm();
-  // const { register, handleSubmit, watch, errors } = useForm();
   const watchAllFields = watch();
   const [enableTrailer, setEnableTrailer] = useState(false);
   const [url, setUrl] = useState(null);
@@ -38,7 +37,7 @@ export default function App({ shows, lid, networkNumber, members, toggles, chang
         userId: auth.userId,
       });
       setCurrentData(watchAllFields); // so we can tell if data has been submitted by user or not yet
-      changes(); // so parent can update
+      changes(); // so parent can update/rerender
     } catch (err) {
       console.log(err);
     }
@@ -126,6 +125,7 @@ export default function App({ shows, lid, networkNumber, members, toggles, chang
                       <option value='4.5s'>4.5 Seasons</option>
                       <option value='5s'>5 Seasons</option>
                       <option value='5.1s'>5+ Seasons</option>
+                      <option value='remove'>remove</option>
                     </select>
                   </div>
                 </div>

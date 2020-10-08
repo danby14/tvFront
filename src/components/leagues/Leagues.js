@@ -10,6 +10,7 @@ const Leagues = () => {
   const auth = useContext(AuthContext);
   const [leagues, setLeagues] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
   const uid = auth.userId;

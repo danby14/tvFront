@@ -16,7 +16,7 @@ function Register() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const { control, register, handleSubmit, reset, errors } = useForm();
+  const { control, register, getValues, handleSubmit, reset, errors } = useForm({ mode: 'onBlur' });
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
   const onSubmit = async data => {
@@ -56,7 +56,10 @@ function Register() {
               type='text'
               ref={register({
                 required: 'Please Enter a Valid Username',
+                minLength: { value: 3, message: 'min of 3 characters' },
                 maxLength: { value: 20, message: 'max of 20 characters' },
+                validate: value =>
+                  value.match(/[a-z0-9]+/i) + '' === value || 'Letters and numbers only',
               })}
             />
             <p className='has-text-danger'>{errors.username && errors.username.message}</p>
@@ -93,6 +96,27 @@ function Register() {
         </div>
 
         <div className='field'>
+          <label htmlFor='password2'>Confirm Password</label>
+          <div className='control'>
+            <input
+              className='input is-small'
+              name='password2'
+              type='password'
+              ref={register({
+                required: 'Please confirm password!',
+                validate: {
+                  matchesPreviousPassword: value => {
+                    const { password } = getValues();
+                    return password === value || 'Passwords do not match!';
+                  },
+                },
+              })}
+            />
+            <p className='has-text-danger'>{errors.password2 && errors.password2.message}</p>
+          </div>
+        </div>
+
+        <div className='field'>
           <label htmlFor='birthdate'>Birthdate</label>
           <div className='control'>
             <Controller
@@ -115,7 +139,7 @@ function Register() {
                 required: 'Please enter a Valid Date',
                 validate: value =>
                   new Date(value).getTime() < subDays(new Date(), 365) ||
-                  `ga ga goo goo, no babies allowed`,
+                  `Ga ga goo goo (no babies allowed)`,
               }}
               className='input is-small'
             />

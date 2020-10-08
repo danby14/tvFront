@@ -1,13 +1,21 @@
-import React, { useState, useContext } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, NavLink, useLocation } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 import { AuthContext } from '../context/auth-context';
 
 import Logo from '../../assets/Logo';
 
 const MainNavbar = ({ leagueName, token }) => {
+  const location = useLocation();
   const auth = useContext(AuthContext);
   const [isActive, setisActive] = useState(false);
+
+  useEffect(() => {
+    // Init Google Analytics
+    ReactGA.initialize('UA-18711782-3');
+    ReactGA.pageview(location.pathname + location.search);
+  }, [location]);
 
   const clickAndClose = () => {
     setisActive(false);

@@ -1,76 +1,85 @@
 import React, { useState } from 'react';
-import Box from '../shared/Box';
 
-import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import Box from '../shared/Box';
 
 const ChangePassword = () => {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const { token } = useParams();
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, errors, getValues } = useForm({ mode: 'onBlur' });
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const onSubmit = async data => {
-    if (data.password === data.password2) {
-      try {
-        const response = await axios.post(`${BASE_URL}/user/changePassword`, {
-          password: data.password,
-          token: token,
-        });
-        setSuccess(response.data.msg);
-      } catch (err) {
-        setError(err.response.data);
-      }
-    } else setError('passwords must match each other');
+    try {
+      const response = await axios.post(`${BASE_URL}/user/changePassword`, {
+        password: data.password,
+        token: token,
+      });
+      setSuccess(response.data.msg);
+    } catch (err) {
+      setError(err.response.data);
+    }
   };
 
   return (
-    <div className='columns is-centered has-text-dark'>
-      <div className='column is-half has-text-centered '>
-        <Box>
-          {!success ? (
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <div className='field'>
-                <label htmlFor='password'>New Password</label>
-                <div className='control'>
-                  <input
-                    className='input is-small'
-                    name='password'
-                    type='password'
-                    ref={register({
-                      required: 'Please Enter a Valid Password',
-                      minLength: { value: 6, message: 'minimum of 6 characters' },
-                    })}
-                  />
-                  <p className='has-text-danger'>{errors.password && errors.password.message}</p>
+    <div className='container'>
+      <div className='columns is-gapless is-lower is-mobile is-centered'>
+        <div className='column is-10-mobile is-6-tablet is-4-widescreen '>
+          <Box svgSize={35}>
+            {!success ? (
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className='field'>
+                  <label htmlFor='password'>New Password</label>
+                  <div className='control'>
+                    <input
+                      className='input is-small'
+                      name='password'
+                      type='password'
+                      ref={register({
+                        required: 'Please Enter a Valid Password',
+                        minLength: { value: 6, message: 'minimum of 6 characters' },
+                      })}
+                    />
+                    <p className='has-text-danger'>{errors.password && errors.password.message}</p>
+                  </div>
                 </div>
-              </div>
-              <div className='field'>
-                <label htmlFor='password2'>Confirm New Password</label>
-                <div className='control'>
-                  <input
-                    className='input is-small'
-                    name='password2'
-                    type='password'
-                    ref={register({
-                      required: 'Please Enter a Valid Password',
-                      minLength: { value: 6, message: 'minimum of 6 characters' },
-                    })}
-                  />
-                  <p className='has-text-danger'>{errors.password2 && errors.password2.message}</p>
+
+                <div className='field'>
+                  <label htmlFor='password2'>Confirm New Password</label>
+                  <div className='control'>
+                    <input
+                      className='input is-small'
+                      name='password2'
+                      type='password'
+                      ref={register({
+                        required: 'Please confirm password!',
+                        minLength: { value: 6, message: 'minimum of 6 characters' },
+                        validate: {
+                          matchesPreviousPassword: value => {
+                            const { password } = getValues();
+                            return password === value || 'Passwords do not match!';
+                          },
+                        },
+                      })}
+                    />
+                    <p className='has-text-danger'>
+                      {errors.password2 && errors.password2.message}
+                    </p>
+                  </div>
+                  <p className='has-text-danger'>{error}</p>
                 </div>
-                <p className='has-text-danger'>{error}</p>
-              </div>
-              <button value='submit' className='button is-outline is-dark'>
-                Submit
-              </button>
-            </form>
-          ) : (
-            <div>{success}</div>
-          )}
-        </Box>
+                <button value='submit' className='button is-outline is-dark'>
+                  Submit
+                </button>
+              </form>
+            ) : (
+              <div>{success}</div>
+            )}
+          </Box>
+        </div>
       </div>
     </div>
   );

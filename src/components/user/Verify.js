@@ -24,9 +24,13 @@ const Verify = () => {
   }, [token, BASE_URL]);
 
   return (
-    <div className='columns is-centered has-text-dark'>
-      <div className='column is-half has-text-centered '>
-        <Box>{message ? message : 'Loading...'}</Box>
+    <div className='container'>
+      <div className='columns is-gapless is-lower is-mobile is-centered has-text-dark'>
+        <div className='column is-10-mobile is-6-tablet is-4-widescreen'>
+          <Box svgSize={35}>
+            <div className='content is-shorty'>{message ? message : 'Loading...'}</div>
+          </Box>
+        </div>
       </div>
     </div>
   );

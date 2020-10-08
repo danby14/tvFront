@@ -34,9 +34,9 @@ const MakePredictions = ({ lid, startDate, networks, members, changes, toggles }
 
   return (
     <div className='container pt-4 px-4'>
-      <div className='columns'>
+      <div className='columns is-gapless is-lower is-centered'>
         <div className='column'></div>
-        <div id='predictions-width' className='column'>
+        <div id='predictions-width' className='column is-6-tablet is-4-widescreen'>
           <div className='has-text-centered'>
             <Antenna size={22} />
           </div>

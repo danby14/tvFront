@@ -4,11 +4,25 @@ import Box from '../../shared/Box';
 import Modal from '../../shared/Modal';
 import ChangeLeaguePassword from './ChangeLeaguePassword';
 import ChangePredictions from './ChangePredictions';
+import ShareLeagueInfo from './ShareLeageInfo';
 
 const Commissioner = ({ league, networks, toggles, changes }) => {
   const [enablePredictions, setEnablePredictions] = useState(false);
   const [enablePasswordUpdater, setEnablePasswordUpdater] = useState(false);
   const [submitted, setSubmitted] = useState(null);
+  const shareUrl = 'https://www.predicttv.com/JoinLeague';
+  const longTitle = `Join my PredictTV league - ${league.leagueName}!
+
+  league id: ${league._id} 
+  pass: ${league.password}
+ 
+ `;
+  const shortTitle = `Join my PredictTV league - ${league.leagueName}!`;
+  const body = `league id: ${league._id} 
+pass: ${league.password}
+
+`;
+
   let { url } = useRouteMatch();
 
   function changePredictionsHandler() {
@@ -44,7 +58,14 @@ const Commissioner = ({ league, networks, toggles, changes }) => {
               </li>
               <li className='pb-3'>
                 <p className='is-size-5 has-text-weight-medium'>Invite Users</p>
-                {10 - league.members.length} open slots.
+                <ShareLeagueInfo
+                  shortTitle={shortTitle}
+                  longTitle={longTitle}
+                  body={body}
+                  shareUrl={shareUrl}
+                />{' '}
+                or just send people your league id and league password.
+                <p className='pl-2'>{10 - league.members.length} open slots.</p>
               </li>
               <li className='pb-3'>
                 <p className='is-size-5 has-text-weight-medium'>Start Date:</p>

@@ -46,8 +46,10 @@ const Account = () => {
       <div className='columns is-gapless is-lower is-mobile is-centered'>
         <div className='column is-10-mobile is-6-tablet is-4-widescreen'>
           <Box>
-            <div className='content'>
-              <h2 className='has-text-dark has-text-weight-bold'>{user.username}</h2>
+            <div className='content has-text-left'>
+              <h2 className='has-text-dark has-text-weight-bold has-text-centered'>
+                {user.username}
+              </h2>
               <h3 className='has-text-info'>Email</h3>
               <p>{user.email}</p>
               <h3 className='has-text-info'>Birthday</h3>

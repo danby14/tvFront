@@ -5,9 +5,9 @@ import Antenna from '../../../assets/Antenna';
 const ClosedPredictions = () => {
   return (
     <div className='container pt-4 px-4'>
-      <div className='columns'>
+      <div className='columns is-gapless is-lower is-centered'>
         <div className='column'></div>
-        <div className='column is-6-tablet is-5'>
+        <div className='column is-6-tablet is-4-widescreen'>
           <div className='has-text-centered'>
             <Antenna size={28} />
           </div>
@@ -20,7 +20,6 @@ const ClosedPredictions = () => {
             </h2>
           </div>
         </div>
-        )
         <div className='column'>
           <div className='has-svg has-text-centered'>
             <Person size={55} />

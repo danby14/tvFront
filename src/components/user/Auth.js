@@ -25,12 +25,12 @@ const Auth = () => {
 
   return (
     <div className='container'>
-      <div className='columns is-lower is-centered'>
-        <div id='auth-width' className='column is-7-tablet'>
+      <div className='columns is-gapless is-lower is-mobile is-centered'>
+        <div id='auth-width' className='column is-11-mobile is-6-tablet is-4-widescreen'>
           <div className='has-text-centered'>
             <Antenna size={28} />
           </div>
-          <div className='card has-radius'>
+          <div className='card has-overflow-card has-radius'>
             <footer className='card-footer is-clickable has-text-white has-radius'>
               <p
                 className={`card-footer-item ${loginClass} has-radius-top-left`}
