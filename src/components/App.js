@@ -49,7 +49,7 @@ const App = () => {
     setLeagueName(null);
     setLeagueNum(null);
     try {
-      axios.get(`${BASE_URL}/user/logout`, { withCredentials: true });
+      axios.post(`${BASE_URL}/user/logout`, {}, { withCredentials: true });
     } catch (err) {
       console.log(err);
     }
