@@ -46,7 +46,7 @@ const Leagues = () => {
                   <p className='is-size-5 has-text-info'>What would you like to do?</p>
                 </div>
                 <Link to='/JoinLeague'>
-                  <button className='button'>Join an Existing League</button>
+                  <button className='button'>Join a Friend's League</button>
                 </Link>
 
                 <br />
@@ -84,7 +84,7 @@ const Leagues = () => {
               </div>
               <p className='pb-2'>
                 <Link to='/JoinLeague'>
-                  <button className='button'>Join an Existing League</button>
+                  <button className='button'>Join an Friend's League</button>
                 </Link>
               </p>
               <p>
