@@ -4,7 +4,21 @@ Where users face-off against friends and foes in a competition to see who can be
 
 *This repo is for the frontend code. Server-side code can be found at https://github.com/danby14/tvBack.*
 
-## Uses
+## Features
+- Create League (Choose league name)
+  - League Settings Page
+    - Change start date
+    - Add / remove shows league makes predictions for
+    - Change / update league password
+    - Invite Users (Max 10 players per league)
+    - Remove user from league
+    - Delete league from existence
+- Join League (Get league id and password from a league commissioner)
+- Watch Trailers
+- Make Predictions (League commissioner sets date for league to start, predictions get locked at this point)
+- View Standings
+
+## Tech
 - Bulma and custom styles
 - React-router for navigation
 - React-hook-form for forms
