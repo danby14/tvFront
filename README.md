@@ -2,7 +2,7 @@
 
 Where users face-off against friends and foes in a competition to see who can best predict which new TV shows will last the longest.
 
-*This repo is for the frontend code. Server-side code can be found at https://github.com/danby14/tvBack.*
+*This repo is for the frontend code. Backend code can be found at https://github.com/danby14/tvBack.*
 
 ## Features
 - Create League (Choose league name)
