@@ -1,4 +1,4 @@
-# Predict Tv
+# Predict TV
 
 Where users face-off against friends and foes in a competition to see who can best predict which new TV shows will last the longest.
 
