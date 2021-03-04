@@ -75,7 +75,7 @@ const Standings = ({ members, networks, lgName, startDate, predictionsAvailable 
           !predictionsAvailable ? 'is-hidden' : ''
         }`}
       >
-        <Link to={`${url}/predictions`}>
+        <Link to={`${url}/predictions`} className='has-text-danger'>
           Predictions must be submitted by {new Date(startDate).toLocaleString()}.
         </Link>
       </div>

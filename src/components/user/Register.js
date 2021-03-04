@@ -8,7 +8,7 @@ import { useForm, Controller } from 'react-hook-form';
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import subDays from 'date-fns/subDays';
-import startOfDay from 'date-fns/startOfDay';
+// import startOfDay from 'date-fns/startOfDay';
 
 function Register() {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -120,21 +120,22 @@ function Register() {
           <label htmlFor='birthdate'>Birthdate</label>
           <div className='control'>
             <Controller
-              as={
+              control={control}
+              // defaultValue={startOfDay(new Date())}
+              name='birthdate'
+              render={props => (
                 <ReactDatePicker
+                  className='input'
+                  placeholderText='Click to select a date'
+                  onChange={e => props.onChange(e)}
+                  selected={props.value}
                   showMonthDropdown
                   showYearDropdown
                   dropdownMode='select'
                   dateFormat=' MMMM d, yyyy'
                   maxDate={new Date()}
                 />
-              }
-              control={control}
-              defaultValue={startOfDay(new Date())}
-              // defaultValue={new Date(new Date())}
-              name='birthdate'
-              valueName='selected'
-              onChange={([selected]) => selected}
+              )}
               rules={{
                 required: 'Please enter a Valid Date',
                 validate: value =>

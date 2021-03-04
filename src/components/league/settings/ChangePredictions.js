@@ -6,7 +6,6 @@ import { useForm, Controller } from 'react-hook-form';
 
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import subDays from 'date-fns/subDays';
 
 const ChangePredictions = ({
   id,
@@ -53,20 +52,22 @@ const ChangePredictions = ({
           <label htmlFor='startDate'>Choose date when predictions must be submitted by.</label>
           <div className='control'>
             <Controller
-              as={
+              control={control}
+              defaultValue={new Date(currentStartDate)}
+              name='startDate'
+              render={props => (
                 <ReactDatePicker
+                  className='input'
+                  placeholderText='Click to select a date'
+                  onChange={e => props.onChange(e)}
+                  selected={props.value}
                   showMonthDropdown
                   showYearDropdown
                   dropdownMode='select'
                   dateFormat=' MMMM d, yyyy'
-                  minDate={subDays(new Date(), 5)}
+                  todayButton='Today'
                 />
-              }
-              control={control}
-              defaultValue={new Date(currentStartDate)}
-              name='startDate'
-              valueName='selected'
-              onChange={([selected]) => selected}
+              )}
               rules={{
                 required: 'Please enter a Valid Date',
               }}
