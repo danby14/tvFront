@@ -117,7 +117,7 @@ const Help = () => {
           </p>
         </div>
 
-        <div className='content'>
+        {/* <div className='content'>
           <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>
             How can I support this site?
           </p>
@@ -145,7 +145,7 @@ const Help = () => {
               height='1'
             />
           </form>
-        </div>
+        </div> */}
 
         <div className='content'>
           <p className='title is-4 has-text-grey has-text-weight-bold pb-2'>

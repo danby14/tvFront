@@ -107,13 +107,21 @@ const MainNavbar = ({ leagueName, token }) => {
 
             <div className='navbar-dropdown is-boxed'>
               <NavLink
-                to='/blog'
+                to='/help'
                 className='navbar-item '
                 activeClassName='has-text-weight-semibold has-text-info'
                 onClick={clickAndClose}
               >
-                Blog
+                Help
               </NavLink>
+              {/* <NavLink
+                  to='/blog'
+                  className='navbar-item '
+                  activeClassName='has-text-weight-semibold has-text-info'
+                  onClick={clickAndClose}
+                >
+                  Blog
+                </NavLink> */}
               <NavLink
                 to='/research'
                 className='navbar-item '
@@ -121,14 +129,6 @@ const MainNavbar = ({ leagueName, token }) => {
                 onClick={clickAndClose}
               >
                 Research
-              </NavLink>
-              <NavLink
-                to='/help'
-                className='navbar-item '
-                activeClassName='has-text-weight-semibold has-text-info'
-                onClick={clickAndClose}
-              >
-                Help
               </NavLink>
               <NavLink
                 to='/contact'
