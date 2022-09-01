@@ -15,7 +15,14 @@ function Register() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
-  const { control, register, getValues, handleSubmit, reset, errors } = useForm({ mode: 'onBlur' });
+  const {
+    control,
+    register,
+    getValues,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({ mode: 'onBlur' });
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
   const onSubmit = async data => {
@@ -51,15 +58,14 @@ function Register() {
           <div className='control'>
             <input
               className='input is-small'
-              name='username'
-              type='text'
-              ref={register({
+              {...register('username', {
                 required: 'Please Enter a Valid Username',
                 minLength: { value: 3, message: 'min of 3 characters' },
                 maxLength: { value: 20, message: 'max of 20 characters' },
                 validate: value =>
                   value.match(/[a-z0-9]+/i) + '' === value || 'Letters and numbers only',
               })}
+              type='text'
             />
             <p className='has-text-danger'>{errors.username && errors.username.message}</p>
           </div>
@@ -70,9 +76,8 @@ function Register() {
           <div className='control'>
             <input
               className='input is-small'
-              name='email'
+              {...register('email', { required: 'Please Enter a Valid Email' })}
               type='email'
-              ref={register({ required: 'Please Enter a Valid Email' })}
             />
             <p className='has-text-danger'>{errors.email && errors.email.message}</p>
           </div>
@@ -83,12 +88,11 @@ function Register() {
           <div className='control'>
             <input
               className='input is-small'
-              name='password'
-              type='password'
-              ref={register({
+              {...register('password', {
                 required: 'Please Enter a Valid Password',
                 minLength: { value: 6, message: 'minimum of 6 characters' },
               })}
+              type='password'
             />
             <p className='has-text-danger'>{errors.password && errors.password.message}</p>
           </div>
@@ -99,9 +103,7 @@ function Register() {
           <div className='control'>
             <input
               className='input is-small'
-              name='password2'
-              type='password'
-              ref={register({
+              {...register('password2', {
                 required: 'Please confirm password!',
                 validate: {
                   matchesPreviousPassword: value => {
@@ -110,6 +112,7 @@ function Register() {
                   },
                 },
               })}
+              type='password'
             />
             <p className='has-text-danger'>{errors.password2 && errors.password2.message}</p>
           </div>
@@ -122,12 +125,12 @@ function Register() {
               control={control}
               defaultValue={subYears(new Date(), 18)}
               name='birthdate'
-              render={props => (
+              render={({ field }) => (
                 <ReactDatePicker
                   className='input'
                   placeholderText='Click to select a date'
-                  onChange={e => props.onChange(e)}
-                  selected={props.value}
+                  onChange={e => field.onChange(e)}
+                  selected={field.value}
                   showMonthDropdown
                   showYearDropdown
                   dropdownMode='select'
@@ -152,9 +155,8 @@ function Register() {
           <div className='control'>
             <select
               className='select is-small'
-              name='gender'
+              {...register('gender', { required: 'Please Choose One' })}
               type='select'
-              ref={register({ required: 'Please Choose One' })}
             >
               <option value='M'>Male</option>
               <option value='F'>Female</option>
@@ -171,19 +173,17 @@ function Register() {
             <label className='radio'>
               &nbsp;
               <input
-                name='optIn'
+                {...register('optIn', { required: 'Please Choose One' })}
                 type='radio'
                 value='true'
-                ref={register({ required: 'Please Choose One' })}
               />
               {' Yes  '}&nbsp;
             </label>
             <label className='radio'>
               <input
-                name='optIn'
+                {...register('optIn', { required: 'Please Choose One' })}
                 type='radio'
                 value='false'
-                ref={register({ required: 'Please Choose One' })}
               />
               {' No'}
             </label>

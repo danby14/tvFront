@@ -11,7 +11,11 @@ const JoinLeague = () => {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
   const [error, setError] = useState(null);
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [leagueId, setLeagueId] = useState('');
   const history = useHistory();
 
@@ -46,9 +50,8 @@ const JoinLeague = () => {
                 <div className='control'>
                   <input
                     className='input is-small'
-                    name='leagueId'
+                    {...register('leagueId', { required: 'Please Enter a Valid League ID' })}
                     type='text'
-                    ref={register({ required: 'Please Enter a Valid League ID' })}
                   />
                   <p className='has-text-danger'>{errors.leagueId && errors.leagueId.message}</p>
                 </div>
@@ -59,12 +62,11 @@ const JoinLeague = () => {
                 <div className='control'>
                   <input
                     className='input is-small'
-                    name='leaguePassword'
-                    type='password'
-                    ref={register({
+                    {...register('leaguePassword', {
                       required: 'Please Enter a Valid Password',
                       minLength: { value: 6, message: 'miniumum of 6 characters' },
                     })}
+                    type='password'
                   />
                   <p className='has-text-danger'>
                     {errors.leaguePassword && errors.leaguePassword.message}

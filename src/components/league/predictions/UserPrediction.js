@@ -81,11 +81,9 @@ export default function App({ shows, lid, networkNumber, members, toggles, chang
                   </label>
                   <div className='select'>
                     <select
-                      name={show.show}
+                      {...register(show.show, { required: true })}
                       // update each show's default value to match what user has already predicted
-                      defaultValue={networkFinder === undefined ? 0 : networkFinder.shows[i]}
-                      ref={register({ required: true })}
-                    >
+                      defaultValue={networkFinder === undefined ? 0 : networkFinder.shows[i]}>
                       <option value='0'>Please Select One</option>
                       <option value='1e'>1 Episode</option>
                       <option value='2e'>2 Episodes</option>

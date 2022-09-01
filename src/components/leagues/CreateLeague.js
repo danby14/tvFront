@@ -15,7 +15,12 @@ function CreateLeague() {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
   const [error, setError] = useState(null);
-  const { control, register, handleSubmit, errors } = useForm();
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const history = useHistory();
   const [leagueId, setLeagueId] = useState('');
 
@@ -52,11 +57,10 @@ function CreateLeague() {
                 <div className='control'>
                   <input
                     className='input is-small'
-                    name='leagueName'
-                    type='text'
-                    ref={register({
+                    {...register('leagueName', {
                       required: 'Please enter a name for your league',
                     })}
+                    type='text'
                   />
                   <p className='has-text-danger'>
                     {errors.leagueName && errors.leagueName.message}
@@ -69,12 +73,11 @@ function CreateLeague() {
                 <div className='control'>
                   <input
                     className='input is-small'
-                    name='password'
-                    type='password'
-                    ref={register({
+                    {...register('password', {
                       required: 'Required (min. 6 characters)',
                       minLength: { value: 6, message: 'miniumum of 6 characters' },
                     })}
+                    type='password'
                   />
                   <p className='has-text-danger'>{errors.password && errors.password.message}</p>
                 </div>
@@ -90,12 +93,12 @@ function CreateLeague() {
                     control={control}
                     defaultValue={startOfDay(addDays(new Date(), 7))}
                     name='startDate'
-                    render={props => (
+                    render={({ field }) => (
                       <ReactDatePicker
                         className='input'
                         placeholderText='Click to select a date'
-                        onChange={e => props.onChange(e)}
-                        selected={props.value}
+                        onChange={e => field.onChange(e)}
+                        selected={field.value}
                         showMonthDropdown
                         showYearDropdown
                         dropdownMode='select'

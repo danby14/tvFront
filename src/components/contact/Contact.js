@@ -7,7 +7,12 @@ import Box from '../shared/Box';
 
 const Contact = () => {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
-  const { register, handleSubmit, reset, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
@@ -44,61 +49,55 @@ const Contact = () => {
                 </label>
                 <label className='radio'>
                   <input
-                    name='reason'
+                    {...register('reason', { required: 'Please Choose One' })}
                     type='radio'
                     value='Bugs'
                     className='mr-1'
-                    ref={register({ required: 'Please Choose One' })}
                   />
                   Bugs
                 </label>
                 <label className='radio'>
                   <input
-                    name='reason'
+                    {...register('reason', { required: 'Please Choose One' })}
                     type='radio'
                     value='Feedback'
                     className='mr-1'
-                    ref={register({ required: 'Please Choose One' })}
                   />
                   Feedback
                 </label>
                 <label className='radio'>
                   <input
-                    name='reason'
+                    {...register('reason', { required: 'Please Choose One' })}
                     type='radio'
                     value='Suggestions'
                     className='mr-1'
-                    ref={register({ required: 'Please Choose One' })}
                   />
                   Suggestions
                 </label>
                 <label className='radio'>
                   <input
-                    name='reason'
+                    {...register('reason', { required: 'Please Choose One' })}
                     type='radio'
                     value='Add show'
                     className='mr-1'
-                    ref={register({ required: 'Please Choose One' })}
                   />
                   Request to add a show
                 </label>
                 <label className='radio'>
                   <input
-                    name='reason'
+                    {...register('reason', { required: 'Please Choose One' })}
                     type='radio'
                     value='Show cancelled'
                     className='mr-1'
-                    ref={register({ required: 'Please Choose One' })}
                   />
                   Report a cancelled show
                 </label>
                 <label className='radio'>
                   <input
-                    name='reason'
+                    {...register('reason', { required: true })}
                     type='radio'
                     value='Other'
                     className='mr-1'
-                    ref={register({ required: true })}
                   />
                   Other
                 </label>
@@ -109,7 +108,7 @@ const Contact = () => {
                 <label htmlFor='name' className='label'>
                   Your Name or Username
                 </label>
-                <input type='text' name='name' ref={register({ required: true })} />
+                <input type='text' {...register('name', { required: true })} />
                 <p className='has-text-danger'>{errors.name && errors.name.type}</p>
               </div>
 
@@ -117,7 +116,7 @@ const Contact = () => {
                 <label htmlFor='email' className='label'>
                   Email
                 </label>
-                <input type='email' name='email' ref={register({ required: true })} />
+                <input type='email' {...register('email', { required: true })} />
                 <p className='has-text-danger'>{errors.email && errors.email.type}</p>
               </div>
 
@@ -125,7 +124,7 @@ const Contact = () => {
                 <label htmlFor='subject' className='label'>
                   Subject
                 </label>
-                <input type='text' name='subject' ref={register({ required: true })} />
+                <input type='text' {...register('subject', { required: true })} />
                 <p className='has-text-danger'>{errors.subject && errors.subject.type}</p>
               </div>
 
@@ -134,10 +133,9 @@ const Contact = () => {
                   Message
                 </label>
                 <textarea
-                  name='message'
+                  {...register('message', { required: true, maxLength: 500 })}
                   placeholder='max 500 characters'
                   className='textarea'
-                  ref={register({ required: true, maxLength: 500 })}
                 />
                 <p className='has-text-danger'>{errors.message && errors.message.type}</p>
               </div>

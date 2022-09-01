@@ -7,7 +7,11 @@ import { useForm } from 'react-hook-form';
 const ChangeLeaguePassword = ({ id, currentPass, changes, submitted, setSubmitted }) => {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [error, setError] = useState(false);
 
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
@@ -36,12 +40,11 @@ const ChangeLeaguePassword = ({ id, currentPass, changes, submitted, setSubmitte
             <div className='control'>
               <input
                 className='input is-small'
-                name='oldPassword'
-                type='password'
-                ref={register({
+                {...register('oldPassword', {
                   required: 'Please Enter a Valid Password',
                   minLength: { value: 6, message: 'minimum of 6 characters' },
                 })}
+                type='password'
               />
               <p className='has-text-danger'>{errors.oldPassword && errors.oldPassword.message}</p>
             </div>
@@ -52,12 +55,11 @@ const ChangeLeaguePassword = ({ id, currentPass, changes, submitted, setSubmitte
             <div className='control'>
               <input
                 className='input is-small'
-                name='password'
-                type='password'
-                ref={register({
+                {...register('password', {
                   required: 'Please Enter a Valid Password',
                   minLength: { value: 6, message: 'minimum of 6 characters' },
                 })}
+                type='password'
               />
               <p className='has-text-danger'>{errors.password && errors.password.message}</p>
             </div>
@@ -68,12 +70,11 @@ const ChangeLeaguePassword = ({ id, currentPass, changes, submitted, setSubmitte
             <div className='control'>
               <input
                 className='input is-small'
-                name='password2'
-                type='password'
-                ref={register({
+                {...register('password2', {
                   required: 'Please Enter a Valid Password',
                   minLength: { value: 6, message: 'minimum of 6 characters' },
                 })}
+                type='password'
               />
               <p className='has-text-danger'>{errors.password2 && errors.password2.message}</p>
             </div>

@@ -18,7 +18,12 @@ const ChangePredictions = ({
 }) => {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
   const auth = useContext(AuthContext);
-  const { control, register, handleSubmit, errors } = useForm();
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 
@@ -55,12 +60,12 @@ const ChangePredictions = ({
               control={control}
               defaultValue={new Date(currentStartDate)}
               name='startDate'
-              render={props => (
+              render={({ field }) => (
                 <ReactDatePicker
                   className='input'
                   placeholderText='Click to select a date'
-                  onChange={e => props.onChange(e)}
-                  selected={props.value}
+                  onChange={e => field.onChange(e)}
+                  selected={field.value}
                   showMonthDropdown
                   showYearDropdown
                   dropdownMode='select'
@@ -86,10 +91,9 @@ const ChangePredictions = ({
                   <label className='checkbox'>
                     <input
                       type='checkbox'
-                      name={[network.network, network.shows.length - 1]}
+                      {...register(`${network.network}`)}
                       value={j}
                       defaultChecked={toggles[i].shows[j] === true ? true : false}
-                      ref={register}
                     />
                     {show.show} &ensp;
                   </label>

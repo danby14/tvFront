@@ -53,10 +53,8 @@ function Login() {
           <div className='control'>
             <input
               className='input is-small'
-              name='email'
-              type='email'
-              ref={register({ required: 'Please Enter a Valid Email' })}
-            />
+              {...register('email', { required: 'Please Enter a Valid Email' })}
+              type='email' />
             <p className='has-text-danger'>{errors.email && errors.email.message}</p>
           </div>
         </div>
@@ -66,13 +64,11 @@ function Login() {
           <div className='control'>
             <input
               className='input is-small'
-              name='password'
-              type='password'
-              ref={register({
+              {...register('password', {
                 required: 'Please Enter a Valid Password',
                 minLength: { value: 6, message: 'miniumum of 6 characters' },
               })}
-            />
+              type='password' />
             <p className='has-text-danger'>{errors.password && errors.password.message}</p>
           </div>
         </div>

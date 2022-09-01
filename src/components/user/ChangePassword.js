@@ -36,13 +36,11 @@ const ChangePassword = () => {
                   <div className='control'>
                     <input
                       className='input is-small'
-                      name='password'
-                      type='password'
-                      ref={register({
+                      {...register('password', {
                         required: 'Please Enter a Valid Password',
                         minLength: { value: 6, message: 'minimum of 6 characters' },
                       })}
-                    />
+                      type='password' />
                     <p className='has-text-danger'>{errors.password && errors.password.message}</p>
                   </div>
                 </div>
@@ -52,9 +50,7 @@ const ChangePassword = () => {
                   <div className='control'>
                     <input
                       className='input is-small'
-                      name='password2'
-                      type='password'
-                      ref={register({
+                      {...register('password2', {
                         required: 'Please confirm password!',
                         minLength: { value: 6, message: 'minimum of 6 characters' },
                         validate: {
@@ -64,7 +60,7 @@ const ChangePassword = () => {
                           },
                         },
                       })}
-                    />
+                      type='password' />
                     <p className='has-text-danger'>
                       {errors.password2 && errors.password2.message}
                     </p>

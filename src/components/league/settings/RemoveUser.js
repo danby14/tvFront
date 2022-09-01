@@ -14,7 +14,11 @@ const DeleteLeague = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [redirectOnSuccess, setRedirectOnSuccess] = useState(false);
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const history = useHistory();
   const lid = auth.leagueNum[0];
   const lgName = auth.leagueName[0];
@@ -55,9 +59,8 @@ const DeleteLeague = () => {
                 <div className='control'>
                   <input
                     className='input'
-                    name='leagueName'
+                    {...register('leagueName', { required: 'Please Enter Valid League Name' })}
                     type='text'
-                    ref={register({ required: 'Please Enter Valid League Name' })}
                   />
                   <p className='has-text-danger'>
                     {errors.leagueName && errors.leagueName.message}
@@ -70,10 +73,9 @@ const DeleteLeague = () => {
                 <div className='control'>
                   <input
                     className='input'
-                    name='leagueId'
+                    {...register('leagueId', { required: 'Please Enter a Valid League ID' })}
                     type='text'
                     defaultValue={lid}
-                    ref={register({ required: 'Please Enter a Valid League ID' })}
                   />
                   <p className='has-text-danger'>{errors.leagueId && errors.leagueId.message}</p>
                 </div>
@@ -84,12 +86,11 @@ const DeleteLeague = () => {
                 <div className='control'>
                   <input
                     className='input is-small'
-                    name='leaguePassword'
-                    type='password'
-                    ref={register({
+                    {...register('leaguePassword', {
                       required: 'Please Enter a Valid Password',
                       minLength: { value: 6, message: 'miniumum of 6 characters' },
                     })}
+                    type='password'
                   />
                   <p className='has-text-danger'>
                     {errors.leaguePassword && errors.leaguePassword.message}
@@ -102,10 +103,8 @@ const DeleteLeague = () => {
                 <div className='control'>
                   <input
                     className='input'
-                    name='userToDel'
+                    {...register('userToDel', { required: 'Please Enter a Valid User Name or ID' })}
                     type='text'
-                    // defaultValue={lid}
-                    ref={register({ required: 'Please Enter a Valid User Name or ID' })}
                   />
                   <p className='has-text-danger'>{errors.userToDel && errors.userToDel.message}</p>
                 </div>

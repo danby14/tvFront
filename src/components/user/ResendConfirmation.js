@@ -5,7 +5,11 @@ import axios from 'axios';
 
 const ResendConfirmation = ({ submitted, setSubmitted }) => {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
@@ -31,9 +35,8 @@ const ResendConfirmation = ({ submitted, setSubmitted }) => {
             <div className='control'>
               <input
                 className='input is-small'
-                name='email'
+                {...register('email', { required: 'Please Enter a Valid Email' })}
                 type='email'
-                ref={register({ required: 'Please Enter a Valid Email' })}
               />
               <p className='has-text-danger'>{errors.email && errors.email.message}</p>
               <p className='has-text-danger'>{error}</p>
