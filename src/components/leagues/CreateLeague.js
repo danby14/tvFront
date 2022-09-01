@@ -9,8 +9,7 @@ import { useForm, Controller } from 'react-hook-form';
 
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import addDays from 'date-fns/addDays';
-import startOfDay from 'date-fns/startOfDay';
+import { addDays, startOfDay } from 'date-fns';
 
 function CreateLeague() {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -88,20 +87,22 @@ function CreateLeague() {
                 </label>
                 <div className='control'>
                   <Controller
-                    as={
+                    control={control}
+                    defaultValue={startOfDay(addDays(new Date(), 7))}
+                    name='startDate'
+                    render={props => (
                       <ReactDatePicker
+                        className='input'
+                        placeholderText='Click to select a date'
+                        onChange={e => props.onChange(e)}
+                        selected={props.value}
                         showMonthDropdown
                         showYearDropdown
                         dropdownMode='select'
                         dateFormat=' MMMM d, yyyy'
                         minDate={addDays(new Date(), 1)}
                       />
-                    }
-                    control={control}
-                    defaultValue={startOfDay(addDays(new Date(), 7))}
-                    name='startDate'
-                    valueName='selected'
-                    onChange={([selected]) => selected}
+                    )}
                     rules={{
                       required: 'Please enter a Valid Date',
                       validate: value =>

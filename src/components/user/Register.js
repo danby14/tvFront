@@ -7,8 +7,7 @@ import { useForm, Controller } from 'react-hook-form';
 
 import ReactDatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import subDays from 'date-fns/subDays';
-// import startOfDay from 'date-fns/startOfDay';
+import { subDays, subYears } from 'date-fns';
 
 function Register() {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -121,7 +120,7 @@ function Register() {
           <div className='control'>
             <Controller
               control={control}
-              // defaultValue={startOfDay(new Date())}
+              defaultValue={subYears(new Date(), 18)}
               name='birthdate'
               render={props => (
                 <ReactDatePicker

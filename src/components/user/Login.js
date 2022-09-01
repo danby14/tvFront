@@ -13,7 +13,11 @@ function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const [resetPassword, setResetPassword] = useState(false);
   const [error, setError] = useState(null);
-  const { register, handleSubmit, errors } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const handleClick = () => {
     setSubmitted(null);
