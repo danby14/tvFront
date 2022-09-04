@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 
 import { AuthContext } from '../../context/auth-context';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 
@@ -19,7 +19,7 @@ const DeleteLeague = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const history = useHistory();
+  const navigate = useNavigate();
   // const lid = auth.leagueNum[0];
   const lgName = auth.leagueName[0];
 
@@ -119,7 +119,7 @@ const DeleteLeague = () => {
 
         {redirectOnSuccess &&
           setTimeout(() => {
-            history.push('/Leagues');
+            navigate('/Leagues');
           }, 1)}
 
         {error && (

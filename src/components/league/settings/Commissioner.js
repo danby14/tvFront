@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Box from '../../shared/Box';
 import Modal from '../../shared/Modal';
 import ChangeLeaguePassword from './ChangeLeaguePassword';
@@ -22,8 +22,6 @@ const Commissioner = ({ league, networks, toggles, changes }) => {
 pass: ${league.password}
 
 `;
-
-  let { url } = useRouteMatch();
 
   function changePredictionsHandler() {
     setSubmitted(false);
@@ -105,7 +103,7 @@ pass: ${league.password}
                   WARNING: The Following Action Can Not Be Undone. All predictions for this user and
                   associations with this league will be lost forever.
                 </p>
-                <Link to={`${url}/removeUser`} className='has-text-weight-medium'>
+                <Link to='removeUser' className='has-text-weight-medium'>
                   Remove a User
                 </Link>
               </li>
@@ -118,7 +116,8 @@ pass: ${league.password}
                   name and id), user predictions, and user associations with this league will be
                   lost forever.
                 </p>
-                <Link to={`${url}/removeLeague`} className='has-text-weight-medium'>
+                "
+                <Link to='removeLeague' className='has-text-weight-medium'>
                   Delete This Entire League
                 </Link>
               </li>

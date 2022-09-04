@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useParams, Switch, Route, useRouteMatch } from 'react-router-dom';
+import { useParams, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
 
 import { AuthContext } from '../context/auth-context';
@@ -61,28 +61,31 @@ const LeagueHome = () => {
     setChanger(changer + 1);
   }
 
-  // to get base url for use with ReactRouter
-  let { url } = useRouteMatch();
   const makeEdits = Date.parse(league.startDate) < Date.now() ? false : true;
 
   return (
     <>
-      <Switch>
-        <Route exact path={`${url}/`}>
-          {!isLoading && members.length !== 0 && networks.length !== 0 ? (
-            <Standings
-              members={members}
-              networks={networks}
-              lgName={league.leagueName}
-              startDate={league.startDate}
-              predictionsAvailable={makeEdits}
-            />
-          ) : (
-            <LoadingSpinner />
-          )}
-        </Route>
-        <Route exact path={`${url}/predictions`}>
-          {members.length !== 0 &&
+      <Routes>
+        <Route
+          path='/'
+          element={
+            !isLoading && members.length !== 0 && networks.length !== 0 ? (
+              <Standings
+                members={members}
+                networks={networks}
+                lgName={league.leagueName}
+                startDate={league.startDate}
+                predictionsAvailable={makeEdits}
+              />
+            ) : (
+              <LoadingSpinner />
+            )
+          }
+        />
+        <Route
+          path='predictions'
+          element={
+            members.length !== 0 &&
             networks.length !== 0 &&
             (makeEdits ? (
               <MakePredictions
@@ -94,23 +97,27 @@ const LeagueHome = () => {
               />
             ) : (
               <ClosedPredictions />
-            ))}
-        </Route>
-        <Route exact path={`${url}/settings`}>
-          {members.length !== 0 && networks.length !== 0 ? (
-            <Settings
-              league={league}
-              members={members}
-              lid={lid}
-              networks={networks}
-              toggles={league.predictionEdits}
-              changes={handleChanges}
-            />
-          ) : (
-            <LoadingSpinner />
-          )}
-        </Route>
-      </Switch>
+            ))
+          }
+        />
+        <Route
+          path='settings'
+          element={
+            members.length !== 0 && networks.length !== 0 ? (
+              <Settings
+                league={league}
+                members={members}
+                lid={lid}
+                networks={networks}
+                toggles={league.predictionEdits}
+                changes={handleChanges}
+              />
+            ) : (
+              <LoadingSpinner />
+            )
+          }
+        />
+      </Routes>
     </>
   );
 };

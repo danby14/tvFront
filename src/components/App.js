@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import axios from 'axios';
 
 import './app.css';
@@ -94,51 +94,43 @@ const App = () => {
   if (!isLoading) {
     if (token) {
       routes = (
-        <Switch>
-          <Route path='/' exact component={Home} />
-          <Route path='/createLeague' component={CreateLeague} />
-          <Route path='/joinLeague' component={JoinLeague} />
-          <Route path='/leagues'>
-            <Leagues />
-          </Route>
-          <Route path='/leagueHome/:lid/settings/removeLeague'>
-            <DeleteLeague />
-          </Route>
-          <Route path='/leagueHome/:lid/settings/removeUser'>
-            <RemoveUser />
-          </Route>
-          <Route path='/leagueHome/:lid'>
-            <LeagueHome />
-          </Route>
-          <Route path='/contact' component={Contact} />
-          <Route path='/blog' component={Blog} />
-          <Route path='/research' component={Research} />
-          <Route path='/help' component={Help} />
-          <Route path='/account' component={Account} />
-          <Route path='/admin' component={Admin} />
-          <Redirect to='/leagues' />
-        </Switch>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/createLeague' element={<CreateLeague />} />
+          <Route path='/joinLeague' element={<JoinLeague />} />
+          <Route path='/leagues' element={<Leagues />} />
+          <Route path='/leagueHome/:lid/settings/removeLeague' element={<DeleteLeague />} />
+          <Route path='/leagueHome/:lid/settings/removeUser' element={<RemoveUser />} />
+          <Route path='/leagueHome/:lid/*' element={<LeagueHome />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/blog' element={<Blog />} />
+          <Route path='/research' element={<Research />} />
+          <Route path='/help' element={<Help />} />
+          <Route path='/account' element={<Account />} />
+          <Route path='/admin' element={<Admin />} />
+          <Route path='*' element={<Navigate to='/leagues' replace />} />
+        </Routes>
       );
     } else {
       routes = (
-        <Switch>
-          <Route path='/' exact component={Home} />
-          <Route path='/contact' component={Contact} />
-          <Route path='/blog' component={Blog} />
-          <Route path='/research' component={Research} />
-          <Route path='/help' component={Help} />
-          <Route path='/auth' exact component={Auth} />
-          <Route path='/auth/verify/:token' exact component={Verify} />
-          <Route path='/auth/change/:token' exact component={ChangePassword} />
-          <Redirect to='/auth' />
-        </Switch>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/blog' element={<Blog />} />
+          <Route path='/research' element={<Research />} />
+          <Route path='/help' element={<Help />} />
+          <Route path='/auth' element={<Auth />} />
+          <Route path='/auth/verify/:token' element={<Verify />} />
+          <Route path='/auth/change/:token' element={<ChangePassword />} />
+          <Route path='*' element={<Navigate to='/auth' replace />} />
+        </Routes>
       );
     }
   } else {
     routes = (
-      <Switch>
-        <Route path='/' component={LoadingSpinner} />
-      </Switch>
+      <Routes>
+        <Route path='/' element={<LoadingSpinner />} />
+      </Routes>
     );
   }
 

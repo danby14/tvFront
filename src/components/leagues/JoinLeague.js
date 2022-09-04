@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/auth-context';
 import Box from '../shared/Box';
 import Modal from '../shared/Modal';
@@ -17,13 +17,13 @@ const JoinLeague = () => {
     formState: { errors },
   } = useForm();
   const [leagueId, setLeagueId] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (leagueId.length > 0) {
-      history.push(`/LeagueHome/${leagueId}`);
+      navigate(`/LeagueHome/${leagueId}`);
     }
-  }, [leagueId, history]);
+  }, [leagueId, navigate]);
 
   axios.defaults.headers.common = { Authorization: 'Bearer ' + auth.token };
 

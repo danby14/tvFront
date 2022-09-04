@@ -75,7 +75,7 @@ const Leagues = () => {
                 {leagues.length > 0 &&
                   leagues.map(lg => (
                     <p key={lg._id} id={lg._id}>
-                      <Link className='has-text-link is-size-5' to={`/LeagueHome/${lg._id}`}>
+                      <Link className='has-text-link is-size-5' to={`/leagueHome/${lg._id}`}>
                         {lg.leagueName}
                       </Link>
                     </p>

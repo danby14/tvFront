@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { FiYoutube, FiRotateCcw } from 'react-icons/fi';
 import { CgUserRemove } from 'react-icons/cg';
 import ReactPlayer from 'react-player/lazy';
@@ -7,7 +7,6 @@ import ReactPlayer from 'react-player/lazy';
 import Modal from '../../shared/Modal';
 
 const Standings = ({ members, networks, lgName, startDate, predictionsAvailable }) => {
-  let { url } = useRouteMatch();
   let [usersToHide, setUsersToHide] = useState([]);
   let [count, setCount] = useState(0);
   const [enableTrailer, setEnableTrailer] = useState(false);
@@ -75,7 +74,7 @@ const Standings = ({ members, networks, lgName, startDate, predictionsAvailable 
           !predictionsAvailable ? 'is-hidden' : ''
         }`}
       >
-        <Link to={`${url}/predictions`} className='has-text-danger'>
+        <Link to='../predictions' className='has-text-danger'>
           Predictions must be submitted by {new Date(startDate).toLocaleString()}.
         </Link>
       </div>

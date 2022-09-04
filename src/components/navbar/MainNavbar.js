@@ -29,10 +29,9 @@ const MainNavbar = ({ leagueName, token }) => {
     >
       <div className='navbar-brand'>
         <NavLink
-          exact
+          exact='true'
           to='/'
-          className='navbar-item'
-          activeClassName='has-text-info'
+          className={({ isActive }) => 'navbar-item' + (isActive ? ' has-text-info' : '')}
           onClick={clickAndClose}
         >
           <Logo size='161' unit='px' color='currentColor' />
@@ -58,8 +57,9 @@ const MainNavbar = ({ leagueName, token }) => {
           {auth.isLoggedIn && (
             <NavLink
               to='/leagues'
-              className='navbar-item'
-              activeClassName='has-text-info has-text-weight-semibold'
+              className={({ isActive }) =>
+                'navbar-item' + (isActive ? ' has-text-info has-text-weight-semibold' : '')
+              }
               onClick={clickAndClose}
             >
               Leagues
@@ -72,26 +72,30 @@ const MainNavbar = ({ leagueName, token }) => {
 
               <div className='navbar-dropdown is-boxed'>
                 <NavLink
-                  exact
+                  exact='true'
                   to={`/leagueHome/${auth.leagueNum[0]}`}
-                  className='navbar-item'
-                  activeClassName='has-text-weight-semibold has-text-info'
+                  className={({ isActive }) =>
+                    'navbar-item' + (isActive ? ' has-text-info has-text-weight-semibold' : '')
+                  }
                   onClick={clickAndClose}
+                  end
                 >
                   Standings
                 </NavLink>
                 <NavLink
                   to={`/leagueHome/${auth.leagueNum[0]}/predictions`}
-                  className='navbar-item '
-                  activeClassName='has-text-weight-semibold has-text-info'
+                  className={({ isActive }) =>
+                    'navbar-item' + (isActive ? ' has-text-info has-text-weight-semibold' : '')
+                  }
                   onClick={clickAndClose}
                 >
                   Make Predictions
                 </NavLink>
                 <NavLink
                   to={`/leagueHome/${auth.leagueNum[0]}/settings`}
-                  className='navbar-item '
-                  activeClassName='has-text-weight-semibold has-text-info'
+                  className={({ isActive }) =>
+                    'navbar-item' + (isActive ? ' has-text-info has-text-weight-semibold' : '')
+                  }
                   onClick={clickAndClose}
                 >
                   Settings
@@ -108,32 +112,36 @@ const MainNavbar = ({ leagueName, token }) => {
             <div className='navbar-dropdown is-boxed'>
               <NavLink
                 to='/help'
-                className='navbar-item '
-                activeClassName='has-text-weight-semibold has-text-info'
+                className={({ isActive }) =>
+                  'navbar-item' + (isActive ? ' has-text-info has-text-weight-semibold' : '')
+                }
                 onClick={clickAndClose}
               >
                 Help
               </NavLink>
               {/* <NavLink
-                  to='/blog'
-                  className='navbar-item '
-                  activeClassName='has-text-weight-semibold has-text-info'
-                  onClick={clickAndClose}
-                >
-                  Blog
-                </NavLink> */}
+                to='/blog'
+                className={({ isActive }) =>
+                  'navbar-item' + (isActive ? ' has-text-info has-text-weight-semibold' : '')
+                }
+                onClick={clickAndClose}
+              >
+                Blog
+              </NavLink> */}
               <NavLink
                 to='/research'
-                className='navbar-item '
-                activeClassName='has-text-weight-semibold has-text-info'
+                className={({ isActive }) =>
+                  'navbar-item' + (isActive ? ' has-text-info has-text-weight-semibold' : '')
+                }
                 onClick={clickAndClose}
               >
                 Research
               </NavLink>
               <NavLink
                 to='/contact'
-                className='navbar-item '
-                activeClassName='has-text-weight-semibold has-text-info'
+                className={({ isActive }) =>
+                  'navbar-item' + (isActive ? ' has-text-info has-text-weight-semibold' : '')
+                }
                 onClick={clickAndClose}
               >
                 Contact
@@ -163,16 +171,18 @@ const MainNavbar = ({ leagueName, token }) => {
               <div className='navbar-dropdown is-right is-boxed'>
                 <NavLink
                   to='/account'
-                  className='navbar-item'
-                  activeClassName='has-text-weight-semibold has-text-info'
+                  className={({ isActive }) =>
+                    'navbar-item' + (isActive ? ' has-text-info has-text-weight-semibold' : '')
+                  }
                   onClick={clickAndClose}
                 >
                   Account
                 </NavLink>
                 <NavLink
                   to='/auth'
-                  className='navbar-item'
-                  activeClassName='has-text-weight-semibold'
+                  className={({ isActive }) =>
+                    'navbar-item' + (isActive ? 'has-text-weight-semibold' : '')
+                  }
                   onClick={() => {
                     auth.logout();
                     clickAndClose();
